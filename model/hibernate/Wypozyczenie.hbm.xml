@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="entity.Wypozyczenie" table="Wypozyczenia" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="potwierdzajacy" cascade="lock" column="PracownicyOsobyID" class="entity.Pracownik" not-null="true" lazy="no-proxy">
+		</many-to-one>
+		<many-to-one name="daneWypozyczenia" column="DaneWypozyczenID" class="entity.DaneWypozyczenia" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
+		</many-to-one>
+		<property name="dataZwrotu" column="DataZwrotu" type="date" not-null="true" lazy="false"/>
+		<property name="wplaconaPlatnosc" column="WplaconaPlatnosc" type="double" not-null="true" lazy="false"/>
+		<one-to-one name="umowa" class="entity.Umowa" cascade="save-update,lock" property-ref="wypozyczenie" lazy="false"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="entity.Pojazd" table="Pojazdy" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="oddzial" cascade="lock" column="OddzialyID" class="entity.Oddzial" not-null="false" lazy="no-proxy">
+		</many-to-one>
+		<many-to-one name="danePojazdu" cascade="lock" column="DaneModeliPojazdowID" class="entity.DaneModeluPojazdu" not-null="true" lazy="no-proxy">
+		</many-to-one>
+		<property name="nrRejstracyjny" column="NrRejstracyjny" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="dataWymianyOleju" column="DataWymianyOleju" type="date" not-null="true" lazy="false"/>
+		<property name="dataPrzegladu" column="DataPrzegladu" type="date" not-null="true" lazy="false"/>
+		<property name="dataProdukcji" column="DataProdukcji" type="date" not-null="true" lazy="false"/>
+		<property name="zdatnyDoWypozyczenia" column="ZdatnyDoWypozyczenia" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="cenaZakupu" column="CenaZakupu" type="double" not-null="true" lazy="false"/>
+		<property name="czyWypozyczony" column="CzyWypozyczony" type="boolean" length="1" not-null="true" lazy="false"/>
+		<one-to-one name="polisa" class="entity.Polisa" cascade="save-update,lock" property-ref="pojazd" lazy="false"/>
+	</class>
+</hibernate-mapping>
