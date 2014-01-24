@@ -57,8 +57,10 @@ public class Szef extends entity.Osoba {
 		return haslo;
 	}
 	
+	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString() + "Szef [numerKonta=" + numerKonta + ", login=" + login
+				+ ", haslo=" + haslo + "]";
 	}
 	
 }

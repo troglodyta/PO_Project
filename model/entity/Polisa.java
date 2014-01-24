@@ -73,8 +73,11 @@ public class Polisa extends Entity {
 		return ubezpieczyciel;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Polisa [ID=" + ID + ", numerPolisy=" + numerPolisy
+				+ ", dataUbezpieczenia=" + dataUbezpieczenia
+				+ ", ubezpieczyciel=" + ubezpieczyciel + "]";
 	}
 	
 }

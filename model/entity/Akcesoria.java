@@ -71,8 +71,11 @@ public class Akcesoria  extends Entity {
 		return oddzial;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Akcesoria [ID=" + ID + ", oddzial=" + oddzial
+				+ ", nazwaAkcesorium=" + nazwaAkcesorium
+				+ ", cenaWypozyczenia=" + cenaWypozyczenia + "]";
 	}
 	
 }

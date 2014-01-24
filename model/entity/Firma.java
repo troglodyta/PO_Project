@@ -70,8 +70,10 @@ public class Firma extends Entity {
 		return adres;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Firma [ID=" + ID + ", adres=" + adres + ", nazwaFirmy="
+				+ nazwaFirmy + ", NIP=" + NIP + "]";
 	}
 	
 }

@@ -126,8 +126,12 @@ public class Klient extends entity.Osoba {
 	}
 	
 	
+	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString()+" Klient [numerPrawaJazdy=" + numerPrawaJazdy
+				+ ", krajWydaniaPrawaJazdy=" + krajWydaniaPrawaJazdy
+				+ ", znizka=" + znizka + ", rezerwacje=" + rezerwacje
+				+ ", umowas=" + umowas + ", firmy=" + firmy + "]";
 	}
 	
 }

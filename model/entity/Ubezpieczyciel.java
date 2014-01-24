@@ -82,8 +82,11 @@ public class Ubezpieczyciel extends Entity {
 		return adres;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Ubezpieczyciel [ID=" + ID + ", adres=" + adres
+				+ ", nazwaUbezpieczyciela=" + nazwaUbezpieczyciela
+				+ ", telefon=" + telefon + ", email=" + email + "]";
 	}
 	
 }

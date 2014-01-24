@@ -109,8 +109,11 @@ public abstract class Osoba extends Entity {
 		throw new UnsupportedOperationException();
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Osoba [ID=" + ID + ", adres=" + adres + ", imie=" + imie
+				+ ", nazwisko=" + nazwisko + ", email=" + email
+				+ ", dataUrodzenia=" + dataUrodzenia + ", plec=" + plec + "]";
 	}
 	
 }

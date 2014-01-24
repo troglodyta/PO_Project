@@ -71,12 +71,14 @@ public class Adres extends Entity {
 		this.miejscowosc = value;
 	}
 	
-	public String getMiejcowosc() {
+	public String getMiejscowosc() {
 		return miejscowosc;
 	}
 	
+
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Adres [ID=" + ID + ", ulica=" + ulica + ", kodPocztowy="
+				+ kodPocztowy + ", miejscowosc=" + miejscowosc + "]";
 	}
-	
 }

@@ -117,8 +117,12 @@ public class Wypozyczenie extends Entity {
 		return daneWypozyczenia;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Wypozyczenie [ID=" + ID + ", daneWypozyczenia="
+				+ daneWypozyczenia + ", potwierdzajacy=" + potwierdzajacy
+				+ ", dataZwrotu=" + dataZwrotu + ", wplaconaPlatnosc="
+				+ wplaconaPlatnosc + ", umowa=" + umowa + "]";
 	}
 	
 }

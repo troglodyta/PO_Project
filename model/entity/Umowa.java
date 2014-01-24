@@ -84,8 +84,11 @@ public class Umowa extends Entity {
 		return wypozyczenie;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Umowa [ID=" + ID + ", dataUmowy=" + dataUmowy + ", tresc="
+				+ tresc + ", wypozyczenie=" + wypozyczenie + ", klient="
+				+ klient + "]";
 	}
 	
 }

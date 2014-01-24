@@ -195,8 +195,16 @@ public class DaneModeluPojazdu extends Entity {
 		return cenaRynkowa;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "DaneModeluPojazdu [ID=" + ID + ", marka=" + marka + ", model="
+				+ model + ", typ=" + typ + ", kategoria=" + kategoria
+				+ ", zdjecie=" + zdjecie + ", miejscaSiedzace="
+				+ miejscaSiedzace + ", maxMasaCalkowita=" + maxMasaCalkowita
+				+ ", masaWlasna=" + masaWlasna + ", pojemnoscSilnika="
+				+ pojemnoscSilnika + ", moc=" + moc + ", cenaWypozyczenia="
+				+ cenaWypozyczenia + ", kaucja=" + kaucja + ", rodzajPaliwa="
+				+ rodzajPaliwa + ", cenaRynkowa=" + cenaRynkowa + "]";
 	}
 	
 }

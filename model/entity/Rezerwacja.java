@@ -144,8 +144,15 @@ public class Rezerwacja extends Entity {
 		throw new UnsupportedOperationException();
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Rezerwacja [ID=" + ID + ", potwierdzajacy=" + potwierdzajacy
+				+ ", klient=" + klient + ", dataRezerwacji=" + dataRezerwacji
+				+ ", uwagi=" + uwagi + ", sposobWplatyZaliczki="
+				+ sposobWplatyZaliczki + ", sposobWplatyKaucji="
+				+ sposobWplatyKaucji + ", czyPotwierdzona=" + czyPotwierdzona
+				+ ", czyAnulowana=" + czyAnulowana + ", daneWypozyczenia="
+				+ daneWypozyczenia + "]";
 	}
 	
 }

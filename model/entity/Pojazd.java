@@ -173,8 +173,15 @@ public class Pojazd extends Entity {
 		return polisa;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Pojazd [ID=" + ID + ", danePojazdu=" + danePojazdu
+				+ ", oddzial=" + oddzial + ", nrRejstracyjny=" + nrRejstracyjny
+				+ ", dataWymianyOleju=" + dataWymianyOleju + ", dataPrzegladu="
+				+ dataPrzegladu + ", dataProdukcji=" + dataProdukcji
+				+ ", zdatnyDoWypozyczenia=" + zdatnyDoWypozyczenia
+				+ ", cenaZakupu=" + cenaZakupu + ", czyWypozyczony="
+				+ czyWypozyczony + ", polisa=" + polisa + "]";
 	}
 	
 }

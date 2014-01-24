@@ -50,8 +50,10 @@ public class Kierownik extends entity.Pracownik {
 		return odzial;
 	}
 	
+	@Override
 	public String toString() {
-		return super.toString();
+		return super.toString()+" Kierownik [awansujacy=" + awansujacy + ", odzial=" + odzial
+				+ "]";
 	}
 	
 }

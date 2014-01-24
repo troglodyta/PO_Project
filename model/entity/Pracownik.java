@@ -82,8 +82,11 @@ public class Pracownik extends entity.Osoba {
 		return zatrudniajacy;
 	}
 	
+	@Override
 	public String toString() {
-		return super.toString();
+		return "Pracownik [numerKonta=" + numerKonta + ", dataZatrudnienia="
+				+ dataZatrudnienia + ", login=" + login + ", haslo=" + haslo
+				+ ", zatrudniajacy=" + zatrudniajacy + "]";
 	}
 	
 }

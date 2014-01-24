@@ -82,8 +82,11 @@ public class Oddzial extends Entity {
 		return kierownik;
 	}
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Oddzial [ID=" + ID + ", adres=" + adres + ", telefon="
+				+ telefon + ", email=" + email + ", kierownik=" + kierownik
+				+ "]";
 	}
 	
 }
