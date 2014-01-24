@@ -13,9 +13,9 @@
  */
 package entity;
 
+import java.util.Date;
+
 public class Pracownik extends entity.Osoba {
-	public Pracownik() {
-	}
 	
 	private String numerKonta;
 	
@@ -26,6 +26,21 @@ public class Pracownik extends entity.Osoba {
 	private String haslo;
 	
 	private entity.Szef zatrudniajacy;
+	
+	public Pracownik() {
+	}
+	
+	public Pracownik(int iD, Adres adres, String imie, String nazwisko,
+			String email, java.util.Date  dataUrodzenia, String plec, String numerKonta,
+			Date dataZatrudnienia, String login, String haslo,
+			Szef zatrudniajacy) {
+		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec);
+		this.numerKonta = numerKonta;
+		this.dataZatrudnienia = dataZatrudnienia;
+		this.login = login;
+		this.haslo = haslo;
+		this.zatrudniajacy = zatrudniajacy;
+	}
 	
 	public void setNumerKonta(String value) {
 		this.numerKonta = value;

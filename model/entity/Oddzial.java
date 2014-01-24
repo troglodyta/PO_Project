@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class Oddzial {
-	public Oddzial() {
-	}
+public class Oddzial extends Entity {
 	
 	private int ID;
 	
@@ -26,6 +24,19 @@ public class Oddzial {
 	private String email;
 	
 	private entity.Kierownik kierownik;
+	
+	public Oddzial() {
+	}
+	
+	public Oddzial(int iD, Adres adres, String telefon, String email,
+			Kierownik kierownik) {
+		super();
+		ID = iD;
+		this.adres = adres;
+		this.telefon = telefon;
+		this.email = email;
+		this.kierownik = kierownik;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

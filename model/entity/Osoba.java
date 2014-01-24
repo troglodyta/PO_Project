@@ -13,9 +13,7 @@
  */
 package entity;
 
-public abstract class Osoba {
-	public Osoba() {
-	}
+public abstract class Osoba extends Entity {
 	
 	private int ID;
 	
@@ -30,6 +28,21 @@ public abstract class Osoba {
 	private java.util.Date dataUrodzenia;
 	
 	private String plec;
+	
+	public Osoba() {
+	}
+	
+	public Osoba(int iD, Adres adres, String imie, String nazwisko,
+			String email, java.util.Date dataUrodzenia, String plec) {
+		super();
+		ID = iD;
+		this.adres = adres;
+		this.imie = imie;
+		this.nazwisko = nazwisko;
+		this.email = email;
+		this.dataUrodzenia = dataUrodzenia;
+		this.plec = plec;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

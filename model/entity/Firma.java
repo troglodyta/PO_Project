@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class Firma {
-	public Firma() {
-	}
+public class Firma extends Entity {
 	
 	private int ID;
 	
@@ -25,6 +23,17 @@ public class Firma {
 	
 	private String NIP;
 	
+	public Firma() {
+	}
+
+	public Firma(int iD, Adres adres, String nazwaFirmy, String NIP) {
+		super();
+		ID = iD;
+		this.adres = adres;
+		this.nazwaFirmy = nazwaFirmy;
+		this.NIP = NIP;
+	}
+
 	private void setID(int value) {
 		this.ID = value;
 	}

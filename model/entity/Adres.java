@@ -15,7 +15,15 @@ package entity;
 
 import java.util.HashMap;
 
-public class Adres {
+public class Adres extends Entity {
+	private int ID;
+	
+	private String ulica;
+	
+	private String kodPocztowy;
+	
+	private String miejscowosc;
+	
 	public Adres() {
 	}
 	
@@ -30,14 +38,6 @@ public class Adres {
 		this.kodPocztowy = kodPocztowy;
 		this.miejscowosc = miejscowosc;
 	}
-	
-	private int ID;
-	
-	private String ulica;
-	
-	private String kodPocztowy;
-	
-	private String miejscowosc;
 	
 	private void setID(int value) {
 		this.ID = value;

@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class Rezerwacja {
-	public Rezerwacja() {
-	}
+public class Rezerwacja extends Entity {
 	
 	private int ID;
 	
@@ -36,6 +34,26 @@ public class Rezerwacja {
 	private boolean czyPotwierdzona = false;
 	
 	private boolean czyAnulowana = false;
+	
+	public Rezerwacja() {
+	}
+	
+	public Rezerwacja(int iD, Pracownik potwierdzajacy, Klient klient,
+			java.util.Date dataRezerwacji, String uwagi, String sposobWplatyZaliczki,
+			String sposobWplatyKaucji, boolean czyPotwierdzona,
+			boolean czyAnulowana, DaneWypozyczenia daneWypozyczenia) {
+		super();
+		ID = iD;
+		this.potwierdzajacy = potwierdzajacy;
+		this.klient = klient;
+		this.dataRezerwacji = dataRezerwacji;
+		this.uwagi = uwagi;
+		this.sposobWplatyZaliczki = sposobWplatyZaliczki;
+		this.sposobWplatyKaucji = sposobWplatyKaucji;
+		this.czyPotwierdzona = czyPotwierdzona;
+		this.czyAnulowana = czyAnulowana;
+		this.daneWypozyczenia = daneWypozyczenia;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

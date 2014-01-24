@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class Ubezpieczyciel {
-	public Ubezpieczyciel() {
-	}
+public class Ubezpieczyciel extends Entity {
 	
 	private int ID;
 	
@@ -29,6 +27,19 @@ public class Ubezpieczyciel {
 	
 	private void setID(int value) {
 		this.ID = value;
+	}
+	
+	public Ubezpieczyciel() {
+	}
+	
+	public Ubezpieczyciel(int iD, Adres adres, String nazwaUbezpieczyciela,
+			String telefon, String email) {
+		super();
+		ID = iD;
+		this.adres = adres;
+		this.nazwaUbezpieczyciela = nazwaUbezpieczyciela;
+		this.telefon = telefon;
+		this.email = email;
 	}
 	
 	public int getID() {

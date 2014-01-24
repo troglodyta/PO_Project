@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class Akcesoria {
-	public Akcesoria() {
-	}
+public class Akcesoria  extends Entity {
 	
 	private int ID;
 	
@@ -24,6 +22,18 @@ public class Akcesoria {
 	private String nazwaAkcesorium;
 	
 	private double cenaWypozyczenia;
+	
+	public Akcesoria() {
+	}
+	
+	public Akcesoria(int iD, Oddzial oddzial, String nazwaAkcesorium,
+			double cenaWypozyczenia) {
+		super();
+		ID = iD;
+		this.oddzial = oddzial;
+		this.nazwaAkcesorium = nazwaAkcesorium;
+		this.cenaWypozyczenia = cenaWypozyczenia;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

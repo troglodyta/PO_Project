@@ -13,9 +13,7 @@
  */
 package entity;
 
-public class DaneModeluPojazdu {
-	public DaneModeluPojazdu() {
-	}
+public class DaneModeluPojazdu extends Entity {
 	
 	private int ID;
 	
@@ -46,6 +44,32 @@ public class DaneModeluPojazdu {
 	private String rodzajPaliwa;
 	
 	private double cenaRynkowa;
+	
+	public DaneModeluPojazdu() {
+	}
+	
+	public DaneModeluPojazdu(int iD, String marka, String model, String typ,
+			String kategoria, String zdjecie, int miejscaSiedzace,
+			int maxMasaCalkowita, int masaWlasna, int pojemnoscSilnika,
+			int moc, double cenaWypozyczenia, double kaucja,
+			String rodzajPaliwa, double cenaRynkowa) {
+		super();
+		ID = iD;
+		this.marka = marka;
+		this.model = model;
+		this.typ = typ;
+		this.kategoria = kategoria;
+		this.zdjecie = zdjecie;
+		this.miejscaSiedzace = miejscaSiedzace;
+		this.maxMasaCalkowita = maxMasaCalkowita;
+		this.masaWlasna = masaWlasna;
+		this.pojemnoscSilnika = pojemnoscSilnika;
+		this.moc = moc;
+		this.cenaWypozyczenia = cenaWypozyczenia;
+		this.kaucja = kaucja;
+		this.rodzajPaliwa = rodzajPaliwa;
+		this.cenaRynkowa = cenaRynkowa;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

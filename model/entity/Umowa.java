@@ -13,9 +13,9 @@
  */
 package entity;
 
-public class Umowa {
-	public Umowa() {
-	}
+import java.util.Date;
+
+public class Umowa extends Entity {
 	
 	private int ID;
 	
@@ -26,6 +26,19 @@ public class Umowa {
 	private entity.Wypozyczenie wypozyczenie;
 	
 	private entity.Klient klient;
+	
+	public Umowa() {
+	}
+	
+	public Umowa(int iD, Date dataUmowy, String tresc,
+			Wypozyczenie wypozyczenie, Klient klient) {
+		super();
+		ID = iD;
+		this.dataUmowy = dataUmowy;
+		this.tresc = tresc;
+		this.wypozyczenie = wypozyczenie;
+		this.klient = klient;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

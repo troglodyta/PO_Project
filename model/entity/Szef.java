@@ -14,14 +14,24 @@
 package entity;
 
 public class Szef extends entity.Osoba {
-	public Szef() {
-	}
 	
 	private String numerKonta;
 	
 	private String login;
 	
 	private String haslo;
+	
+	public Szef() {
+	}
+	
+	public Szef(int iD, Adres adres, String imie, String nazwisko,
+			String email, java.util.Date dataUrodzenia, String plec, String numerKonta,
+			String login, String haslo) {
+		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec);
+		this.numerKonta = numerKonta;
+		this.login = login;
+		this.haslo = haslo;
+	}
 	
 	public void setNumerKonta(String value) {
 		this.numerKonta = value;

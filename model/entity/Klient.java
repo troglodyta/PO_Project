@@ -13,9 +13,9 @@
  */
 package entity;
 
+import java.util.Set;
+
 public class Klient extends entity.Osoba {
-	public Klient() {
-	}
 	
 	private String numerPrawaJazdy;
 	
@@ -28,6 +28,20 @@ public class Klient extends entity.Osoba {
 	private java.util.Set umowas = new java.util.HashSet();
 	
 	private java.util.Set firmy = new java.util.HashSet();
+	
+	public Klient() {
+	}
+	
+	public Klient(String numerPrawaJazdy, String krajWydaniaPrawaJazdy,
+			double znizka, Set rezerwacje, Set umowas, Set firmy) {
+		super();
+		this.numerPrawaJazdy = numerPrawaJazdy;
+		this.krajWydaniaPrawaJazdy = krajWydaniaPrawaJazdy;
+		this.znizka = znizka;
+		this.rezerwacje = rezerwacje;
+		this.umowas = umowas;
+		this.firmy = firmy;
+	}
 	
 	public void setNumerPrawaJazdy(String value) {
 		this.numerPrawaJazdy = value;

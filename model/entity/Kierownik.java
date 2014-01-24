@@ -13,13 +13,26 @@
  */
 package entity;
 
+import java.util.Date;
+
 public class Kierownik extends entity.Pracownik {
-	public Kierownik() {
-	}
 	
 	private entity.Oddzial odzial;
 	
 	private entity.Szef awansujacy;
+	
+	public Kierownik() {
+	}
+	
+	public Kierownik(int iD, Adres adres, String imie, String nazwisko,
+			String email, Date dataUrodzenia, String plec, String numerKonta,
+			Date dataZatrudnienia, String login, String haslo,
+			Szef zatrudniajacy, Szef awansujacy, Oddzial odzial) {
+		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec,
+				numerKonta, dataZatrudnienia, login, haslo, zatrudniajacy);
+		this.awansujacy = awansujacy;
+		this.odzial = odzial;
+	}
 	
 	public void setAwansujacy(entity.Szef value) {
 		this.awansujacy = value;

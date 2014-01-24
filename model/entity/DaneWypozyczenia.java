@@ -13,9 +13,10 @@
  */
 package entity;
 
-public class DaneWypozyczenia {
-	public DaneWypozyczenia() {
-	}
+import java.util.Collection;
+import java.util.Date;
+
+public class DaneWypozyczenia extends Entity {
 	
 	private int ID;
 	
@@ -42,7 +43,30 @@ public class DaneWypozyczenia {
 	private double wplaconaKaucja;
 	
 	private java.util.Collection akcesoria = new java.util.HashSet();
+	public DaneWypozyczenia() {
+	}
 	
+	public DaneWypozyczenia(int iD, Pojazd pojazd, Oddzial oddzialZwrotu,
+			Oddzial odzialZwroru, Date dataGodzinaOd, Date dataGodzinaDo,
+			Date dataWpatyZaliczki, Date dataWplatyKaucji, double platnosc,
+			double kaucja, double wplaconaZaliczka, double wplaconaKaucja,
+			Collection akcesoria) {
+		super();
+		ID = iD;
+		this.pojazd = pojazd;
+		this.oddzialZwrotu = oddzialZwrotu;
+		this.odzialZwroru = odzialZwroru;
+		this.dataGodzinaOd = dataGodzinaOd;
+		this.dataGodzinaDo = dataGodzinaDo;
+		this.dataWpatyZaliczki = dataWpatyZaliczki;
+		this.dataWplatyKaucji = dataWplatyKaucji;
+		this.platnosc = platnosc;
+		this.kaucja = kaucja;
+		this.wplaconaZaliczka = wplaconaZaliczka;
+		this.wplaconaKaucja = wplaconaKaucja;
+		this.akcesoria = akcesoria;
+	}
+
 	private void setID(int value) {
 		this.ID = value;
 	}

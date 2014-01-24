@@ -13,9 +13,9 @@
  */
 package entity;
 
-public class Polisa {
-	public Polisa() {
-	}
+import java.util.Date;
+
+public class Polisa extends Entity {
 	
 	private int ID;
 	
@@ -24,6 +24,18 @@ public class Polisa {
 	private java.util.Date dataUbezpieczenia;
 	
 	private entity.Ubezpieczyciel ubezpieczyciel;
+	
+	public Polisa() {
+	}
+	
+	public Polisa(int iD, String numerPolisy, Date dataUbezpieczenia,
+			Ubezpieczyciel ubezpieczyciel) {
+		super();
+		ID = iD;
+		this.numerPolisy = numerPolisy;
+		this.dataUbezpieczenia = dataUbezpieczenia;
+		this.ubezpieczyciel = ubezpieczyciel;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;

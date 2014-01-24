@@ -13,9 +13,9 @@
  */
 package entity;
 
-public class Pojazd {
-	public Pojazd() {
-	}
+import java.util.Date;
+
+public class Pojazd extends Entity {
 	
 	private int ID;
 	
@@ -38,6 +38,27 @@ public class Pojazd {
 	private boolean czyWypozyczony;
 	
 	private entity.Polisa polisa;
+	
+	public Pojazd() {
+	}
+	
+	public Pojazd(int iD, DaneModeluPojazdu danePojazdu, Oddzial oddzial,
+			String nrRejstracyjny, Date dataWymianyOleju, Date dataPrzegladu,
+			Date dataProdukcji, boolean zdatnyDoWypozyczenia,
+			double cenaZakupu, boolean czyWypozyczony, Polisa polisa) {
+		super();
+		ID = iD;
+		this.danePojazdu = danePojazdu;
+		this.oddzial = oddzial;
+		this.nrRejstracyjny = nrRejstracyjny;
+		this.dataWymianyOleju = dataWymianyOleju;
+		this.dataPrzegladu = dataPrzegladu;
+		this.dataProdukcji = dataProdukcji;
+		this.zdatnyDoWypozyczenia = zdatnyDoWypozyczenia;
+		this.cenaZakupu = cenaZakupu;
+		this.czyWypozyczony = czyWypozyczony;
+		this.polisa = polisa;
+	}
 	
 	private void setID(int value) {
 		this.ID = value;
