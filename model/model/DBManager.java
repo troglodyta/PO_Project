@@ -1,12 +1,13 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import javassist.expr.Instanceof;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -71,6 +72,17 @@ public class DBManager {
 		session.getTransaction().commit();
 	}
 	
+	public List<Object> query(String hibernateSql, HashMap<String, Object> param) {
+		Query query = session.createQuery(hibernateSql);
+		if (param != null) {
+			for (String name : param.keySet()) {
+				query.setParameter(name, param.get(name));
+			}
+		}
+		List<Object> results = query.list();
+		return results;
+	}
+	
 	public void closeSession(){
 		session.close();
 	}
@@ -111,7 +123,8 @@ public class DBManager {
 		System.out.println(pol);
 		Ubezpieczyciel ub = pol.getUbezpieczyciel();
 		System.out.println(ub);
-		
+		List l = DBManager.INSTANCE.query("select k from Klient k where k.znizka = 1",null);
+		System.out.println(l);
 //		System.out.println(szef);
 
 	}
