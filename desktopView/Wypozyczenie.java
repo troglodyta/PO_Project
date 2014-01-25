@@ -1,15 +1,19 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTabbedPane;
 import javax.swing.JList;
 
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
@@ -23,16 +27,24 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import java.awt.Label;
+import java.awt.TextField;
+import java.util.Date;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.BoxLayout;
+
 
 public class Wypozyczenie extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTable table;
+	private JTextField textNrRezerwacji;
+	private JTextField textImie;
+	private JTextField textNazwisko;
 	private JTable table_1;
 	private JTextField txtNrRejestracyjny;
+	private JTable rezerwacjeTable;
 
 	/**
 	 * Launch the application.
@@ -88,95 +100,9 @@ public class Wypozyczenie extends JFrame {
 		
 		JTabbedPane karty = new JTabbedPane(JTabbedPane.TOP);
 		
-		JPanel wypozyczenia = new JPanel();
-		karty.addTab("Wypo¿yczenia", null, wypozyczenia, null);
-		wypozyczenia.setLayout(new MigLayout("", "[][][309.00,grow][]", "[][grow]"));
-		
-		JRadioButton rdbtnImportujDaneRezerwacji = new JRadioButton("Importuj dane z rezerwacji");
-		wypozyczenia.add(rdbtnImportujDaneRezerwacji, "cell 0 0");
-		
-		JRadioButton rdbtnNoweWypoyczenie = new JRadioButton("Nowe wypo\u017Cyczenie");
-		wypozyczenia.add(rdbtnNoweWypoyczenie, "cell 1 0");
-		
 		ButtonGroup newOrImport=new ButtonGroup();
-		newOrImport.add(rdbtnNoweWypoyczenie);
-		newOrImport.add(rdbtnImportujDaneRezerwacji);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		wypozyczenia.add(scrollPane, "cell 0 1 3 1,grow");
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		
-		JPanel panel_1 = new JPanel();
-		wypozyczenia.add(panel_1, "cell 3 1,grow");
-		panel_1.setLayout(new MigLayout("", "[82.00,grow][100px,grow]", "[][][][][][][][][][][29.00][28.00][][][][][grow]"));
-		
-		JLabel lblWyszukajRezerwacje = new JLabel("Wyszukaj rezerwacje");
-		panel_1.add(lblWyszukajRezerwacje, "cell 0 0 2 1");
-		
-		JLabel lblNrRezerwacji = new JLabel("Nr rezerwacji");
-		panel_1.add(lblNrRezerwacji, "cell 0 1 2 1");
-		
-		textField = new JTextField();
-		panel_1.add(textField, "cell 0 2 2 1,growx");
-		textField.setColumns(10);
-		
-		JLabel lblImi = new JLabel("Imi\u0119");
-		panel_1.add(lblImi, "cell 0 3 2 1");
-		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 0 4 2 1,growx");
-		textField_1.setColumns(10);
-		
-		JLabel lblNazwisko = new JLabel("Nazwisko");
-		panel_1.add(lblNazwisko, "cell 0 5 2 1");
-		
-		textField_2 = new JTextField();
-		panel_1.add(textField_2, "cell 0 6 2 1,growx");
-		textField_2.setColumns(10);
-		
-		JLabel lblMarka = new JLabel("Marka");
-		panel_1.add(lblMarka, "cell 0 7");
-		
-		JLabel lblModel = new JLabel("Model");
-		panel_1.add(lblModel, "cell 1 7");
-		
-		JComboBox comboBox_1 = new JComboBox();
-		panel_1.add(comboBox_1, "cell 0 8,growx");
-		
-		JComboBox comboBox = new JComboBox();
-		panel_1.add(comboBox, "cell 1 8,growx");
-		
-		JCheckBox chckbxDataUtworzenia = new JCheckBox("Data utworzenia");
-		panel_1.add(chckbxDataUtworzenia, "cell 0 9 2 1");
-		
-		DatePanel datePanel = new DatePanel((String) null);
-		panel_1.add(datePanel, "cell 0 10 2 1,grow");
-		
-		DatePanel datePanel_1 = new DatePanel((String) null);
-		panel_1.add(datePanel_1, "cell 0 11 2 1,grow");
-		
-		JLabel lblStatus = new JLabel("Status");
-		panel_1.add(lblStatus, "cell 0 12");
-		
-		JRadioButton rdbtnWszystkie = new JRadioButton("Wszystkie");
-		panel_1.add(rdbtnWszystkie, "cell 0 13 2 1");
-		
-		JRadioButton rdbtnPotwierdzone = new JRadioButton("Potwierdzone");
-		panel_1.add(rdbtnPotwierdzone, "cell 0 14 2 1");
-		
-		JRadioButton rdbtnNiepotwierdzone = new JRadioButton("Niepotwierdzone");
-		panel_1.add(rdbtnNiepotwierdzone, "cell 0 15 2 1");
 		
 		ButtonGroup status=new ButtonGroup();
-		status.add(rdbtnWszystkie);
-		status.add(rdbtnPotwierdzone);
-		status.add(rdbtnNiepotwierdzone);
-		
-		
-		JButton btnSzukaj = new JButton("Szukaj");
-		panel_1.add(btnSzukaj, "cell 0 16,growx");
 		
 		JPanel rezerwacje = new JPanel();
 		karty.addTab("Rezerwacje", null, rezerwacje, null);
@@ -347,6 +273,109 @@ public class Wypozyczenie extends JFrame {
 					.addContainerGap(82, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
+		
+		JPanel wypozyczenia = new JPanel();
+		karty.addTab("Wypo¿yczenia", null, wypozyczenia, null);
+		wypozyczenia.setLayout(new MigLayout("", "[][][309.00,grow][]", "[][grow]"));
+		
+		JRadioButton rdbtnImportujDaneRezerwacji = new JRadioButton("Importuj dane z rezerwacji");
+		wypozyczenia.add(rdbtnImportujDaneRezerwacji, "cell 0 0");
+		
+		JRadioButton rdbtnNoweWypoyczenie = new JRadioButton("Nowe wypo\u017Cyczenie");
+		wypozyczenia.add(rdbtnNoweWypoyczenie, "cell 1 0");
+		newOrImport.add(rdbtnNoweWypoyczenie);
+		newOrImport.add(rdbtnImportujDaneRezerwacji);
+		
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		model.addElement("AAA");
+		model.addElement("BBB");;
+		String[] names = new String[]{"Nr rezerwacji", "Imiê", "Nazwisko", "Pojazd", "Data utworzenia", "Status"};
+		Object[][] v = new Object[][]{{1,"Jan","Kowalski","Skoda Fabia 1.2", "19-11-2013","Nie potwierdzona"}};
+		rezerwacjeTable = new JTable(v,names);
+		JScrollPane scrollPane = new JScrollPane(rezerwacjeTable);
+		wypozyczenia.add(scrollPane, "cell 0 1 3 1,grow");
+		
+		JPanel panel_1 = new JPanel();
+		wypozyczenia.add(panel_1, "cell 3 1,grow");
+		panel_1.setLayout(new MigLayout("", "[82.00,grow][100px,grow]", "[][][][][][][][][][][29.00,grow][28.00,grow][][][][][grow][grow]"));
+		
+		JLabel lblWyszukajRezerwacje = new JLabel("Wyszukaj rezerwacje");
+		panel_1.add(lblWyszukajRezerwacje, "cell 0 0 2 1");
+		
+		JLabel lblNrRezerwacji = new JLabel("Nr rezerwacji");
+		panel_1.add(lblNrRezerwacji, "cell 0 1 2 1");
+		
+		textNrRezerwacji = new JTextField();
+		panel_1.add(textNrRezerwacji, "cell 0 2 2 1,growx");
+		textNrRezerwacji.setColumns(10);
+		
+		JLabel lblImi = new JLabel("Imi\u0119");
+		panel_1.add(lblImi, "cell 0 3 2 1");
+		
+		textImie = new JTextField();
+		panel_1.add(textImie, "cell 0 4 2 1,growx");
+		textImie.setColumns(10);
+		
+		JLabel lblNazwisko = new JLabel("Nazwisko");
+		panel_1.add(lblNazwisko, "cell 0 5 2 1");
+		
+		textNazwisko = new JTextField();
+		panel_1.add(textNazwisko, "cell 0 6 2 1,growx");
+		textNazwisko.setColumns(10);
+		
+		JLabel lblMarka = new JLabel("Marka");
+		panel_1.add(lblMarka, "cell 0 7");
+		
+		JLabel lblModel = new JLabel("Model");
+		panel_1.add(lblModel, "cell 1 7");
+		
+		JComboBox comboMarka = new JComboBox();
+		panel_1.add(comboMarka, "cell 0 8,growx");
+		
+		JComboBox comboModel = new JComboBox();
+		panel_1.add(comboModel, "cell 1 8,growx");
+		
+		JCheckBox checkDataUtworzenia = new JCheckBox("Data utworzenia");
+		panel_1.add(checkDataUtworzenia, "cell 0 9 2 1");
+		
+		JPanel panel_4 = new JPanel();
+		panel_1.add(panel_4, "cell 0 10 2 1,grow");
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.X_AXIS));
+		
+		JLabel lblOd = new JLabel("Od  ");
+		panel_4.add(lblOd);
+		
+		JDateChooser dataOd = new JDateChooser(new Date());
+		panel_4.add(dataOd);
+		
+		JPanel panel_5 = new JPanel();
+		panel_1.add(panel_5, "cell 0 11 2 1,grow");
+		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.X_AXIS));
+		
+		JLabel lblDo = new JLabel("Do  ");
+		panel_5.add(lblDo);
+		
+		JDateChooser dateChooser = new JDateChooser((Date) null);
+		panel_5.add(dateChooser);
+		
+		JLabel lblStatus = new JLabel("Status");
+		panel_1.add(lblStatus, "cell 0 12");
+		
+		JRadioButton rdbtnWszystkie = new JRadioButton("Wszystkie");
+		panel_1.add(rdbtnWszystkie, "cell 0 13 2 1");
+		
+		JRadioButton rdbtnPotwierdzone = new JRadioButton("Potwierdzone");
+		panel_1.add(rdbtnPotwierdzone, "cell 0 14 2 1");
+		
+		JRadioButton rdbtnNiepotwierdzone = new JRadioButton("Niepotwierdzone");
+		panel_1.add(rdbtnNiepotwierdzone, "cell 0 15 2 1");
+		status.add(rdbtnWszystkie);
+		status.add(rdbtnPotwierdzone);
+		status.add(rdbtnNiepotwierdzone);
+		
+		
+		JButton btnSzukaj = new JButton("Szukaj");
+		panel_1.add(btnSzukaj, "cell 0 17,growx");
 		contentPane.setLayout(gl_contentPane);
 		
 		
