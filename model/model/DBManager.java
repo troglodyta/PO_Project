@@ -72,7 +72,7 @@ public class DBManager {
 		session.getTransaction().commit();
 	}
 	
-	public List<Object> query(String hibernateSql, HashMap<String, Object> param) {
+	public List<Object> queryHibernate(String hibernateSql, HashMap<String, Object> param) {
 		Query query = session.createQuery(hibernateSql);
 		if (param != null) {
 			for (String name : param.keySet()) {
@@ -80,6 +80,17 @@ public class DBManager {
 			}
 		}
 		List<Object> results = query.list();
+		return results;
+	}
+	
+	public List<Object[]> querySQL(String sql, HashMap<String, Object> param) {
+		Query query = session.createSQLQuery(sql);
+		if (param != null) {
+			for (String name : param.keySet()) {
+				query.setParameter(name, param.get(name));
+			}
+		}
+		List<Object[]> results = query.list();
 		return results;
 	}
 	
@@ -123,8 +134,10 @@ public class DBManager {
 		System.out.println(pol);
 		Ubezpieczyciel ub = pol.getUbezpieczyciel();
 		System.out.println(ub);
-		List l = DBManager.INSTANCE.query("select k from Klient k where k.znizka = 1",null);
+		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = 0",null);
 		System.out.println(l);
+		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
+		System.out.println(((Object[])l2.get(0))[1]);
 //		System.out.println(szef);
 
 	}
