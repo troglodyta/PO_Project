@@ -1,3 +1,4 @@
+package FramesComponets;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JScrollPane;

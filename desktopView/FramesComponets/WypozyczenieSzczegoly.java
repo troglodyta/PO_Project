@@ -1,5 +1,10 @@
+package FramesComponets;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.GroupLayout;
@@ -31,12 +36,15 @@ public class WypozyczenieSzczegoly extends JPanel {
 	 * Create the panel.
 	 */
 	public WypozyczenieSzczegoly() {
-		setLayout(new MigLayout("", "[602.00,grow][]", "[grow]"));
+		setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane, "cell 0 0,grow");
+		scrollPane.setBounds(7, 7, 665, 595);
+		scrollPane.setMaximumSize(new Dimension(800,800));
+		add(scrollPane);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setMaximumSize(new Dimension(100,100));
 		scrollPane.setViewportView(panel_1);
 		
 		JComboBox comboBox = new JComboBox();
@@ -138,16 +146,9 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addComponent(lblEmail)
 					.addContainerGap(672, Short.MAX_VALUE))
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblUwagi)
-					.addContainerGap(671, Short.MAX_VALUE))
-				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel_1.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(txtpnUwagi, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addContainerGap()
 									.addComponent(datePanel, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
@@ -202,20 +203,20 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addContainerGap()
 							.addComponent(lblNrTelefonu)
 							.addGap(287)))
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_1.createSequentialGroup()
 							.addComponent(lblNrNip)
 							.addContainerGap(326, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtNrNip, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, gl_panel_1.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(txtNrNip, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(chckbxNajemFirmowy)
 									.addComponent(lblNazwaFirmy)
 									.addComponent(txtNazwaFirmy, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 									.addComponent(lblUlica_1)
 									.addComponent(txtUlica_1))
-								.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+								.addGroup(gl_panel_1.createSequentialGroup()
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblKodPocztowy_1)
 										.addComponent(txtKodPocztowy_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
@@ -224,6 +225,14 @@ public class WypozyczenieSzczegoly extends JPanel {
 										.addComponent(txtMiejscowo_1, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
 										.addComponent(lblMiejscowo_1))))
 							.addGap(146))))
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(10)
+							.addComponent(txtpnUwagi, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+						.addComponent(lblUwagi))
+					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -290,12 +299,13 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addComponent(lblUwagi)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtpnUwagi, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(65, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel = new JPanel();
-		add(panel, "cell 1 0,grow");
+		panel.setBounds(670, 7, 187, 595);
+		add(panel);
 		
 		JLabel lblOpcje = new JLabel("Opcje");
 		

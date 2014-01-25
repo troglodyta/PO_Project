@@ -1,3 +1,4 @@
+package FramesComponets;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -14,12 +15,16 @@ public class FrameTest extends JFrame {
 		frame=this;	
 	}
 	
- public static void main(String[] args){
-	EventQueue.invokeLater(new Runnable(){
-		@Override
-		public void run()
-		{new PrzegladaniePojazdow();}
-	}
-	);
- }
+	public static void main(String[] args) {
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				Wypozyczenie frame = new Wypozyczenie();
+				frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+}
 }

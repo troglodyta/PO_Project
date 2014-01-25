@@ -72,7 +72,7 @@ public class DBManager {
 		session.getTransaction().commit();
 	}
 	
-	public List<Object> queryHibernate(String hibernateSql, HashMap<String, Object> param) {
+	public List queryHibernate(String hibernateSql, HashMap<String, Object> param) {
 		Query query = session.createQuery(hibernateSql);
 		if (param != null) {
 			for (String name : param.keySet()) {
