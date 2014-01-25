@@ -14,8 +14,8 @@ License Type: Evaluation
 		</many-to-one>
 		<many-to-one name="daneWypozyczenia" column="DaneWypozyczenID" class="entity.DaneWypozyczenia" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
-		<property name="dataZwrotu" column="DataZwrotu" type="date" not-null="true" lazy="false"/>
-		<property name="wplaconaPlatnosc" column="WplaconaPlatnosc" type="double" not-null="true" lazy="false"/>
+		<property name="dataZwrotu" column="DataZwrotu" type="timestamp" not-null="false" lazy="false"/>
+		<property name="wplaconaPlatnosc" column="WplaconaPlatnosc" type="double" not-null="false" lazy="false"/>
 		<one-to-one name="umowa" class="entity.Umowa" cascade="save-update,lock" property-ref="wypozyczenie" lazy="false"/>
 	</class>
 </hibernate-mapping>

@@ -3,11 +3,23 @@
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
  <session-factory >
-  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password"/>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/carsdata?zeroDateTimeBehavior=convertToNull</property>
-  <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <mapping resource="hibernate/Adres.hbm.xml"/>
+	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	<property name="hibernate.connection.password" />
+	<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/carsdata?zeroDateTimeBehavior=convertToNull</property>
+	<property name="hibernate.connection.username">root</property>
+	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	<mapping resource="hibernate/Adres.hbm.xml" />
+	<mapping resource="hibernate/Akcesoria.hbm.xml" />
+	<mapping resource="hibernate/DaneModeluPojazdu.hbm.xml" />
+	<mapping resource="hibernate/DaneWypozyczenia.hbm.xml" />
+	<mapping resource="hibernate/Firma.hbm.xml" />
+	<mapping resource="hibernate/Oddzial.hbm.xml" />
+	<mapping resource="hibernate/Osoba.hbm.xml" />
+	<mapping resource="hibernate/Pojazd.hbm.xml" />
+	<mapping resource="hibernate/Polisa.hbm.xml" />
+	<mapping resource="hibernate/Rezerwacja.hbm.xml" />
+	<mapping resource="hibernate/Ubezpieczyciel.hbm.xml" />
+	<mapping resource="hibernate/Umowa.hbm.xml" />
+	<mapping resource="hibernate/Wypozyczenie.hbm.xml" />
  </session-factory>
 </hibernate-configuration>

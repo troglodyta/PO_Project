@@ -20,11 +20,22 @@ public class DBManagerTest {
 	  public ExpectedException exception = ExpectedException.none();
 	 
 	@Test
-	public void testAddToDatabase() {
+	public void testSaveLoadUpdateRemoveToDatabase() {
 		DBManager manager = DBManager.INSTANCE;
 		assertNotNull(manager);
 		
-		Adres a = new Adres(2,"K¹tecka 40","55-081","Wawrzeñczyce");
+		Adres a = new Adres(2,"K¹tecka 40","55081","Wawrzeñczyce");
+		manager.saveEntity(a);
+		int id = a.getID();
+		Adres a2 = (Adres) manager.loadByID("Adres", id);
+		assertEquals(a, a2);
+		a.setKodPocztowy("55088");
+		manager.updateEntity(a);
+		Adres a4 = (Adres) manager.loadByID("Adres", id);
+		assertEquals(a, a4);
+		manager.deleteEntity(a2);
+		Adres a3 = (Adres) manager.loadByID("Adres", id);
+		assertNull(a3);	
 	}
 	
 	@Test

@@ -147,7 +147,7 @@ public class Rezerwacja extends Entity {
 	@Override
 	public String toString() {
 		return "Rezerwacja [ID=" + ID + ", potwierdzajacy=" + potwierdzajacy
-				+ ", klient=" + klient + ", dataRezerwacji=" + dataRezerwacji
+				+  ", dataRezerwacji=" + dataRezerwacji
 				+ ", uwagi=" + uwagi + ", sposobWplatyZaliczki="
 				+ sposobWplatyZaliczki + ", sposobWplatyKaucji="
 				+ sposobWplatyKaucji + ", czyPotwierdzona=" + czyPotwierdzona

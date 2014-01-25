@@ -25,6 +25,8 @@ public class Polisa extends Entity {
 	
 	private entity.Ubezpieczyciel ubezpieczyciel;
 	
+	private entity.Pojazd pojazd;
+	
 	public Polisa() {
 	}
 	
@@ -72,7 +74,16 @@ public class Polisa extends Entity {
 	public entity.Ubezpieczyciel getUbezpieczyciel() {
 		return ubezpieczyciel;
 	}
+
 	
+	public entity.Pojazd getPojazd() {
+		return pojazd;
+	}
+
+	public void setPojazd(entity.Pojazd pojazd) {
+		this.pojazd = pojazd;
+	}
+
 	@Override
 	public String toString() {
 		return "Polisa [ID=" + ID + ", numerPolisy=" + numerPolisy

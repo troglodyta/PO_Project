@@ -10,7 +10,7 @@ License Type: Evaluation
 			<generator class="native">
 			</generator>
 		</id>
-		<many-to-one name="daneWypozyczenia" column="DaneWypozyczenID" class="entity.DaneWypozyczenia" cascade="save-update,lock" unique="true" not-null="false" lazy="no-proxy">
+		<many-to-one name="daneWypozyczenia" column="DaneWypozyczenID" class="entity.DaneWypozyczenia" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
 		<many-to-one name="klient" cascade="lock" column="KlienciOsobyID" class="entity.Klient" not-null="true" lazy="no-proxy">
 		</many-to-one>

@@ -42,7 +42,8 @@ public class DaneWypozyczenia extends Entity {
 	
 	private double wplaconaKaucja;
 	
-	private java.util.Collection akcesoria = new java.util.HashSet();
+	private java.util.Collection akcesoria = new java.util.ArrayList<Akcesoria>();
+	
 	public DaneWypozyczenia() {
 	}
 	
@@ -176,8 +177,17 @@ public class DaneWypozyczenia extends Entity {
 	}
 	
 	
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "DaneWypozyczenia [ID=" + ID + ", odzialZwroru=" + odzialZwroru
+				+ ", oddzialZwrotu=" + oddzialZwrotu + ", pojazd=" + pojazd
+				+ ", dataGodzinaOd="
+				+ dataGodzinaOd + ", dataGodzinaDo=" + dataGodzinaDo
+				+ ", dataWpatyZaliczki=" + dataWpatyZaliczki
+				+ ", dataWplatyKaucji=" + dataWplatyKaucji + ", platnosc="
+				+ platnosc + ", kaucja=" + kaucja + ", wplaconaZaliczka="
+				+ wplaconaZaliczka + ", wplaconaKaucja=" + wplaconaKaucja
+				+ ", akcesoria="+ akcesoria + "]";
 	}
 	
 }

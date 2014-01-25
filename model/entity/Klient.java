@@ -131,7 +131,7 @@ public class Klient extends entity.Osoba {
 		return super.toString()+" Klient [numerPrawaJazdy=" + numerPrawaJazdy
 				+ ", krajWydaniaPrawaJazdy=" + krajWydaniaPrawaJazdy
 				+ ", znizka=" + znizka + ", rezerwacje=" + rezerwacje
-				+ ", umowas=" + umowas + ", firmy=" + firmy + "]";
+			    + ", firmy=" + firmy + "]";
 	}
 	
 }

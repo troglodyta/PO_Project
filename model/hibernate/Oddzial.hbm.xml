@@ -12,8 +12,8 @@ License Type: Evaluation
 		</id>
 		<many-to-one name="adres" column="AdresyID" class="entity.Adres" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
-		<property name="telefon" column="Telefon" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="telefon" column="Telefon" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="email" column="Email" type="string" length="255" not-null="true" lazy="false"/>
 		<one-to-one name="kierownik" class="entity.Kierownik" cascade="save-update,lock" property-ref="odzial" lazy="no-proxy"/>
 	</class>
 </hibernate-mapping>
