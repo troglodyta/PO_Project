@@ -28,7 +28,7 @@ import entity.Ubezpieczyciel;
 import entity.Umowa;
 import entity.Wypozyczenie;
 
-public class DBManager {
+public class DBManager {//mój komentarz
 	private  Configuration configuration;
 	private SessionFactory sessionFactory;
 	private Session session;
