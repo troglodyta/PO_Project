@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.9
+-- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 25 Sty 2014, 21:49
--- Wersja serwera: 5.5.34
--- Wersja PHP: 5.4.22
+-- Czas wygenerowania: 26 Sty 2014, 17:44
+-- Wersja serwera: 5.5.32
+-- Wersja PHP: 5.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `carsdata`
 --
+CREATE DATABASE IF NOT EXISTS `carsdata` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `carsdata`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `adresy` (
   `KodPocztowy` varchar(255) NOT NULL,
   `Miejscowosc` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Zrzut danych tabeli `adresy`
@@ -90,14 +92,21 @@ CREATE TABLE IF NOT EXISTS `danemodelipojazdow` (
   `RodzajPaliwa` varchar(255) NOT NULL,
   `CenaRynkowa` double NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Zrzut danych tabeli `danemodelipojazdow`
 --
 
 INSERT INTO `danemodelipojazdow` (`ID`, `Marka`, `Model`, `Typ`, `Kategoria`, `Zdjecie`, `MiejscaSiedzace`, `MaxMasaCalkowita`, `MasaWlasna`, `PojemnoscSilnika`, `Moc`, `CenaWypozyczenia`, `Kaucja`, `RodzajPaliwa`, `CenaRynkowa`) VALUES
-(1, 'Ford', 'Fiesta', '1.3 v.6', 'M', NULL, 5, 1600, 2500, 1300, 55, 300, 1500, 'Benzyna', 10000);
+(1, 'Ford', 'Fiesta', '1.3 v.6', 'M', NULL, 5, 1600, 2500, 1300, 55, 300, 1500, 'Benzyna', 10000),
+(2, 'Suzuki', 'Alto', '1.0', 'A', '', 5, 810, 710, 1000, 68, 59, 500, 'Benzyna', 28000),
+(3, 'Fiat', 'Panda', '1.2', 'A', '', 5, 1135, 840, 1200, 69, 69, 500, 'Benzyna', 39000),
+(4, 'Kia', 'Picanto', '1.0', 'A', '', 5, 1045, 929, 1000, 62, 69, 500, 'Benzyna', 18000),
+(5, 'Renault', 'Clio', '1.2', 'B', '', 5, 1015, 900, 1200, 75, 79, 800, 'Benzyna', 41000),
+(6, 'Citroen', 'C3', '1.4', 'B', '', 5, 1400, 1105, 1400, 75, 79, 800, 'Benzyna', 58000),
+(7, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 0, 0, '', 44000),
+(8, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 79, 800, 'Benzyna', 44000);
 
 -- --------------------------------------------------------
 
@@ -310,14 +319,29 @@ CREATE TABLE IF NOT EXISTS `pojazdy` (
   PRIMARY KEY (`ID`),
   KEY `FKPojazdy5018` (`DaneModeliPojazdowID`),
   KEY `znajduje się` (`OddzialyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Zrzut danych tabeli `pojazdy`
 --
 
 INSERT INTO `pojazdy` (`ID`, `OddzialyID`, `DaneModeliPojazdowID`, `NrRejstracyjny`, `DataWymianyOleju`, `DataPrzegladu`, `DataProdukcji`, `ZdatnyDoWypozyczenia`, `CenaZakupu`, `CzyWypozyczony`) VALUES
-(1, 1, 1, 'DWR1234', '2014-02-21', '2014-02-13', '1997-01-07', 1, 8000, 1);
+(1, 1, 1, 'DWR1234', '2014-02-21', '2014-02-13', '1997-01-07', 1, 8000, 1),
+(2, 1, 2, 'DWR1644', '2014-01-05', '2014-01-08', '2010-03-17', 1, 12000, 1),
+(3, 1, 2, 'DWR4571', '2014-01-01', '2013-11-12', '2011-09-13', 1, 12500, 1),
+(4, 1, 2, 'DWR2254', '2013-11-13', '2013-11-29', '2011-08-16', 1, 11000, 1),
+(5, 1, 3, 'DWR1547', '2013-11-12', '2013-08-20', '2008-08-06', 1, 10000, 1),
+(6, 1, 3, 'DWR2598', '2013-12-11', '2013-11-12', '2008-09-12', 1, 9000, 0),
+(7, 1, 3, 'DWR7436', '2013-11-05', '2013-11-12', '2008-08-06', 1, 11000, 0),
+(8, 1, 3, 'DWR8513', '2013-11-12', '2013-11-11', '2011-08-16', 1, 13000, 0),
+(9, 1, 3, 'DWR7531', '2014-01-05', '2013-11-12', '2003-06-05', 1, 12000, 0),
+(10, 1, 4, 'DWR7412', '2014-01-07', '2014-01-07', '2005-12-05', 1, 13000, 0),
+(11, 1, 4, 'DWR6453', '2013-10-22', '2014-01-06', '2003-09-18', 1, 12000, 0),
+(12, 1, 4, 'DWR8573', '2013-12-16', '2013-10-20', '2005-12-05', 0, 10000, 0),
+(13, 1, 5, 'DWR8641', '2014-01-05', '2014-01-01', '2003-09-18', 1, 30000, 0),
+(14, 1, 6, 'DWR5437', '2014-01-06', '2014-01-06', '2011-08-16', 1, 36000, 0),
+(15, 1, 7, 'DWR5567', '2014-01-13', '2014-01-13', '2003-06-05', 1, 31000, 0),
+(16, 1, 8, 'DWR5286', '2013-10-21', '2013-11-12', '2007-04-16', 1, 40000, 0);
 
 -- --------------------------------------------------------
 
