@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -43,7 +44,16 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	}
 	
 	private void setComboMarka(Wypozyczenie wypozyczenie, WypozyczenieModel model){
+		String[] marki = model.getWszystkieMarki();
+		JComboBox comboMarki = wypozyczenie.getComboMarka();
 		
+		for (int i = 0; i<comboMarki.getItemCount(); i++) {
+			comboMarki.removeItemAt(0);
+		}
+		comboMarki.addItem("");
+		for(String s : marki){
+			comboMarki.addItem(s);
+		}
 	}
 	
 	@Override
@@ -59,6 +69,7 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 			break;
 		case 3: {
 			setTableRows(wypozyczenie, model);
+			setComboMarka(wypozyczenie, model);
 		}
 			break;
 

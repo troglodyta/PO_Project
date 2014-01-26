@@ -59,7 +59,8 @@ public class Wypozyczenie extends JFrame {
 	private JCheckBox checkDataUtworzenia;
 	private JDateChooser dataOd;
 	private JDateChooser dataDo;
-	
+	private JComboBox comboMarka;
+	private JComboBox comboModel;
 
 	/**
 	 * Launch the application.
@@ -76,7 +77,13 @@ public class Wypozyczenie extends JFrame {
 //			}
 //		});
 //	}
-
+	public JComboBox getComboModel() {
+		return comboModel;
+	}
+	
+	public JComboBox getComboMarka() {
+		return comboMarka;
+	}
 	
 	public JTextField getTextNrRezerwacji() {
 		return textNrRezerwacji;
@@ -440,10 +447,10 @@ public class Wypozyczenie extends JFrame {
 		JLabel lblModel = new JLabel("Model");
 		panel_1.add(lblModel, "cell 1 7");
 		
-		JComboBox comboMarka = new JComboBox();
+		comboMarka = new JComboBox();
 		panel_1.add(comboMarka, "cell 0 8,growx");
 		
-		JComboBox comboModel = new JComboBox();
+		comboModel = new JComboBox();
 		panel_1.add(comboModel, "cell 1 8,growx");
 		
 		checkDataUtworzenia = new JCheckBox("Data utworzenia");

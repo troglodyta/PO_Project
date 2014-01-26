@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 25 Sty 2014, 11:32
+-- Czas wygenerowania: 25 Sty 2014, 21:49
 -- Wersja serwera: 5.5.34
 -- Wersja PHP: 5.4.22
 
@@ -43,12 +43,7 @@ INSERT INTO `adresy` (`ID`, `Ulica`, `KodPocztowy`, `Miejscowosc`) VALUES
 (2, 'Czekoladowa 48', '55986', 'Wrocław'),
 (3, 'Jesienna 32/2', '55823', 'Kraków'),
 (4, 'Wiosenna 32', '34987', 'Wrocław'),
-(5, 'Wilcza 41', '34563', 'Wrocław'),
-(12, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(13, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(14, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(15, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(16, 'K?tecka 40', '55088', 'Wawrze?czyce');
+(5, 'Wilcza 41', '34563', 'Wrocław');
 
 -- --------------------------------------------------------
 
@@ -135,40 +130,6 @@ CREATE TABLE IF NOT EXISTS `danewypozyczen` (
 
 INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `DataGodzinaOd`, `DataGodzinaDo`, `DataWpatyZaliczki`, `DataWplatyKaucji`, `Platnosc`, `Kaucja`, `WplaconaZaliczka`, `WplaconaKaucja`) VALUES
 (1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `danewypozyczenia`
---
-
-CREATE TABLE IF NOT EXISTS `danewypozyczenia` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `RezerwacjaID` int(11) DEFAULT NULL,
-  `DataGodzinaOd` date DEFAULT NULL,
-  `DataGodzinaDo` date DEFAULT NULL,
-  `DataWpatyZaliczki` date DEFAULT NULL,
-  `DataWplatyKaucji` date DEFAULT NULL,
-  `Platnosc` double NOT NULL,
-  `Kaucja` double NOT NULL,
-  `WplaconaZaliczka` double NOT NULL,
-  `WplaconaKaucja` double NOT NULL,
-  `DaneWypozyczeniaID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `danewypozyczenia_akcesoria`
---
-
-CREATE TABLE IF NOT EXISTS `danewypozyczenia_akcesoria` (
-  `DaneWypozyczeniaID` int(11) NOT NULL,
-  `AkcesoriaID` int(11) NOT NULL,
-  PRIMARY KEY (`DaneWypozyczeniaID`,`AkcesoriaID`),
-  KEY `FKDaneWypozy996837` (`DaneWypozyczeniaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -278,18 +239,6 @@ CREATE TABLE IF NOT EXISTS `klienci_firmy` (
 
 INSERT INTO `klienci_firmy` (`KlienciOsobyID`, `FirmyID`) VALUES
 (5, 1);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `klient_firma2`
---
-
-CREATE TABLE IF NOT EXISTS `klient_firma2` (
-  `FirmaID` int(11) NOT NULL AUTO_INCREMENT,
-  `Index` int(11) DEFAULT NULL,
-  PRIMARY KEY (`FirmaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -560,12 +509,6 @@ ALTER TABLE `danewypozyczen`
   ADD CONSTRAINT `FKDaneWypozy139096` FOREIGN KEY (`OddzialyID2`) REFERENCES `oddzialy` (`ID`),
   ADD CONSTRAINT `FKDaneWypozy289303` FOREIGN KEY (`PojazdyID`) REFERENCES `pojazdy` (`ID`),
   ADD CONSTRAINT `FKDaneWypozy704323` FOREIGN KEY (`OddzialyID`) REFERENCES `oddzialy` (`ID`);
-
---
--- Ograniczenia dla tabeli `danewypozyczenia_akcesoria`
---
-ALTER TABLE `danewypozyczenia_akcesoria`
-  ADD CONSTRAINT `FKDaneWypozy996837` FOREIGN KEY (`DaneWypozyczeniaID`) REFERENCES `danewypozyczenia` (`ID`);
 
 --
 -- Ograniczenia dla tabeli `danewypozyczen_akcesories`

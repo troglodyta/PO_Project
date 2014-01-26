@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import entity.*;
@@ -12,11 +14,35 @@ public class WypozyczenieModel implements Model {
 		return (List<Rezerwacja>)(manager.queryHibernate(sql, null));
 	}
 	
-//	public String[] getWszystkieMarki(){
-//	}
+	public String[] getWszystkieMarki(){
+		String hql = "SELECT marka FROM DaneModeluPojazdu group by marka";
+		Object[] query=  manager.queryHibernate(hql, null).toArray();
+		String[] wyn = new String[query.length];
+		for (int i = 0; i < wyn.length; i++) {
+			String s = (String) query[i];
+			wyn[i]=s;
+		}
+		return wyn;
+	}
+	
+	public String[] getModel(String marka){
+		String hql = "SELECT model FROM DaneModeluPojazdu WHERE marka =:marka GROUP BY model";
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("marka", marka);
+		Object[] query=  manager.queryHibernate(hql, param).toArray();
+		String[] wyn = new String[query.length];
+		for (int i = 0; i < wyn.length; i++) {
+			String s = (String) query[i];
+			wyn[i]=s;
+		}
+		return wyn;
+		
+	}
 	
 	public static void main(String[] args) {
 		WypozyczenieModel m = new WypozyczenieModel();
-		System.out.println(m.getWszytkieRezerwacje());
+	System.out.println(m.getWszystkieMarki()[0]);
+	System.out.println(m.getModel("Ford")[0]);
+	
 	}
 }

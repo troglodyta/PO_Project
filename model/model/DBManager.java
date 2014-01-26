@@ -135,7 +135,8 @@ public class DBManager {
 		Ubezpieczyciel ub = pol.getUbezpieczyciel();
 		System.out.println(ub);
 		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = 0",null);
-		System.out.println(l);
+		List l3 = DBManager.INSTANCE.queryHibernate("select znizka from Klient",null);
+		System.out.println(l3);
 		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
 		System.out.println(((Object[])l2.get(0))[1]);
 //		System.out.println(szef);
