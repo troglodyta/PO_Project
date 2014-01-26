@@ -39,6 +39,7 @@ import java.util.List;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
+import entity.DaneModeluPojazdu;
 import entity.Klient;
 import entity.Pojazd;
 import entity.Rezerwacja;
@@ -61,6 +62,10 @@ public class Wypozyczenie extends JFrame {
 	private JDateChooser dataDo;
 	private JComboBox comboMarka;
 	private JComboBox comboModel;
+	private JButton przyciskSzukaj;
+	private JRadioButton radioWszystkie;
+	private JRadioButton radioPotwierdzone;
+	private JRadioButton radioNiepotwierdzone;
 
 	/**
 	 * Launch the application.
@@ -77,6 +82,23 @@ public class Wypozyczenie extends JFrame {
 //			}
 //		});
 //	}
+	
+	public JButton getPrzyciskSzukaj() {
+		return przyciskSzukaj;
+	}
+	
+	public JRadioButton getRadioWszystkie() {
+		return radioWszystkie;
+	}
+
+	public JRadioButton getRadioPotwierdzone() {
+		return radioPotwierdzone;
+	}
+
+	public JRadioButton getRadioNiepotwierdzone() {
+		return radioNiepotwierdzone;
+	}
+
 	public JComboBox getComboModel() {
 		return comboModel;
 	}
@@ -157,13 +179,25 @@ public class Wypozyczenie extends JFrame {
 
 
 
-	public void setRezerwacjeTable(List<Object[]> rows) {
+	public void setRezerwacjeTable(List<Rezerwacja> rezerwacje) {
 		DefaultTableModel tableModel = ((DefaultTableModel) rezerwacjeTable.getModel());
-		for (int i = 0; i < tableModel.getRowCount(); i++) {
+		while(tableModel.getRowCount()>0) {
 			((DefaultTableModel) rezerwacjeTable.getModel()).removeRow(0);
 		}
 		
-		for(Object[] row: rows){
+		for (Rezerwacja r : rezerwacje) {
+			Klient k = r.getKlient();
+			Pojazd p = r.getDaneWypozyczenia().getPojazd();
+			DaneModeluPojazdu daneP = p.getDanePojazdu();
+			String status = r.getCzyPotwierdzona() ? "Potwiedzona"
+					: "Nie potwierdzona";
+			Object[] row = new Object[] {
+					r.getID(),
+					k.getImie(),
+					k.getNazwisko(),
+					daneP.getMarka() + " " + daneP.getModel() + " "
+					+ daneP.getTyp(),
+					r.getDataRezerwacji().toString(), status };
 			tableModel.addRow(row);
 		}
 		
@@ -481,21 +515,23 @@ public class Wypozyczenie extends JFrame {
 		JLabel lblStatus = new JLabel("Status");
 		panel_1.add(lblStatus, "cell 0 12");
 		
-		JRadioButton radioWszystkie = new JRadioButton("Wszystkie");
+		radioWszystkie = new JRadioButton("Wszystkie");
+		radioWszystkie.setSelected(true);
 		panel_1.add(radioWszystkie, "cell 0 13 2 1");
 		
-		JRadioButton radioPotwierdzone = new JRadioButton("Potwierdzone");
+		radioPotwierdzone = new JRadioButton("Potwierdzone");
 		panel_1.add(radioPotwierdzone, "cell 0 14 2 1");
 		
-		JRadioButton radioNiepotwierdzone = new JRadioButton("Niepotwierdzone");
+		radioNiepotwierdzone = new JRadioButton("Niepotwierdzone");
 		panel_1.add(radioNiepotwierdzone, "cell 0 15 2 1");
 		status.add(radioWszystkie);
 		status.add(radioPotwierdzone);
 		status.add(radioNiepotwierdzone);
 		
 		
-		JButton przyciskSzukaj = new JButton("Szukaj");
-		panel_1.add(przyciskSzukaj, "cell 0 17,growx");
+		
+		przyciskSzukaj = new JButton("Szukaj");
+		panel_1.add(przyciskSzukaj, "cell 0 17 2 1,growx");
 		contentPane.setLayout(gl_contentPane);
 		
 		

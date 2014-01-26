@@ -136,9 +136,11 @@ public class DBManager {//mój komentarz
 		System.out.println(pol);
 		Ubezpieczyciel ub = pol.getUbezpieczyciel();
 		System.out.println(ub);
-		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = 0",null);
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("znizka", 0.0);
+		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = :znizka",param);
 		List l3 = DBManager.INSTANCE.queryHibernate("select znizka from Klient",null);
-		System.out.println(l3);
+		System.out.println(l);
 		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
 		System.out.println(((Object[])l2.get(0))[1]);
 //		System.out.println(szef);

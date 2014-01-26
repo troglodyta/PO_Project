@@ -23,24 +23,7 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	}
 	private void setTableRows(Wypozyczenie wypozyczenie, WypozyczenieModel model){
 		List<Rezerwacja> rezerwacje = model.getWszytkieRezerwacje();
-		List<Object[]> rows = new ArrayList<Object[]>(rezerwacje.size());
-		for (Rezerwacja r : rezerwacje) {
-			Klient k = r.getKlient();
-			Pojazd p = r.getDaneWypozyczenia().getPojazd();
-			DaneModeluPojazdu daneP = p.getDanePojazdu();
-			String status = r.getCzyPotwierdzona() ? "Potwiedzona"
-					: "Nie potwierdzona";
-			Object[] row = new Object[] {
-					r.getID(),
-					k.getImie(),
-					k.getNazwisko(),
-					daneP.getMarka() + " " + daneP.getModel() + " "
-					+ daneP.getTyp(),
-					r.getDataRezerwacji().toString(), status };
-			rows.add(row);
-		}
-		System.out.println(rows);
-		wypozyczenie.setRezerwacjeTable(rows);
+		wypozyczenie.setRezerwacjeTable(rezerwacje);
 	}
 	
 	private void setComboMarka(Wypozyczenie wypozyczenie, WypozyczenieModel model){
@@ -77,6 +60,12 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 			break;
 		}
 		
+	}
+	
+	@Override
+	public void act(String operation) {
+		// TODO Auto-generated method stub
+		super.act(operation);
 	}
 	
 }
