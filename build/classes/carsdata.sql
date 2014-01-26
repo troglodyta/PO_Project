@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 26 Sty 2014, 17:44
+-- Czas wygenerowania: 26 Sty 2014, 20:17
 -- Wersja serwera: 5.5.32
 -- Wersja PHP: 5.4.19
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `adresy` (
   `KodPocztowy` varchar(255) NOT NULL,
   `Miejscowosc` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Zrzut danych tabeli `adresy`
@@ -45,7 +45,13 @@ INSERT INTO `adresy` (`ID`, `Ulica`, `KodPocztowy`, `Miejscowosc`) VALUES
 (2, 'Czekoladowa 48', '55986', 'Wrocław'),
 (3, 'Jesienna 32/2', '55823', 'Kraków'),
 (4, 'Wiosenna 32', '34987', 'Wrocław'),
-(5, 'Wilcza 41', '34563', 'Wrocław');
+(5, 'Wilcza 41', '34563', 'Wrocław'),
+(6, 'Rynek 1', '55050', 'Sobótka'),
+(7, 'Rynek 2', '55050', 'Sobótka'),
+(8, 'Rynek 24', '55050', 'Sobótka'),
+(9, 'Sosnowa 1', '55050', 'Będkowice'),
+(10, 'Sosnowa 2', '55050', 'Będkowice'),
+(11, 'Sosnowa 3', '55050', 'Będkowice');
 
 -- --------------------------------------------------------
 
@@ -226,7 +232,13 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 --
 
 INSERT INTO `klienci` (`NumerPrawaJazdy`, `KrajWydaniaPrawaJazdy`, `Znizka`, `OsobyID`) VALUES
-('M0092979', 'Polska', 0, 5);
+('M0092979', 'Polska', 0, 5),
+('M0054379', 'Polska', 0, 6),
+('M0031524', 'Polska', 0, 7),
+('M0061475', 'Polska', 0, 8),
+('M0064528', 'Polska', 0, 9),
+('M0054286', 'Polska', 0, 10),
+('M0065487', 'Polska', 0, 11);
 
 -- --------------------------------------------------------
 
@@ -287,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `osoby` (
   `Plec` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKOsoby394468` (`AdresyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Zrzut danych tabeli `osoby`
@@ -297,7 +309,15 @@ INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzen
 (1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M'),
 (3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M'),
 (4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K'),
-(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K');
+(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K'),
+(6, 6, 'Jan', 'Kowalski', 'jan.kowalski@wp.pl', '1985-06-30', 'M'),
+(7, 6, 'Marian', 'Maciejewicz', 'marian.m@gmail.com', '1974-11-12', 'M'),
+(8, 6, 'Agata', 'Kowalska', '', '1987-06-30', 'K'),
+(9, 7, 'Arkadiusz', 'Kszyk', 'ar-ksz@wp.pl', '1983-12-03', 'M'),
+(10, 8, 'Alina', 'Kwiatkowska', 'alkwiat@onet.pl', '1986-10-09', 'K'),
+(11, 9, 'Marek', 'Wroniec', 'wroniec72@wp.pl', '1972-02-12', 'M'),
+(12, 10, 'Adrian', 'Malwa', 'adrmal@o2.pl', '1974-11-12', 'M'),
+(13, 11, 'Tomasz', 'Kwiatkowski', 'tomasz.kwiatkowski@gmail.com', '1972-05-16', 'M');
 
 -- --------------------------------------------------------
 
@@ -391,7 +411,9 @@ CREATE TABLE IF NOT EXISTS `pracownicy` (
 
 INSERT INTO `pracownicy` (`NumerKonta`, `DataZatrudnienia`, `Login`, `Haslo`, `OsobyID`, `SzefowieOsobyID`) VALUES
 ('lkjgslkfdj', '2014-01-08', 'pracLog1', 'pracHas1', 3, 1),
-('jdsljl', '2014-01-09', 'pracLog2', 'pracHas2', 4, 1);
+('jdsljl', '2014-01-09', 'pracLog2', 'pracHas2', 4, 1),
+('1254', '2013-11-13', 'adrian.malwa', 'malwa', 12, 1),
+('6458', '2013-12-09', 'tomasz.kwiatkowski', 'kwiatkowski', 13, 1);
 
 -- --------------------------------------------------------
 
