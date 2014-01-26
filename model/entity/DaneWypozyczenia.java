@@ -42,7 +42,7 @@ public class DaneWypozyczenia extends Entity {
 	
 	private double wplaconaKaucja;
 	
-	private java.util.Collection akcesoria = new java.util.ArrayList<Akcesoria>();
+	private java.util.Collection wypozyczeniaAkcesoria = new java.util.ArrayList<WypozyczeniaAkcesoria>();
 	
 	public DaneWypozyczenia() {
 	}
@@ -65,7 +65,7 @@ public class DaneWypozyczenia extends Entity {
 		this.kaucja = kaucja;
 		this.wplaconaZaliczka = wplaconaZaliczka;
 		this.wplaconaKaucja = wplaconaKaucja;
-		this.akcesoria = akcesoria;
+		this.wypozyczeniaAkcesoria = akcesoria;
 	}
 
 	private void setID(int value) {
@@ -168,12 +168,12 @@ public class DaneWypozyczenia extends Entity {
 		return pojazd;
 	}
 	
-	public void setAkcesoria(java.util.Collection value) {
-		this.akcesoria = value;
+	public void setWypozyczeniaAkcesoria(java.util.Collection value) {
+		this.wypozyczeniaAkcesoria = value;
 	}
 	
-	public java.util.Collection getAkcesoria() {
-		return akcesoria;
+	public java.util.Collection getWypozyczeniaAkcesoria() {
+		return wypozyczeniaAkcesoria;
 	}
 	
 	
@@ -187,7 +187,7 @@ public class DaneWypozyczenia extends Entity {
 				+ ", dataWplatyKaucji=" + dataWplatyKaucji + ", platnosc="
 				+ platnosc + ", kaucja=" + kaucja + ", wplaconaZaliczka="
 				+ wplaconaZaliczka + ", wplaconaKaucja=" + wplaconaKaucja
-				+ ", akcesoria="+ akcesoria + "]";
+				+ ", akcesoria="+ wypozyczeniaAkcesoria + "]";
 	}
 	
 }

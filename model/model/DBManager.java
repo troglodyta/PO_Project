@@ -26,6 +26,7 @@ import entity.Rezerwacja;
 import entity.Szef;
 import entity.Ubezpieczyciel;
 import entity.Umowa;
+import entity.WypozyczeniaAkcesoria;
 import entity.Wypozyczenie;
 
 public class DBManager {//mój komentarz
@@ -110,8 +111,9 @@ public class DBManager {//mój komentarz
 		System.out.println(w);
 		DaneWypozyczenia daneWyp =w.getDaneWypozyczenia();
 		System.out.println(daneWyp);
-		Collection a =  daneWyp.getAkcesoria();
-		Akcesoria akcesoria=(Akcesoria) a.toArray()[0]; 
+		Collection a =   daneWyp.getWypozyczeniaAkcesoria();
+		System.out.println((WypozyczeniaAkcesoria)a.toArray()[0]);
+		Akcesoria akcesoria=((WypozyczeniaAkcesoria) a.toArray()[0]).getAkcesoria(); 
 		System.out.println(akcesoria);
 		Oddzial oddzial = akcesoria.getOddzial();
 		System.out.println(oddzial);

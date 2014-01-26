@@ -20,6 +20,7 @@
 	<mapping resource="hibernate/Rezerwacja.hbm.xml" />
 	<mapping resource="hibernate/Ubezpieczyciel.hbm.xml" />
 	<mapping resource="hibernate/Umowa.hbm.xml" />
+	<mapping resource="hibernate/WypozyczeniaAkcesoria.hbm.xml" />
 	<mapping resource="hibernate/Wypozyczenie.hbm.xml" />
  </session-factory>
 </hibernate-configuration>
