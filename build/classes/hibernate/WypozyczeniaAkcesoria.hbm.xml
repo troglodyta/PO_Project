@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: 
+License Type: Evaluation
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="entity.WypozyczeniaAkcesoria" table="DaneWypozyczen_Akcesories" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="ilosc" column="Ilosc" type="integer"  not-null="true" lazy="false"/>
+		<many-to-one name="akcesoria" cascade="lock" column="AkcesoriesID" class="entity.Akcesoria" not-null="true" lazy="false">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

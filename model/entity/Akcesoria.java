@@ -23,16 +23,27 @@ public class Akcesoria  extends Entity {
 	
 	private double cenaWypozyczenia;
 	
+	private int iloscWOddziale;
+	
 	public Akcesoria() {
 	}
 	
 	public Akcesoria(int iD, Oddzial oddzial, String nazwaAkcesorium,
-			double cenaWypozyczenia) {
+			double cenaWypozyczenia,int iloscWOddziele) {
 		super();
 		ID = iD;
 		this.oddzial = oddzial;
 		this.nazwaAkcesorium = nazwaAkcesorium;
 		this.cenaWypozyczenia = cenaWypozyczenia;
+		this.iloscWOddziale = iloscWOddziele;
+	}
+	
+	public int getIloscWOddziale() {
+		return iloscWOddziale;
+	}
+	
+	public void setIloscWOddziale(int iloscWOddziale) {
+		this.iloscWOddziale = iloscWOddziale;
 	}
 	
 	private void setID(int value) {
@@ -75,7 +86,8 @@ public class Akcesoria  extends Entity {
 	public String toString() {
 		return "Akcesoria [ID=" + ID + ", oddzial=" + oddzial
 				+ ", nazwaAkcesorium=" + nazwaAkcesorium
-				+ ", cenaWypozyczenia=" + cenaWypozyczenia + "]";
+				+ ", cenaWypozyczenia=" + cenaWypozyczenia 
+				+ ", iloscWOddziale=" + iloscWOddziale +"]";
 	}
 	
 }

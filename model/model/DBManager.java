@@ -1,12 +1,13 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import javassist.expr.Instanceof;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,9 +26,10 @@ import entity.Rezerwacja;
 import entity.Szef;
 import entity.Ubezpieczyciel;
 import entity.Umowa;
+import entity.WypozyczeniaAkcesoria;
 import entity.Wypozyczenie;
 
-public class DBManager {
+public class DBManager {//mój komentarz
 	private  Configuration configuration;
 	private SessionFactory sessionFactory;
 	private Session session;
@@ -71,6 +73,28 @@ public class DBManager {
 		session.getTransaction().commit();
 	}
 	
+	public List queryHibernate(String hibernateSql, HashMap<String, Object> param) {
+		Query query = session.createQuery(hibernateSql);
+		if (param != null) {
+			for (String name : param.keySet()) {
+				query.setParameter(name, param.get(name));
+			}
+		}
+		List<Object> results = query.list();
+		return results;
+	}
+	
+	public List<Object[]> querySQL(String sql, HashMap<String, Object> param) {
+		Query query = session.createSQLQuery(sql);
+		if (param != null) {
+			for (String name : param.keySet()) {
+				query.setParameter(name, param.get(name));
+			}
+		}
+		List<Object[]> results = query.list();
+		return results;
+	}
+	
 	public void closeSession(){
 		session.close();
 	}
@@ -87,8 +111,9 @@ public class DBManager {
 		System.out.println(w);
 		DaneWypozyczenia daneWyp =w.getDaneWypozyczenia();
 		System.out.println(daneWyp);
-		Collection a =  daneWyp.getAkcesoria();
-		Akcesoria akcesoria=(Akcesoria) a.toArray()[0]; 
+		Collection a =   daneWyp.getWypozyczeniaAkcesoria();
+		System.out.println((WypozyczeniaAkcesoria)a.toArray()[0]);
+		Akcesoria akcesoria=((WypozyczeniaAkcesoria) a.toArray()[0]).getAkcesoria(); 
 		System.out.println(akcesoria);
 		Oddzial oddzial = akcesoria.getOddzial();
 		System.out.println(oddzial);
@@ -111,7 +136,13 @@ public class DBManager {
 		System.out.println(pol);
 		Ubezpieczyciel ub = pol.getUbezpieczyciel();
 		System.out.println(ub);
-		
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("znizka", 0.0);
+		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = :znizka",param);
+		List l3 = DBManager.INSTANCE.queryHibernate("select znizka from Klient",null);
+		System.out.println(l);
+		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
+		System.out.println(((Object[])l2.get(0))[1]);
 //		System.out.println(szef);
 
 	}

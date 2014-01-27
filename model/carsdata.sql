@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 25 Sty 2014, 11:32
+-- Czas wygenerowania: 27 Sty 2014, 07:03
 -- Wersja serwera: 5.5.34
 -- Wersja PHP: 5.4.22
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresy` (
   `KodPocztowy` varchar(255) NOT NULL,
   `Miejscowosc` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Zrzut danych tabeli `adresy`
@@ -43,12 +43,7 @@ INSERT INTO `adresy` (`ID`, `Ulica`, `KodPocztowy`, `Miejscowosc`) VALUES
 (2, 'Czekoladowa 48', '55986', 'Wrocław'),
 (3, 'Jesienna 32/2', '55823', 'Kraków'),
 (4, 'Wiosenna 32', '34987', 'Wrocław'),
-(5, 'Wilcza 41', '34563', 'Wrocław'),
-(12, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(13, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(14, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(15, 'K?tecka 40', '55088', 'Wawrze?czyce'),
-(16, 'K?tecka 40', '55088', 'Wawrze?czyce');
+(5, 'Wilcza 41', '34563', 'Wrocław');
 
 -- --------------------------------------------------------
 
@@ -61,16 +56,18 @@ CREATE TABLE IF NOT EXISTS `akcesories` (
   `OddzialyID` int(11) NOT NULL,
   `NazwaAkcesorium` varchar(255) NOT NULL,
   `CenaWypozyczenia` double NOT NULL,
+  `IloscWOddziale` int(4) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKAkcesories975413` (`OddzialyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Zrzut danych tabeli `akcesories`
 --
 
-INSERT INTO `akcesories` (`ID`, `OddzialyID`, `NazwaAkcesorium`, `CenaWypozyczenia`) VALUES
-(1, 1, 'Fotelik Samochodowy', 50);
+INSERT INTO `akcesories` (`ID`, `OddzialyID`, `NazwaAkcesorium`, `CenaWypozyczenia`, `IloscWOddziale`) VALUES
+(1, 1, 'Fotelik Samochodowy', 50, 20),
+(2, 1, 'Nawigacja GPS', 50, 15);
 
 -- --------------------------------------------------------
 
@@ -95,14 +92,21 @@ CREATE TABLE IF NOT EXISTS `danemodelipojazdow` (
   `RodzajPaliwa` varchar(255) NOT NULL,
   `CenaRynkowa` double NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Zrzut danych tabeli `danemodelipojazdow`
 --
 
 INSERT INTO `danemodelipojazdow` (`ID`, `Marka`, `Model`, `Typ`, `Kategoria`, `Zdjecie`, `MiejscaSiedzace`, `MaxMasaCalkowita`, `MasaWlasna`, `PojemnoscSilnika`, `Moc`, `CenaWypozyczenia`, `Kaucja`, `RodzajPaliwa`, `CenaRynkowa`) VALUES
-(1, 'Ford', 'Fiesta', '1.3 v.6', 'M', NULL, 5, 1600, 2500, 1300, 55, 300, 1500, 'Benzyna', 10000);
+(1, 'Ford', 'Fiesta', '1.3 v.6', 'M', NULL, 5, 1600, 2500, 1300, 55, 300, 1500, 'Benzyna', 10000),
+(2, 'Suzuki', 'Alto', '1.0', 'A', '', 5, 810, 710, 1000, 68, 59, 500, 'Benzyna', 28000),
+(3, 'Fiat', 'Panda', '1.2', 'A', '', 5, 1135, 840, 1200, 69, 69, 500, 'Benzyna', 39000),
+(4, 'Kia', 'Picanto', '1.0', 'A', '', 5, 1045, 929, 1000, 62, 69, 500, 'Benzyna', 18000),
+(5, 'Renault', 'Clio', '1.2', 'B', '', 5, 1015, 900, 1200, 75, 79, 800, 'Benzyna', 41000),
+(6, 'Citroen', 'C3', '1.4', 'B', '', 5, 1400, 1105, 1400, 75, 79, 800, 'Benzyna', 58000),
+(7, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 0, 0, '', 44000),
+(8, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 79, 800, 'Benzyna', 44000);
 
 -- --------------------------------------------------------
 
@@ -127,48 +131,16 @@ CREATE TABLE IF NOT EXISTS `danewypozyczen` (
   KEY `FKDaneWypozy704323` (`OddzialyID`),
   KEY `FKDaneWypozy139096` (`OddzialyID2`),
   KEY `FKDaneWypozy289303` (`PojazdyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Zrzut danych tabeli `danewypozyczen`
 --
 
 INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `DataGodzinaOd`, `DataGodzinaDo`, `DataWpatyZaliczki`, `DataWplatyKaucji`, `Platnosc`, `Kaucja`, `WplaconaZaliczka`, `WplaconaKaucja`) VALUES
-(1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `danewypozyczenia`
---
-
-CREATE TABLE IF NOT EXISTS `danewypozyczenia` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `RezerwacjaID` int(11) DEFAULT NULL,
-  `DataGodzinaOd` date DEFAULT NULL,
-  `DataGodzinaDo` date DEFAULT NULL,
-  `DataWpatyZaliczki` date DEFAULT NULL,
-  `DataWplatyKaucji` date DEFAULT NULL,
-  `Platnosc` double NOT NULL,
-  `Kaucja` double NOT NULL,
-  `WplaconaZaliczka` double NOT NULL,
-  `WplaconaKaucja` double NOT NULL,
-  `DaneWypozyczeniaID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `danewypozyczenia_akcesoria`
---
-
-CREATE TABLE IF NOT EXISTS `danewypozyczenia_akcesoria` (
-  `DaneWypozyczeniaID` int(11) NOT NULL,
-  `AkcesoriaID` int(11) NOT NULL,
-  PRIMARY KEY (`DaneWypozyczeniaID`,`AkcesoriaID`),
-  KEY `FKDaneWypozy996837` (`DaneWypozyczeniaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500),
+(2, 2, 1, 1, '2014-01-25 09:00:00', '2014-01-26 12:00:00', '2014-01-18', '2014-01-22', 300, 1500, 300, 0),
+(3, 3, 1, 1, '2014-01-31 08:00:00', '2014-02-01 10:00:00', '2014-01-17', '2014-01-17', 400, 1500, 400, 0);
 
 -- --------------------------------------------------------
 
@@ -179,17 +151,20 @@ CREATE TABLE IF NOT EXISTS `danewypozyczenia_akcesoria` (
 CREATE TABLE IF NOT EXISTS `danewypozyczen_akcesories` (
   `DaneWypozyczenID` int(11) NOT NULL,
   `AkcesoriesID` int(11) NOT NULL,
-  PRIMARY KEY (`DaneWypozyczenID`,`AkcesoriesID`),
+  `Ilosc` int(4) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`),
   KEY `FKDaneWypozy751695` (`DaneWypozyczenID`),
   KEY `FKDaneWypozy400871` (`AkcesoriesID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Zrzut danych tabeli `danewypozyczen_akcesories`
 --
 
-INSERT INTO `danewypozyczen_akcesories` (`DaneWypozyczenID`, `AkcesoriesID`) VALUES
-(1, 1);
+INSERT INTO `danewypozyczen_akcesories` (`DaneWypozyczenID`, `AkcesoriesID`, `Ilosc`, `ID`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -256,7 +231,10 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 --
 
 INSERT INTO `klienci` (`NumerPrawaJazdy`, `KrajWydaniaPrawaJazdy`, `Znizka`, `OsobyID`) VALUES
-('M0092979', 'Polska', 0, 5);
+('M0092979', 'Polska', 0, 5),
+('AQR1235', 'Polska', 0, 6),
+('YUI2346', 'Polska', 0, 8),
+('UIY8765', 'Polska', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -278,18 +256,6 @@ CREATE TABLE IF NOT EXISTS `klienci_firmy` (
 
 INSERT INTO `klienci_firmy` (`KlienciOsobyID`, `FirmyID`) VALUES
 (5, 1);
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `klient_firma2`
---
-
-CREATE TABLE IF NOT EXISTS `klient_firma2` (
-  `FirmaID` int(11) NOT NULL AUTO_INCREMENT,
-  `Index` int(11) DEFAULT NULL,
-  PRIMARY KEY (`FirmaID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -329,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `osoby` (
   `Plec` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKOsoby394468` (`AdresyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Zrzut danych tabeli `osoby`
@@ -339,7 +305,10 @@ INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzen
 (1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M'),
 (3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M'),
 (4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K'),
-(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K');
+(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K'),
+(6, 4, 'Wikotor', 'Janik', 'wjanik@o2.pl', '1987-12-10', 'M'),
+(8, 3, 'Oskar', 'Zwoliński', 'zwolin@wp.pl', '1980-04-22', 'M'),
+(9, 2, 'Justyna', 'Kubica', 'jKubica@gmail.com', '1978-01-11', 'K');
 
 -- --------------------------------------------------------
 
@@ -361,14 +330,29 @@ CREATE TABLE IF NOT EXISTS `pojazdy` (
   PRIMARY KEY (`ID`),
   KEY `FKPojazdy5018` (`DaneModeliPojazdowID`),
   KEY `znajduje się` (`OddzialyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Zrzut danych tabeli `pojazdy`
 --
 
 INSERT INTO `pojazdy` (`ID`, `OddzialyID`, `DaneModeliPojazdowID`, `NrRejstracyjny`, `DataWymianyOleju`, `DataPrzegladu`, `DataProdukcji`, `ZdatnyDoWypozyczenia`, `CenaZakupu`, `CzyWypozyczony`) VALUES
-(1, 1, 1, 'DWR1234', '2014-02-21', '2014-02-13', '1997-01-07', 1, 8000, 1);
+(1, 1, 1, 'DWR1234', '2014-02-21', '2014-02-13', '1997-01-07', 1, 8000, 1),
+(2, 1, 2, 'DWR1644', '2014-01-05', '2014-01-08', '2010-03-17', 1, 12000, 1),
+(3, 1, 2, 'DWR4571', '2014-01-01', '2013-11-12', '2011-09-13', 1, 12500, 1),
+(4, 1, 2, 'DWR2254', '2013-11-13', '2013-11-29', '2011-08-16', 1, 11000, 1),
+(5, 1, 3, 'DWR1547', '2013-11-12', '2013-08-20', '2008-08-06', 1, 10000, 1),
+(6, 1, 3, 'DWR2598', '2013-12-11', '2013-11-12', '2008-09-12', 1, 9000, 0),
+(7, 1, 3, 'DWR7436', '2013-11-05', '2013-11-12', '2008-08-06', 1, 11000, 0),
+(8, 1, 3, 'DWR8513', '2013-11-12', '2013-11-11', '2011-08-16', 1, 13000, 0),
+(9, 1, 3, 'DWR7531', '2014-01-05', '2013-11-12', '2003-06-05', 1, 12000, 0),
+(10, 1, 4, 'DWR7412', '2014-01-07', '2014-01-07', '2005-12-05', 1, 13000, 0),
+(11, 1, 4, 'DWR6453', '2013-10-22', '2014-01-06', '2003-09-18', 1, 12000, 0),
+(12, 1, 4, 'DWR8573', '2013-12-16', '2013-10-20', '2005-12-05', 0, 10000, 0),
+(13, 1, 5, 'DWR8641', '2014-01-05', '2014-01-01', '2003-09-18', 1, 30000, 0),
+(14, 1, 6, 'DWR5437', '2014-01-06', '2014-01-06', '2011-08-16', 1, 36000, 0),
+(15, 1, 7, 'DWR5567', '2014-01-13', '2014-01-13', '2003-06-05', 1, 31000, 0),
+(16, 1, 8, 'DWR5286', '2013-10-21', '2013-11-12', '2007-04-16', 1, 40000, 0);
 
 -- --------------------------------------------------------
 
@@ -441,14 +425,16 @@ CREATE TABLE IF NOT EXISTS `rezerwacje` (
   KEY `Potwierdza` (`PracownicyOsobyID`),
   KEY `FKRezerwacje161361` (`KlienciOsobyID`),
   KEY `FKRezerwacje817441` (`DaneWypozyczenID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Zrzut danych tabeli `rezerwacje`
 --
 
 INSERT INTO `rezerwacje` (`ID`, `DaneWypozyczenID`, `KlienciOsobyID`, `PracownicyOsobyID`, `DataRezerwacji`, `Uwagi`, `SposobWplatyZaliczki`, `SposobWplatyKaucji`, `CzyPotwierdzona`, `CzyAnulowana`) VALUES
-(1, 1, 5, 3, '2014-01-14', 'brak uwag', 'Przelew', 'Przelew', 0, 0);
+(1, 1, 5, 3, '2014-01-14', 'brak uwag', 'Przelew', 'Przelew', 0, 0),
+(2, 2, 6, NULL, '2014-01-12', NULL, 'Przelew', 'Gotówka', 0, 0),
+(3, 3, 8, 4, '2014-01-02', NULL, 'Przelew', 'Gotówka', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -560,12 +546,6 @@ ALTER TABLE `danewypozyczen`
   ADD CONSTRAINT `FKDaneWypozy139096` FOREIGN KEY (`OddzialyID2`) REFERENCES `oddzialy` (`ID`),
   ADD CONSTRAINT `FKDaneWypozy289303` FOREIGN KEY (`PojazdyID`) REFERENCES `pojazdy` (`ID`),
   ADD CONSTRAINT `FKDaneWypozy704323` FOREIGN KEY (`OddzialyID`) REFERENCES `oddzialy` (`ID`);
-
---
--- Ograniczenia dla tabeli `danewypozyczenia_akcesoria`
---
-ALTER TABLE `danewypozyczenia_akcesoria`
-  ADD CONSTRAINT `FKDaneWypozy996837` FOREIGN KEY (`DaneWypozyczeniaID`) REFERENCES `danewypozyczenia` (`ID`);
 
 --
 -- Ograniczenia dla tabeli `danewypozyczen_akcesories`

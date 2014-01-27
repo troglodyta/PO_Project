@@ -14,5 +14,6 @@ License Type: Evaluation
 		</many-to-one>
 		<property name="nazwaAkcesorium" column="NazwaAkcesorium" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="cenaWypozyczenia" column="CenaWypozyczenia" type="double" not-null="true" lazy="false"/>
+		<property name="iloscWOddziale" column="IloscWOddziale" type="integer" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

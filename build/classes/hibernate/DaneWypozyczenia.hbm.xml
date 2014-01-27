@@ -5,7 +5,7 @@ License Type: Evaluation
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="entity.DaneWypozyczenia" table="DaneWypozyczen" lazy="false">
+	<class name="entity.DaneWypozyczenia" table="DaneWypozyczen"  lazy="false">
 		<id name="ID" column="ID" type="integer" unsaved-value="0">
 			<generator class="native">
 			</generator>
@@ -24,10 +24,9 @@ License Type: Evaluation
 		<property name="kaucja" column="Kaucja" type="double" not-null="true" lazy="false"/>
 		<property name="wplaconaZaliczka" column="WplaconaZaliczka" type="double" not-null="true" lazy="false"/>
 		<property name="wplaconaKaucja" column="WplaconaKaucja" type="double" not-null="true" lazy="false"/>
-		<bag name="akcesoria" table="DaneWypozyczen_Akcesories" lazy="true" cascade="save-update,lock">
+		<bag name="wypozyczeniaAkcesoria" table="DaneWypozyczen_Akcesories" lazy="true" cascade="save-update,lock">
 			<key column="DaneWypozyczenID" not-null="true"/>
-			<many-to-many column="AkcesoriesID" class="entity.Akcesoria">
-			</many-to-many>
+			<one-to-many class="entity.WypozyczeniaAkcesoria"/>
 		</bag>
 	</class>
 </hibernate-mapping>
