@@ -62,6 +62,10 @@ public class WypozyczenieModel implements Model {
 		return wyn;
 	}
 	
+	public String[] allCountries(){
+		return Counties.counties;
+	}
+	
 	
 	
 	public static void main(String[] args) {

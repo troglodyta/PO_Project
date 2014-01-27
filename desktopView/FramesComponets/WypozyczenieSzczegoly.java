@@ -1,4 +1,5 @@
 package FramesComponets;
+import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.security.auth.callback.TextInputCallback;
@@ -17,7 +18,14 @@ import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
+import com.toedter.calendar.JDateChooser;
+
 import entity.*;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ItemListener;
 
 
 public class WypozyczenieSzczegoly extends JPanel {
@@ -28,17 +36,28 @@ public class WypozyczenieSzczegoly extends JPanel {
 	private JTextField txtMiejscowo;
 	private JTextField txtNrTelefonu;
 	private JTextField txtEmail;
-	private JTextField textField;
+	private JTextField txtNumerPrawaJazdy;
 	private JTextField txtNazwaFirmy;
 	private JTextField txtUlica_1;
 	private JTextField txtKodPocztowy_1;
 	private JTextField txtMiejscowo_1;
 	private JTextField txtNrNip;
+	private JCheckBox checkEdytujDane;
+	private JPanel panel_1;
+	private DatePanel datePanel;
+	private JComboBox txtKrajWydania ;
+	private JTextPane txtUwagi;
+	private JCheckBox checkNajemFirmowy;
+	private JComboBox comboPlec;
 
 	/**
 	 * Create the panel.
 	 */
-	
+	public void setCountries(String[] countries){
+		for(String name : countries){
+			txtKrajWydania.addItem(name);
+		}
+	}
 	public void setContent(Rezerwacja rez){
 		Klient klient = rez.getKlient();
 		txtImi.setText(klient.getImie());
@@ -50,6 +69,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 		txtNrTelefonu.setText(klient.getNumerTelefonu());
 		txtEmail.setText(klient.getEmail());
 		if(!klient.getFirmy().isEmpty()){
+			checkNajemFirmowy.setSelected(true);
 			Firma firma = (Firma) klient.getFirmy().toArray()[0];
 			txtNazwaFirmy.setText(firma.getNazwaFirmy());
 			Adres adresFirmy = firma.getAdres();
@@ -58,12 +78,32 @@ public class WypozyczenieSzczegoly extends JPanel {
 			txtMiejscowo_1.setText(adresFirmy.getMiejscowosc());
 			txtNrNip.setText(firma.getNIP());
 		}
+		txtKrajWydania.setSelectedItem(klient.getKrajWydaniaPrawaJazdy());
+		datePanel.setDate(klient.getDataUrodzenia());
+		txtNumerPrawaJazdy.setText(klient.getNumerPrawaJazdy());
+		txtUwagi.setText(rez.getUwagi());
+		int plecIndex = klient.getPlec().equals("M")? 0 : 1;
+		comboPlec.setSelectedIndex(plecIndex);
+		
 		
 	}
 	
+	public boolean isEditable() {
+		return checkEdytujDane.isSelected();
+	}
+	
+	public void setEditable(boolean editable){
+		for(Component c : panel_1.getComponents()){
+			c.setEnabled(editable);
+		}
+	}
+	
+	public void addEditableListener(ItemListener l){
+		checkEdytujDane.addItemListener(l);
+	}
 	
 	public WypozyczenieSzczegoly() {
-		setLayout(new MigLayout("", "[605.00,grow][]", "[grow]"));
+		setLayout(new MigLayout("", "[605.00,grow][][]", "[grow]"));
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(7, 7, 817, 578);
@@ -72,14 +112,14 @@ public class WypozyczenieSzczegoly extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 0, 712, 578);
-		add(scrollPane);
+		add(scrollPane, "cell 0 0");
 		scrollPane.setMaximumSize(new Dimension(800,800));
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setMaximumSize(new Dimension(100,100));
 		scrollPane.setViewportView(panel_1);
 		
-		JComboBox comboBox = new JComboBox();
+		comboPlec = new JComboBox(new String[]{"Pan", "Pani"});
 		
 		JLabel lblImi = new JLabel("Imi\u0119");
 		
@@ -123,23 +163,21 @@ public class WypozyczenieSzczegoly extends JPanel {
 		txtEmail.setText("E-mail");
 		txtEmail.setColumns(10);
 		
-		DatePanel datePanel = new DatePanel("Data urodzenia");
+		datePanel = new DatePanel("Data urodzenia");
 		
 		JLabel lblNrPrawaJazdy = new JLabel("Nr prawa jazdy");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		
+		txtNumerPrawaJazdy = new JTextField();
+		txtNumerPrawaJazdy.setColumns(10);
+		txtKrajWydania = new JComboBox();
 		JLabel lblKrajWydania = new JLabel("Kraj wydania");
 		
 		JLabel lblUwagi = new JLabel("Uwagi");
 		
-		JTextPane txtpnUwagi = new JTextPane();
-		txtpnUwagi.setText("Uwagi");
+		txtUwagi = new JTextPane();
+		txtUwagi.setText("Uwagi");
 		
-		JCheckBox chckbxNajemFirmowy = new JCheckBox("Najem firmowy");
+		checkNajemFirmowy = new JCheckBox("Najem firmowy");
 		
 		JLabel lblNazwaFirmy = new JLabel("Nazwa firmy");
 		
@@ -183,9 +221,6 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addContainerGap()
-									.addComponent(datePanel, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
-								.addGroup(gl_panel_1.createSequentialGroup()
-									.addContainerGap()
 									.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addContainerGap()
@@ -203,7 +238,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 										.addComponent(txtMiejscowo, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addGap(7)
-									.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
+									.addComponent(comboPlec, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addContainerGap()
 									.addComponent(lblUlica))
@@ -228,8 +263,8 @@ public class WypozyczenieSzczegoly extends JPanel {
 										.addComponent(lblKrajWydania))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBox_1, 0, 233, Short.MAX_VALUE)
-										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))))
+										.addComponent(txtKrajWydania, 0, 233, Short.MAX_VALUE)
+										.addComponent(txtNumerPrawaJazdy, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))))
 							.addGap(18))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addContainerGap()
@@ -243,7 +278,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtNrNip, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(chckbxNajemFirmowy)
+									.addComponent(checkNajemFirmowy)
 									.addComponent(lblNazwaFirmy)
 									.addComponent(txtNazwaFirmy, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 									.addComponent(lblUlica_1)
@@ -262,9 +297,13 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(10)
-							.addComponent(txtpnUwagi, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+							.addComponent(txtUwagi, GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE))
 						.addComponent(lblUwagi))
 					.addContainerGap())
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(datePanel, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+					.addGap(375))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -273,8 +312,8 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(chckbxNajemFirmowy))
+								.addComponent(comboPlec, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(checkNajemFirmowy))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblImi)
@@ -322,58 +361,62 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNrPrawaJazdy)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtNumerPrawaJazdy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtKrajWydania, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblKrajWydania))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblUwagi)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtpnUwagi, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtUwagi, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(65, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(663, 0, 154, 444);
-		add(panel);
+		add(panel, "cell 1 0,growx,aligny top");
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.rowHeights = new int[] {15, 50, 475};
+		gbl_panel.columnWidths = new int[] {67, 57, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		panel.setLayout(gbl_panel);
 		
 		JLabel lblOpcje = new JLabel("Opcje");
+		GridBagConstraints gbc_lblOpcje = new GridBagConstraints();
+		gbc_lblOpcje.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblOpcje.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOpcje.gridx = 0;
+		gbc_lblOpcje.gridy = 0;
+		panel.add(lblOpcje, gbc_lblOpcje);
 		
-		JCheckBox chckbxEdytujDane = new JCheckBox("Edytuj dane");
+		checkEdytujDane = new JCheckBox("Edytuj dane");
+		GridBagConstraints gbc_checkEdytujDane = new GridBagConstraints();
+		gbc_checkEdytujDane.anchor = GridBagConstraints.NORTHWEST;
+		gbc_checkEdytujDane.insets = new Insets(0, 0, 5, 0);
+		gbc_checkEdytujDane.gridwidth = 2;
+		gbc_checkEdytujDane.gridx = 0;
+		gbc_checkEdytujDane.gridy = 1;
+		panel.add(checkEdytujDane, gbc_checkEdytujDane);
 		
 		JButton btnPowrt = new JButton("Powr\u00F3t");
+		GridBagConstraints gbc_btnPowrt = new GridBagConstraints();
+		gbc_btnPowrt.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnPowrt.insets = new Insets(0, 0, 0, 5);
+		gbc_btnPowrt.gridx = 0;
+		gbc_btnPowrt.gridy = 3;
+		panel.add(btnPowrt, gbc_btnPowrt);
 		
 		JButton btnDalej = new JButton("Dalej");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblOpcje)
-						.addComponent(chckbxEdytujDane)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnPowrt)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnDalej)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblOpcje)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(chckbxEdytujDane)
-					.addPreferredGap(ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnPowrt)
-						.addComponent(btnDalej))
-					.addContainerGap())
-		);
-		panel.setLayout(gl_panel);
-		add(panel_2);
+		GridBagConstraints gbc_btnDalej = new GridBagConstraints();
+		gbc_btnDalej.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnDalej.gridx = 1;
+		gbc_btnDalej.gridy = 3;
+		panel.add(btnDalej, gbc_btnDalej);
+		add(panel_2, "cell 2 0");
+		
+		setEditable(false);
 	}
 }
