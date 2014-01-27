@@ -46,7 +46,7 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		Wypozyczenie wypozyczenie = (Wypozyczenie) this.getView();
-		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel("Wypozyczenie1");
+		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel(0);
 		WypozyczenieModel model = (WypozyczenieModel)this.getModel();
 		switch (wypozyczenie.getKarty().getSelectedIndex()) {
 		case 0:

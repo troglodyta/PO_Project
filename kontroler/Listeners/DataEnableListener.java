@@ -24,7 +24,7 @@ public class DataEnableListener extends AbstractSingleControler implements ItemL
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		Wypozyczenie wyp = (Wypozyczenie) this.getView();
-		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wyp.getWypozyczeniaPanel("Wypozyczenie1");
+		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wyp.getWypozyczeniaPanel(0);
 		boolean state = firstPanel.getCheckDataUtworzenia().isSelected();
 		firstPanel.getDataDo().setEnabled(state);
 		firstPanel.getDataOd().setEnabled(state);

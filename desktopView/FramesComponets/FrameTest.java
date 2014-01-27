@@ -1,6 +1,9 @@
 package FramesComponets;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.*;
 
 public class FrameTest extends JFrame {
@@ -9,7 +12,10 @@ public class FrameTest extends JFrame {
 		setVisible(true);
 		this.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(new Wypozyczenie1Panel());
+		JPanel p  = new WypozyczenieSzczegoly();
+		add(p);
+		//JLabel l= new JLabel( "ssss"                            );
+		//.setSize(1000, 1000);
 		setLocation(500,200);
 		pack();
 		frame=this;	

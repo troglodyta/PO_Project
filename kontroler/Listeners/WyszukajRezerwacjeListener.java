@@ -26,7 +26,7 @@ public class WyszukajRezerwacjeListener extends AbstractSingleControler implemen
 	public void actionPerformed(ActionEvent e) {
 		Wypozyczenie view = (Wypozyczenie)this.getView();
 		WypozyczenieModel mod = (WypozyczenieModel) this.getModel();
-		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) view.getWypozyczeniaPanel("Wypozyczenie1");
+		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) view.getWypozyczeniaPanel(0);
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		String idRezerwacji = (panel1.getTextNrRezerwacji().getText());
 		String imie = panel1.getTextImie().getText();

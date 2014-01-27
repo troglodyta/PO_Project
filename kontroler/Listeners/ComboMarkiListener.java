@@ -21,7 +21,7 @@ public class ComboMarkiListener extends AbstractSingleControler implements ItemL
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		Wypozyczenie wypozyczenie =(Wypozyczenie)this.getView();
-		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel("Wypozyczenie1");
+		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel(0);
 		WypozyczenieModel model = (WypozyczenieModel) this.getModel();
 		String selectedMarka = (String) firstPanel.getComboMarka().getSelectedItem();
 		String[] modele = model.getModel(selectedMarka);

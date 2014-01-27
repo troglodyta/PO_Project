@@ -37,11 +37,17 @@ public class WypozyczenieSzczegoly extends JPanel {
 	 */
 	public WypozyczenieSzczegoly() {
 		setLayout(null);
+		this.setSize(917, 713);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(7, 7, 817, 578);
+		
+		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(7, 7, 665, 595);
-		scrollPane.setMaximumSize(new Dimension(800,800));
+		scrollPane.setBounds(0, 0, 712, 578);
 		add(scrollPane);
+		scrollPane.setMaximumSize(new Dimension(800,800));
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setMaximumSize(new Dimension(100,100));
@@ -304,7 +310,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 		panel_1.setLayout(gl_panel_1);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(670, 7, 187, 595);
+		panel.setBounds(663, 0, 154, 444);
 		add(panel);
 		
 		JLabel lblOpcje = new JLabel("Opcje");
@@ -342,6 +348,6 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
-
+		add(panel_2);
 	}
 }

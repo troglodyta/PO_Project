@@ -33,6 +33,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.Label;
 import java.awt.TextField;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +55,8 @@ public class Wypozyczenie extends JFrame {
 	private JTable table_1;
 	private JTextField txtNrRejestracyjny;
 	private JTabbedPane karty;
-	private HashMap<String, JPanel> wypozyczeniePalels = new HashMap<String, JPanel>();
+	private ArrayList<JPanel> wypozyczeniePalels = new ArrayList<JPanel>();
+	private JPanel currentWypozyczeniaPanel;
 
 	/**
 	 * Launch the application.
@@ -192,9 +194,18 @@ public class Wypozyczenie extends JFrame {
 //		
 //	}
 
-
-	public JPanel getWypozyczeniaPanel(String name){
-		return wypozyczeniePalels.get(name);
+	public void setCurrentWypozyczeniaPanel(int index){
+		//currentWypozyczeniaPanel = wypozyczeniePalels.get(index);
+		currentWypozyczeniaPanel.remove(0);
+		currentWypozyczeniaPanel.add(wypozyczeniePalels.get(2));
+		this.revalidate();
+		this.repaint();
+		currentWypozyczeniaPanel.revalidate();
+		currentWypozyczeniaPanel.repaint();
+	}
+	
+	public JPanel getWypozyczeniaPanel(int index){
+		return wypozyczeniePalels.get(index);
 	}
 	
 	public JTabbedPane getKarty() {
@@ -419,10 +430,17 @@ public class Wypozyczenie extends JFrame {
 					.addContainerGap(82, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
+		JPanel wypozyczeniePanel = new Wypozyczenie1Panel();
+		JPanel szczegulyWypozyczenia1 = new WypozyczenieSzczegoly();
+		JPanel szczegulyWypozyczenia2 = new WypozyczenieSzczegoly2();
+		currentWypozyczeniaPanel = new JPanel();
+		currentWypozyczeniaPanel.add(wypozyczeniePanel);
 		
-		JPanel wypozyczenia = new Wypozyczenie1Panel();
-		wypozyczeniePalels.put("Wypozyczenie1", wypozyczenia);
-		karty.addTab("Wypo¿yczenia", null, wypozyczenia, null);
+		wypozyczeniePalels.add(wypozyczeniePanel);
+		wypozyczeniePalels.add(szczegulyWypozyczenia1);
+		wypozyczeniePalels.add(szczegulyWypozyczenia2);
+		
+		karty.addTab("Wypo¿yczenia", null, currentWypozyczeniaPanel, null);
 		String[] names = new String[]{"Nr rezerwacji", "Imiê", "Nazwisko", "Pojazd", "Data utworzenia", "Status"};
 		Object[][] v = new Object[][]{{1,"Jan","Kowalski","Skoda Fabia 1.2", "19-11-2013","Nie potwierdzona"}};
 		
