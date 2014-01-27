@@ -10,6 +10,7 @@ import javax.swing.event.ChangeListener;
 
 import FramesComponets.Wypozyczenie;
 import model.Model;
+import model.SessionStore;
 import model.WypozyczenieModel;
 import control.AbstractContoler;
 import control.AbstractSingleControler;
@@ -24,6 +25,7 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	private void setTableRows(Wypozyczenie wypozyczenie, WypozyczenieModel model){
 		List<Rezerwacja> rezerwacje = model.getWszytkieRezerwacje();
 		wypozyczenie.setRezerwacjeTable(rezerwacje);
+		SessionStore.INSTANCE.store("rezerwacjeList", rezerwacje);
 	}
 	
 	private void setComboMarka(Wypozyczenie wypozyczenie, WypozyczenieModel model){

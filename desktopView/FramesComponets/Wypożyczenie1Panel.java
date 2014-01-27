@@ -46,9 +46,7 @@ import entity.Rezerwacja;
 
 import javax.swing.BoxLayout;
 
-
-public class Wypozyczenie extends JFrame {
-
+public class Wypo¿yczenie1Panel {
 	private JPanel contentPane;
 	private JTextField textNrRezerwacji;
 	private JTextField textImie;
@@ -66,166 +64,9 @@ public class Wypozyczenie extends JFrame {
 	private JRadioButton radioWszystkie;
 	private JRadioButton radioPotwierdzone;
 	private JRadioButton radioNiepotwierdzone;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Wypozyczenie frame = new Wypozyczenie();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
-	public JButton getPrzyciskSzukaj() {
-		return przyciskSzukaj;
-	}
-	
-	public JRadioButton getRadioWszystkie() {
-		return radioWszystkie;
-	}
-
-	public JRadioButton getRadioPotwierdzone() {
-		return radioPotwierdzone;
-	}
-
-	public JRadioButton getRadioNiepotwierdzone() {
-		return radioNiepotwierdzone;
-	}
-
-	public JComboBox getComboModel() {
-		return comboModel;
-	}
-	
-	public JComboBox getComboMarka() {
-		return comboMarka;
-	}
-	
-	public JTextField getTextNrRezerwacji() {
-		return textNrRezerwacji;
-	}
-
-
-
-	public JDateChooser getDataOd() {
-		return dataOd;
-	}
-
-
-
-	public JDateChooser getDataDo() {
-		return dataDo;
-	}
-
-
-
-	public JCheckBox getCheckDataUtworzenia() {
-		return checkDataUtworzenia;
-	}
-
-
-
-	public void setTextNrRezerwacji(JTextField textNrRezerwacji) {
-		this.textNrRezerwacji = textNrRezerwacji;
-	}
-
-
-
-	public JTextField getTextImie() {
-		return textImie;
-	}
-
-
-
-	public void setTextImie(JTextField textImie) {
-		this.textImie = textImie;
-	}
-
-
-
-	public JTextField getTextNazwisko() {
-		return textNazwisko;
-	}
-
-
-
-	public void setTextNazwisko(JTextField textNazwisko) {
-		this.textNazwisko = textNazwisko;
-	}
-
-
-
-	public JTextField getTxtNrRejestracyjny() {
-		return txtNrRejestracyjny;
-	}
-
-
-
-	public void setTxtNrRejestracyjny(JTextField txtNrRejestracyjny) {
-		this.txtNrRejestracyjny = txtNrRejestracyjny;
-	}
-
-
-
-	public JTable getRezerwacjeTable() {
-		return rezerwacjeTable;
-	}
-
-
-
-	public void setRezerwacjeTable(List<Rezerwacja> rezerwacje) {
-		DefaultTableModel tableModel = ((DefaultTableModel) rezerwacjeTable.getModel());
-		while(tableModel.getRowCount()>0) {
-			((DefaultTableModel) rezerwacjeTable.getModel()).removeRow(0);
-		}
+	public Wypo¿yczenie1Panel() {
 		
-		for (Rezerwacja r : rezerwacje) {
-			Klient k = r.getKlient();
-			Pojazd p = r.getDaneWypozyczenia().getPojazd();
-			DaneModeluPojazdu daneP = p.getDanePojazdu();
-			String status = r.getCzyPotwierdzona() ? "Potwiedzona"
-					: "Nie potwierdzona";
-			Object[] row = new Object[] {
-					r.getID(),
-					k.getImie(),
-					k.getNazwisko(),
-					daneP.getMarka() + " " + daneP.getModel() + " "
-					+ daneP.getTyp(),
-					r.getDataRezerwacji().toString(), status };
-			tableModel.addRow(row);
-		}
-		
-	}
 
-
-
-	public JTabbedPane getKarty() {
-		return karty;
-	}
-
-
-
-	public void setKarty(JTabbedPane karty) {
-		this.karty = karty;
-	}
-
-
-
-	/**
-	 * Create the frame.
-	 */
-	public Wypozyczenie() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 809, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
 		
@@ -542,7 +383,6 @@ public class Wypozyczenie extends JFrame {
 		przyciskSzukaj = new JButton("Szukaj");
 		panel_1.add(przyciskSzukaj, "cell 0 17 2 1,growx");
 		contentPane.setLayout(gl_contentPane);
-		
-		
 	}
+
 }
