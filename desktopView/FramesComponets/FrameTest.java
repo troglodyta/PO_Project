@@ -9,7 +9,7 @@ public class FrameTest extends JFrame {
 		setVisible(true);
 		this.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		add(new DanePojazdowSzczeguly());
+		add(new Wypozyczenie1Panel());
 		setLocation(500,200);
 		pack();
 		frame=this;	
@@ -19,7 +19,7 @@ public class FrameTest extends JFrame {
 	EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
-				Wypozyczenie frame = new Wypozyczenie();
+				FrameTest frame = new FrameTest();
 				frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();

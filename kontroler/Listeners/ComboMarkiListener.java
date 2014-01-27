@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import javax.swing.JComboBox;
 
 import FramesComponets.Wypozyczenie;
+import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.WypozyczenieModel;
 import control.AbstractSingleControler;
@@ -20,10 +21,11 @@ public class ComboMarkiListener extends AbstractSingleControler implements ItemL
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		Wypozyczenie wypozyczenie =(Wypozyczenie)this.getView();
+		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel("Wypozyczenie1");
 		WypozyczenieModel model = (WypozyczenieModel) this.getModel();
-		String selectedMarka = (String) wypozyczenie.getComboMarka().getSelectedItem();
+		String selectedMarka = (String) firstPanel.getComboMarka().getSelectedItem();
 		String[] modele = model.getModel(selectedMarka);
-		JComboBox comboModel = wypozyczenie.getComboModel();
+		JComboBox comboModel = firstPanel.getComboModel();
 		
 		for (int i = 0; i<comboModel.getItemCount(); i++) {
 			comboModel.removeItemAt(0);

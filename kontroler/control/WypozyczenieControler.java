@@ -2,6 +2,7 @@ package control;
 
 import model.Model;
 import FramesComponets.Wypozyczenie;
+import FramesComponets.Wypozyczenie1Panel;
 import Listeners.ComboMarkiListener;
 import Listeners.DataEnableListener;
 import Listeners.KartyListener;
@@ -16,10 +17,12 @@ public class WypozyczenieControler extends AbstractContoler {
 		case "loadFirstFrame":
 			Wypozyczenie wyp = (Wypozyczenie) views.get("Wypozyczenie");
 			Model m = models.get("Wypozyczenie");
-			wyp.getRezerwacjeTable().getSelectionModel().addListSelectionListener(new RezerwacjeListListener(m, wyp));
-			wyp.getPrzyciskSzukaj().addActionListener(new WyszukajRezerwacjeListener(m,wyp));
-			wyp.getComboMarka().addItemListener(new ComboMarkiListener(m, wyp));
-			wyp.getCheckDataUtworzenia().addItemListener(new DataEnableListener(m, wyp));;
+			Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wyp.getWypozyczeniaPanel("Wypozyczenie1");
+			
+			firstPanel.getRezerwacjeTable().getSelectionModel().addListSelectionListener(new RezerwacjeListListener(m, wyp));
+			firstPanel.getPrzyciskSzukaj().addActionListener(new WyszukajRezerwacjeListener(m,wyp));
+			firstPanel.getComboMarka().addItemListener(new ComboMarkiListener(m, wyp));
+			firstPanel.getCheckDataUtworzenia().addItemListener(new DataEnableListener(m, wyp));;
 			wyp.getKarty().addChangeListener(new KartyListener(m, wyp));
 			wyp.setVisible(true);
 			break;

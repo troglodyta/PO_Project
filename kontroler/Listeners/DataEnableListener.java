@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import FramesComponets.Wypozyczenie;
+import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import control.AbstractContoler;
 import control.AbstractSingleControler;
@@ -23,9 +24,10 @@ public class DataEnableListener extends AbstractSingleControler implements ItemL
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		Wypozyczenie wyp = (Wypozyczenie) this.getView();
-		boolean state = wyp.getCheckDataUtworzenia().isSelected();
-		wyp.getDataDo().setEnabled(state);
-		wyp.getDataOd().setEnabled(state);
+		Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wyp.getWypozyczeniaPanel("Wypozyczenie1");
+		boolean state = firstPanel.getCheckDataUtworzenia().isSelected();
+		firstPanel.getDataDo().setEnabled(state);
+		firstPanel.getDataOd().setEnabled(state);
 		
 	}
 

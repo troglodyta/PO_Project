@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import FramesComponets.Wypozyczenie;
+import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.SessionStore;
 import model.WypozyczenieModel;
@@ -22,13 +23,14 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	public KartyListener(Model m, Component c) {
 		super(m, c);
 	}
-	private void setTableRows(Wypozyczenie wypozyczenie, WypozyczenieModel model){
+	private void setTableRows(Wypozyczenie1Panel wypozyczenie, WypozyczenieModel model){
 		List<Rezerwacja> rezerwacje = model.getWszytkieRezerwacje();
+		
 		wypozyczenie.setRezerwacjeTable(rezerwacje);
 		SessionStore.INSTANCE.store("rezerwacjeList", rezerwacje);
 	}
 	
-	private void setComboMarka(Wypozyczenie wypozyczenie, WypozyczenieModel model){
+	private void setComboMarka(Wypozyczenie1Panel wypozyczenie, WypozyczenieModel model){
 		String[] marki = model.getWszystkieMarki();
 		JComboBox comboMarki = wypozyczenie.getComboMarka();
 		
@@ -44,6 +46,7 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		Wypozyczenie wypozyczenie = (Wypozyczenie) this.getView();
+		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) wypozyczenie.getWypozyczeniaPanel("Wypozyczenie1");
 		WypozyczenieModel model = (WypozyczenieModel)this.getModel();
 		switch (wypozyczenie.getKarty().getSelectedIndex()) {
 		case 0:
@@ -53,8 +56,8 @@ public class KartyListener extends AbstractSingleControler implements ChangeList
 		case 2:
 			break;
 		case 3: {
-			setTableRows(wypozyczenie, model);
-			setComboMarka(wypozyczenie, model);
+			setTableRows(panel1, model);
+			setComboMarka(panel1, model);
 		}
 			break;
 

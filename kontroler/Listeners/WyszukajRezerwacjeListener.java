@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import FramesComponets.Wypozyczenie;
+import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.SessionStore;
 import model.WypozyczenieModel;
@@ -25,23 +26,24 @@ public class WyszukajRezerwacjeListener extends AbstractSingleControler implemen
 	public void actionPerformed(ActionEvent e) {
 		Wypozyczenie view = (Wypozyczenie)this.getView();
 		WypozyczenieModel mod = (WypozyczenieModel) this.getModel();
+		Wypozyczenie1Panel panel1 = (Wypozyczenie1Panel) view.getWypozyczeniaPanel("Wypozyczenie1");
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		String idRezerwacji = (view.getTextNrRezerwacji().getText());
-		String imie = view.getTextImie().getText();
-		String nazwisko = view.getTextNazwisko().getText();
-		String marka = (String) view.getComboMarka().getSelectedItem();
-		String model = (String) view.getComboModel().getSelectedItem();
+		String idRezerwacji = (panel1.getTextNrRezerwacji().getText());
+		String imie = panel1.getTextImie().getText();
+		String nazwisko = panel1.getTextNazwisko().getText();
+		String marka = (String) panel1.getComboMarka().getSelectedItem();
+		String model = (String) panel1.getComboModel().getSelectedItem();
 		Date dataOd = null;
 		Date dataDo = null;
 		Boolean status = null;
 		
-		if(!view.getRadioWszystkie().isSelected()){
-			status = view.getRadioPotwierdzone().isSelected();
+		if(!panel1.getRadioWszystkie().isSelected()){
+			status = panel1.getRadioPotwierdzone().isSelected();
 		}
 		
-		if(view.getCheckDataUtworzenia().isSelected()){
-			dataOd = view.getDataOd().getDate();
-			dataDo = view.getDataDo().getDate();
+		if(panel1.getCheckDataUtworzenia().isSelected()){
+			dataOd = panel1.getDataOd().getDate();
+			dataDo = panel1.getDataDo().getDate();
 		}
 		
 		if(idRezerwacji!=null && idRezerwacji.length()>0)
@@ -62,7 +64,7 @@ public class WyszukajRezerwacjeListener extends AbstractSingleControler implemen
 			params.put("status", status);
 		
 		List<Rezerwacja> rez = mod.getRezerwacjeByConditions(params);
-		view.setRezerwacjeTable(rez);
+		panel1.setRezerwacjeTable(rez);
 		SessionStore.INSTANCE.store("rezerwacjeList", rez);
 		
 	}
