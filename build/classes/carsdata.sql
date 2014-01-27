@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 26 Sty 2014, 17:44
--- Wersja serwera: 5.5.32
--- Wersja PHP: 5.4.19
+-- Czas wygenerowania: 27 Sty 2014, 07:03
+-- Wersja serwera: 5.5.34
+-- Wersja PHP: 5.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `carsdata`
 --
-CREATE DATABASE IF NOT EXISTS `carsdata` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `carsdata`;
 
 -- --------------------------------------------------------
 
@@ -58,16 +56,18 @@ CREATE TABLE IF NOT EXISTS `akcesories` (
   `OddzialyID` int(11) NOT NULL,
   `NazwaAkcesorium` varchar(255) NOT NULL,
   `CenaWypozyczenia` double NOT NULL,
+  `IloscWOddziale` int(4) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKAkcesories975413` (`OddzialyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Zrzut danych tabeli `akcesories`
 --
 
-INSERT INTO `akcesories` (`ID`, `OddzialyID`, `NazwaAkcesorium`, `CenaWypozyczenia`) VALUES
-(1, 1, 'Fotelik Samochodowy', 50);
+INSERT INTO `akcesories` (`ID`, `OddzialyID`, `NazwaAkcesorium`, `CenaWypozyczenia`, `IloscWOddziale`) VALUES
+(1, 1, 'Fotelik Samochodowy', 50, 20),
+(2, 1, 'Nawigacja GPS', 50, 15);
 
 -- --------------------------------------------------------
 
@@ -131,14 +131,16 @@ CREATE TABLE IF NOT EXISTS `danewypozyczen` (
   KEY `FKDaneWypozy704323` (`OddzialyID`),
   KEY `FKDaneWypozy139096` (`OddzialyID2`),
   KEY `FKDaneWypozy289303` (`PojazdyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Zrzut danych tabeli `danewypozyczen`
 --
 
 INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `DataGodzinaOd`, `DataGodzinaDo`, `DataWpatyZaliczki`, `DataWplatyKaucji`, `Platnosc`, `Kaucja`, `WplaconaZaliczka`, `WplaconaKaucja`) VALUES
-(1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500);
+(1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500),
+(2, 2, 1, 1, '2014-01-25 09:00:00', '2014-01-26 12:00:00', '2014-01-18', '2014-01-22', 300, 1500, 300, 0),
+(3, 3, 1, 1, '2014-01-31 08:00:00', '2014-02-01 10:00:00', '2014-01-17', '2014-01-17', 400, 1500, 400, 0);
 
 -- --------------------------------------------------------
 
@@ -149,17 +151,20 @@ INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `D
 CREATE TABLE IF NOT EXISTS `danewypozyczen_akcesories` (
   `DaneWypozyczenID` int(11) NOT NULL,
   `AkcesoriesID` int(11) NOT NULL,
-  PRIMARY KEY (`DaneWypozyczenID`,`AkcesoriesID`),
+  `Ilosc` int(4) NOT NULL,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`ID`),
   KEY `FKDaneWypozy751695` (`DaneWypozyczenID`),
   KEY `FKDaneWypozy400871` (`AkcesoriesID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Zrzut danych tabeli `danewypozyczen_akcesories`
 --
 
-INSERT INTO `danewypozyczen_akcesories` (`DaneWypozyczenID`, `AkcesoriesID`) VALUES
-(1, 1);
+INSERT INTO `danewypozyczen_akcesories` (`DaneWypozyczenID`, `AkcesoriesID`, `Ilosc`, `ID`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -226,7 +231,10 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 --
 
 INSERT INTO `klienci` (`NumerPrawaJazdy`, `KrajWydaniaPrawaJazdy`, `Znizka`, `OsobyID`) VALUES
-('M0092979', 'Polska', 0, 5);
+('M0092979', 'Polska', 0, 5),
+('AQR1235', 'Polska', 0, 6),
+('YUI2346', 'Polska', 0, 8),
+('UIY8765', 'Polska', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -287,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `osoby` (
   `Plec` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKOsoby394468` (`AdresyID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Zrzut danych tabeli `osoby`
@@ -297,7 +305,10 @@ INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzen
 (1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M'),
 (3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M'),
 (4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K'),
-(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K');
+(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K'),
+(6, 4, 'Wikotor', 'Janik', 'wjanik@o2.pl', '1987-12-10', 'M'),
+(8, 3, 'Oskar', 'Zwoliński', 'zwolin@wp.pl', '1980-04-22', 'M'),
+(9, 2, 'Justyna', 'Kubica', 'jKubica@gmail.com', '1978-01-11', 'K');
 
 -- --------------------------------------------------------
 
@@ -414,14 +425,16 @@ CREATE TABLE IF NOT EXISTS `rezerwacje` (
   KEY `Potwierdza` (`PracownicyOsobyID`),
   KEY `FKRezerwacje161361` (`KlienciOsobyID`),
   KEY `FKRezerwacje817441` (`DaneWypozyczenID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Zrzut danych tabeli `rezerwacje`
 --
 
 INSERT INTO `rezerwacje` (`ID`, `DaneWypozyczenID`, `KlienciOsobyID`, `PracownicyOsobyID`, `DataRezerwacji`, `Uwagi`, `SposobWplatyZaliczki`, `SposobWplatyKaucji`, `CzyPotwierdzona`, `CzyAnulowana`) VALUES
-(1, 1, 5, 3, '2014-01-14', 'brak uwag', 'Przelew', 'Przelew', 0, 0);
+(1, 1, 5, 3, '2014-01-14', 'brak uwag', 'Przelew', 'Przelew', 0, 0),
+(2, 2, 6, NULL, '2014-01-12', NULL, 'Przelew', 'Gotówka', 0, 0),
+(3, 3, 8, 4, '2014-01-02', NULL, 'Przelew', 'Gotówka', 1, 0);
 
 -- --------------------------------------------------------
 
