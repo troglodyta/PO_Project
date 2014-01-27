@@ -33,8 +33,8 @@ public class Pracownik extends entity.Osoba {
 	public Pracownik(int iD, Adres adres, String imie, String nazwisko,
 			String email, java.util.Date  dataUrodzenia, String plec, String numerKonta,
 			Date dataZatrudnienia, String login, String haslo,
-			Szef zatrudniajacy) {
-		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec);
+			Szef zatrudniajacy, String numerTelefonu) {
+		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec, numerTelefonu);
 		this.numerKonta = numerKonta;
 		this.dataZatrudnienia = dataZatrudnienia;
 		this.login = login;

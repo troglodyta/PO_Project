@@ -29,11 +29,13 @@ public abstract class Osoba extends Entity {
 	
 	private String plec;
 	
+	private String numerTelefonu;
+	
 	public Osoba() {
 	}
 	
 	public Osoba(int iD, Adres adres, String imie, String nazwisko,
-			String email, java.util.Date dataUrodzenia, String plec) {
+			String email, java.util.Date dataUrodzenia, String plec, String numerTelefonu) {
 		super();
 		ID = iD;
 		this.adres = adres;
@@ -42,11 +44,13 @@ public abstract class Osoba extends Entity {
 		this.email = email;
 		this.dataUrodzenia = dataUrodzenia;
 		this.plec = plec;
+		this.numerTelefonu = numerTelefonu;
 	}
 	
 	private void setID(int value) {
 		this.ID = value;
 	}
+
 	
 	public int getID() {
 		return ID;
@@ -54,6 +58,14 @@ public abstract class Osoba extends Entity {
 	
 	public int getORMID() {
 		return getID();
+	}
+	
+	public String getNumerTelefonu() {
+		return numerTelefonu;
+	}
+	
+	public void setNumerTelefonu(String numerTelefonu) {
+		this.numerTelefonu = numerTelefonu;
 	}
 	
 	public void setImie(String value) {
@@ -113,7 +125,7 @@ public abstract class Osoba extends Entity {
 	public String toString() {
 		return "Osoba [ID=" + ID + ", adres=" + adres + ", imie=" + imie
 				+ ", nazwisko=" + nazwisko + ", email=" + email
-				+ ", dataUrodzenia=" + dataUrodzenia + ", plec=" + plec + "]";
+				+ ", dataUrodzenia=" + dataUrodzenia + ", plec=" + plec + ", numerTelefonu=" + numerTelefonu + "]";
 	}
 	
 }

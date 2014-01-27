@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionListener;
 
 import FramesComponets.Wypozyczenie;
 import FramesComponets.Wypozyczenie1Panel;
+import FramesComponets.WypozyczenieSzczegoly;
 import model.Model;
 import model.SessionStore;
 import control.AbstractSingleControler;
@@ -31,6 +32,8 @@ public class RezerwacjeListListener extends AbstractSingleControler implements L
 				Rezerwacja wybrana = rezerwacje.get(index);
 				System.out.println(wybrana);
 				wypozyczenie.setCurrentWypozyczeniaPanel(1);
+				WypozyczenieSzczegoly panelSzczegoly= (WypozyczenieSzczegoly) wypozyczenie.getWypozyczeniaPanel(1);
+				panelSzczegoly.setContent(wybrana);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package FramesComponets;
 import java.awt.Dimension;
 
+import javax.security.auth.callback.TextInputCallback;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -15,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+
+import entity.*;
 
 
 public class WypozyczenieSzczegoly extends JPanel {
@@ -35,9 +38,32 @@ public class WypozyczenieSzczegoly extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	
+	public void setContent(Rezerwacja rez){
+		Klient klient = rez.getKlient();
+		txtImi.setText(klient.getImie());
+		Adres adres = klient.getAdres();
+		txtNazwisko.setText(klient.getNazwisko());
+		txtUlica.setText(adres.getUlica());
+		txtKodPocztowy.setText(adres.getKodPocztowy());
+		txtMiejscowo.setText(adres.getMiejscowosc());
+		txtNrTelefonu.setText(klient.getNumerTelefonu());
+		txtEmail.setText(klient.getEmail());
+		if(!klient.getFirmy().isEmpty()){
+			Firma firma = (Firma) klient.getFirmy().toArray()[0];
+			txtNazwaFirmy.setText(firma.getNazwaFirmy());
+			Adres adresFirmy = firma.getAdres();
+			txtUlica_1.setText(adresFirmy.getUlica());
+			txtKodPocztowy_1.setText(adresFirmy.getKodPocztowy());
+			txtMiejscowo_1.setText(adresFirmy.getMiejscowosc());
+			txtNrNip.setText(firma.getNIP());
+		}
+		
+	}
+	
+	
 	public WypozyczenieSzczegoly() {
-		setLayout(null);
-		this.setSize(917, 713);
+		setLayout(new MigLayout("", "[605.00,grow][]", "[grow]"));
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(7, 7, 817, 578);

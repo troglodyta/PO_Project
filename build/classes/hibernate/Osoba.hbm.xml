@@ -17,6 +17,7 @@ License Type: Evaluation
 		<property name="email" column="Email" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="dataUrodzenia" column="DataUrodzenia" type="date" not-null="true" lazy="false"/>
 		<property name="plec" column="Plec" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="numerTelefonu" column="Telefon" type="string" length="15" not-null="true" lazy="false"/>
 		
 		
 		<joined-subclass name="entity.Pracownik" table="Pracownicy" lazy="false">

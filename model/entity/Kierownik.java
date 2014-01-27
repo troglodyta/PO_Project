@@ -27,9 +27,9 @@ public class Kierownik extends entity.Pracownik {
 	public Kierownik(int iD, Adres adres, String imie, String nazwisko,
 			String email, Date dataUrodzenia, String plec, String numerKonta,
 			Date dataZatrudnienia, String login, String haslo,
-			Szef zatrudniajacy, Szef awansujacy, Oddzial odzial) {
+			Szef zatrudniajacy, Szef awansujacy, Oddzial odzial, String numerTelefonu) {
 		super(iD, adres, imie, nazwisko, email, dataUrodzenia, plec,
-				numerKonta, dataZatrudnienia, login, haslo, zatrudniajacy);
+				numerKonta, dataZatrudnienia, login, haslo, zatrudniajacy, numerTelefonu);
 		this.awansujacy = awansujacy;
 		this.odzial = odzial;
 	}

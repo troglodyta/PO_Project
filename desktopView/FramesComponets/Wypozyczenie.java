@@ -197,7 +197,7 @@ public class Wypozyczenie extends JFrame {
 	public void setCurrentWypozyczeniaPanel(int index){
 		//currentWypozyczeniaPanel = wypozyczeniePalels.get(index);
 		currentWypozyczeniaPanel.remove(0);
-		currentWypozyczeniaPanel.add(wypozyczeniePalels.get(2));
+		currentWypozyczeniaPanel.add(wypozyczeniePalels.get(index));
 		this.revalidate();
 		this.repaint();
 		currentWypozyczeniaPanel.revalidate();
