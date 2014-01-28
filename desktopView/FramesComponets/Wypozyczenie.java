@@ -47,6 +47,7 @@ import entity.Pojazd;
 import entity.Rezerwacja;
 
 import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
 
 public class Wypozyczenie extends JFrame {
@@ -73,11 +74,11 @@ public class Wypozyczenie extends JFrame {
 //			}
 //		});
 //	}
-	
+
 //	public JButton getPrzyciskSzukaj() {
 //		return przyciskSzukaj;
 //	}
-//	
+//
 //	public JRadioButton getRadioWszystkie() {
 //		return radioWszystkie;
 //	}
@@ -93,11 +94,11 @@ public class Wypozyczenie extends JFrame {
 //	public JComboBox getComboModel() {
 //		return comboModel;
 //	}
-//	
+//
 //	public JComboBox getComboMarka() {
 //		return comboMarka;
 //	}
-//	
+//
 //	public JTextField getTextNrRezerwacji() {
 //		return textNrRezerwacji;
 //	}
@@ -175,7 +176,7 @@ public class Wypozyczenie extends JFrame {
 //		while(tableModel.getRowCount()>0) {
 //			((DefaultTableModel) rezerwacjeTable.getModel()).removeRow(0);
 //		}
-//		
+//
 //		for (Rezerwacja r : rezerwacje) {
 //			Klient k = r.getKlient();
 //			Pojazd p = r.getDaneWypozyczenia().getPojazd();
@@ -191,7 +192,7 @@ public class Wypozyczenie extends JFrame {
 //					r.getDataRezerwacji().toString(), status };
 //			tableModel.addRow(row);
 //		}
-//		
+//
 //	}
 
 	public void setCurrentWypozyczeniaPanel(int index){
@@ -203,11 +204,11 @@ public class Wypozyczenie extends JFrame {
 		currentWypozyczeniaPanel.revalidate();
 		currentWypozyczeniaPanel.repaint();
 	}
-	
+
 	public JPanel getWypozyczeniaPanel(int index){
 		return wypozyczeniePalels.get(index);
 	}
-	
+
 	public JTabbedPane getKarty() {
 		return karty;
 	}
@@ -225,15 +226,15 @@ public class Wypozyczenie extends JFrame {
 	 */
 	public Wypozyczenie() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 809, 600);
+		setBounds(100, 100, 883, 730);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
-		
+
 		JButton btnWyloguj = new JButton("Wyloguj");
-		
+
 		JLabel lblZalogowanyJako = new JLabel("Zalogowany jako: ");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -255,15 +256,15 @@ public class Wypozyczenie extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		//panel.setLayout(new MigLayout("", "[]", "[]"));
-		
+
 		karty = new JTabbedPane(JTabbedPane.TOP);
 		ButtonGroup newOrImport=new ButtonGroup();
-		
+
 		ButtonGroup status=new ButtonGroup();
-		
+
 		JPanel rezerwacje = new JPanel();
 		karty.addTab("Rezerwacje", null, rezerwacje, null);
-		
+
 		JPanel zwroty = new JPanel();
 		karty.addTab("Zwroty", null, zwroty, null);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -279,16 +280,16 @@ public class Wypozyczenie extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(karty, GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE))
 		);
-		
+
 		JPanel danePojazdow = new JPanel();
 		karty.addTab("Dane pojazdów", null, danePojazdow, null);
 		danePojazdow.setLayout(new MigLayout("", "[545.00,grow][]", "[][grow]"));
-		
+
 		JPanel panel_3 = new JPanel();
 		danePojazdow.add(panel_3, "cell 0 0 2 1,grow");
-		
+
 		JButton button = new JButton("Dodaj");
-		
+
 		JButton button_1 = new JButton("Usu\u0144");
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
@@ -309,52 +310,52 @@ public class Wypozyczenie extends JFrame {
 						.addComponent(button_1)))
 		);
 		panel_3.setLayout(gl_panel_3);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		danePojazdow.add(scrollPane_1, "cell 0 1,grow");
-		
+
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
-		
+
 		JPanel panel_2 = new JPanel();
 		danePojazdow.add(panel_2, "cell 1 1,grow");
-		
+
 		JLabel label_1 = new JLabel("Szukaj pojazd\u00F3w");
-		
+
 		JLabel label_2 = new JLabel("Marka");
-		
+
 		JLabel label_3 = new JLabel("Model");
-		
+
 		JComboBox cboxMarka = new JComboBox();
-		
+
 		JComboBox cboxModel = new JComboBox();
-		
+
 		JLabel label_4 = new JLabel("Nr rejestracyjny");
-		
+
 		txtNrRejestracyjny = new JTextField();
 		txtNrRejestracyjny.setColumns(10);
-		
+
 		JLabel label_5 = new JLabel("Data przegl\u0105du");
-		
+
 		JLabel label_6 = new JLabel("Status");
-		
+
 		JRadioButton rbtnPojWszystkie = new JRadioButton("Wszystkie");
-		
+
 		JRadioButton rbtnPojWypozyczone = new JRadioButton("Wypo\u017Cyczone");
-		
+
 		JRadioButton rbtnPojWolne = new JRadioButton("Wolne");
-		
+
 		ButtonGroup statusPojazdu=new ButtonGroup();
 		statusPojazdu.add(rbtnPojWszystkie);
 		statusPojazdu.add(rbtnPojWypozyczone);
 		statusPojazdu.add(rbtnPojWolne);
-		
+
 		JButton btnPojazdSzukaj = new JButton("Szukaj");
-		
+
 		DatePanel datePrzegladOd = new DatePanel("Od");
-		
+
 		DatePanel datePrzegladDo = new DatePanel("Do");
-		
+
 		JButton btnPojazdResetuj = new JButton("Resetuj");
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
@@ -430,23 +431,27 @@ public class Wypozyczenie extends JFrame {
 					.addContainerGap(82, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
-		JPanel wypozyczeniePanel = new Wypozyczenie1Panel();
 		JPanel szczegulyWypozyczenia1 = new WypozyczenieSzczegoly();
 		JPanel szczegulyWypozyczenia2 = new WypozyczenieSzczegoly2();
 		currentWypozyczeniaPanel = new JPanel();
+		currentWypozyczeniaPanel.setLayout(new BorderLayout(0, 0));
+		JPanel wypozyczeniePanel = new Wypozyczenie1Panel();
+		FlowLayout flowLayout = (FlowLayout) wypozyczeniePanel.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
 		currentWypozyczeniaPanel.add(wypozyczeniePanel);
-		
 		wypozyczeniePalels.add(wypozyczeniePanel);
 		wypozyczeniePalels.add(szczegulyWypozyczenia1);
 		wypozyczeniePalels.add(szczegulyWypozyczenia2);
 		
 		karty.addTab("Wypo¿yczenia", null, currentWypozyczeniaPanel, null);
+
+			
 		String[] names = new String[]{"Nr rezerwacji", "Imiê", "Nazwisko", "Pojazd", "Data utworzenia", "Status"};
 		Object[][] v = new Object[][]{{1,"Jan","Kowalski","Skoda Fabia 1.2", "19-11-2013","Nie potwierdzona"}};
-		
+
 
 		contentPane.setLayout(gl_contentPane);
-		
-		
+
+
 	}
 }

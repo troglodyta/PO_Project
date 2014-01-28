@@ -378,7 +378,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 		panel.setBounds(663, 0, 154, 444);
 		add(panel, "cell 1 0,growx,aligny top");
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.rowHeights = new int[] {15, 50, 475};
+		gbl_panel.rowHeights = new int[] {15, 10, 450};
 		gbl_panel.columnWidths = new int[] {67, 57, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0};
