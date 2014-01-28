@@ -142,7 +142,7 @@ public class DBManager {//mój komentarz
 		List l3 = DBManager.INSTANCE.queryHibernate("select znizka from Klient",null);
 		System.out.println(l);
 		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
-		System.out.println(((Object[])l2.get(0))[1]);
+		System.out.println(((Object[])l2.get(0))[0]);
 //		System.out.println(szef);
 
 	}
