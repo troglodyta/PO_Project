@@ -36,7 +36,8 @@ public class RezerwacjeListListener extends AbstractSingleControler implements L
 				WypozyczenieSzczegoly panelSzczegoly= (WypozyczenieSzczegoly) wypozyczenie.getWypozyczeniaPanel(1);
 				String[] countries = model.allCountries();
 				panelSzczegoly.setCountries(countries);
-				panelSzczegoly.addEditableListener(new DaneOsoboweEditableListener(this.getModel(), panelSzczegoly));
+				panelSzczegoly.addButtonsListener(new WypozyczenieSzcegolyListener(model, wypozyczenie));
+				panelSzczegoly.addEditableListener(new DaneOsoboweEditableListener(model, panelSzczegoly));
 				panelSzczegoly.setContent(wybrana);
 				panelSzczegoly.setEditable(false);
 			}
