@@ -1,4 +1,4 @@
-package Listeners;
+package control;
 
 import java.awt.Component;
 import java.awt.event.ItemEvent;
@@ -10,8 +10,6 @@ import javax.swing.event.ChangeListener;
 import FramesComponets.Wypozyczenie;
 import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
-import control.AbstractContoler;
-import control.AbstractSingleControler;
 
 public class DataEnableListener extends AbstractSingleControler implements ItemListener {
 	

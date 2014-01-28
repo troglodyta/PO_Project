@@ -1,4 +1,4 @@
-package Listeners;
+package control;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,6 @@ import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.SessionStore;
 import model.WypozyczenieModel;
-import control.AbstractSingleControler;
 import entity.Rezerwacja;
 
 public class WyszukajRezerwacjeListener extends AbstractSingleControler implements ActionListener {

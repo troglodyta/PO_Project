@@ -1,4 +1,4 @@
-package Listeners;
+package control;
 
 import java.awt.Component;
 import java.awt.event.ItemEvent;
@@ -10,7 +10,6 @@ import FramesComponets.Wypozyczenie;
 import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.WypozyczenieModel;
-import control.AbstractSingleControler;
 
 public class ComboMarkiListener extends AbstractSingleControler implements ItemListener {
 

@@ -1,4 +1,4 @@
-package Listeners;
+package control;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -13,9 +13,6 @@ import FramesComponets.Wypozyczenie1Panel;
 import model.Model;
 import model.SessionStore;
 import model.WypozyczenieModel;
-import control.AbstractContoler;
-import control.AbstractSingleControler;
-import control.Controler;
 import entity.*;
 
 public class KartyListener extends AbstractSingleControler implements ChangeListener{

@@ -1,4 +1,4 @@
-package Listeners;
+package control;
 
 import java.awt.Component;
 import java.util.List;
@@ -13,7 +13,6 @@ import FramesComponets.WypozyczenieSzczegoly;
 import model.Model;
 import model.SessionStore;
 import model.WypozyczenieModel;
-import control.AbstractSingleControler;
 import entity.Rezerwacja;
 
 public class RezerwacjeListListener extends AbstractSingleControler implements ListSelectionListener {

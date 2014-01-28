@@ -3,11 +3,6 @@ package control;
 import model.Model;
 import FramesComponets.Wypozyczenie;
 import FramesComponets.Wypozyczenie1Panel;
-import Listeners.ComboMarkiListener;
-import Listeners.DataEnableListener;
-import Listeners.KartyListener;
-import Listeners.RezerwacjeListListener;
-import Listeners.WyszukajRezerwacjeListener;
 
 public class WypozyczenieControler extends AbstractContoler {
 	
