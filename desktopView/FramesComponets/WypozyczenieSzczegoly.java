@@ -35,6 +35,7 @@ import javax.swing.BoxLayout;
 import org.junit.experimental.theories.DataPoint;
 
 import java.awt.BorderLayout;
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -61,6 +62,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 	private JPanel panel_3;
 	private JButton powrot;
 	private DatePanel datePanel;
+	private JButton zapisz;
 
 	/**
 	 * Create the panel.
@@ -73,6 +75,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 
 	public void addButtonsListener(ActionListener l){
 		powrot.addActionListener(l);
+		zapisz.addActionListener(l);
 	}
 
 	public void setContent(Rezerwacja rez){
@@ -106,9 +109,44 @@ public class WypozyczenieSzczegoly extends JPanel {
 	}
 
 	public HashMap<String, Object> getFildsValue(){
+		HashMap<String, Object> danePol = new HashMap<String, Object>();
 		String imie = txtImi.getText();
 		String nazwisko = txtNazwisko.getText();
-		return null;
+		String ulica = txtUlica.getText();
+		String kodPocztowy = txtKodPocztowy.getText();
+		String miejscowosc = txtMiejscowo.getText();
+		String email = txtEmail.getText();
+		Date dataUr = datePanel.getDate();
+		String numerPrawaJazdy = txtNumerPrawaJazdy.getText();
+		String krajWydania = (String) txtKrajWydania.getSelectedItem();
+		String uwagi = txtUwagi.getText();
+
+		danePol.put("imie", imie);
+		danePol.put("nazwisko", nazwisko);
+		danePol.put("ulica", ulica);
+		danePol.put("kodPocztowy", kodPocztowy);
+		danePol.put("miejscowosc", miejscowosc);
+		danePol.put("email", email);
+		danePol.put("dataUrodzenia", dataUr);
+		danePol.put("numerPrawaJazdy", numerPrawaJazdy);
+		danePol.put("krajWydania", krajWydania);
+		danePol.put("uwagi", uwagi);
+
+		if(checkNajemFirmowy.isSelected()){
+			String nazwaFirmy = txtNazwaFirmy.getText();
+			String ulica2 = txtUlica_1.getText();
+			String kodPocztowyFirmy = txtKodPocztowy_1.getText();
+			String miejscowoscFirmy = txtMiejscowo_1.getText();
+			String NIP = txtNrNip.getText();
+
+			danePol.put("nazwaFirmy", nazwaFirmy);
+			danePol.put("ulicaFirmy", ulica2);
+			danePol.put("kodPocztowyFirmy", kodPocztowyFirmy);
+			danePol.put("miejscowoscFirmy", miejscowoscFirmy);
+			danePol.put("numerNIP", NIP);
+
+		}
+		return danePol;
 	}
 
 	public boolean isEditable() {
@@ -123,6 +161,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 
 	public void addEditableListener(ItemListener l){
 		checkEdytujDane.addItemListener(l);
+		
 	}
 
 	public WypozyczenieSzczegoly() {
@@ -402,7 +441,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 
 								checkEdytujDane = new JCheckBox("Edytuj dane");
 								panel_3.add(checkEdytujDane);
-		JButton zapisz = new JButton("Zapisz");
+		zapisz = new JButton("Zapisz");
 		JButton anuluj = new JButton("Anuluj");
 		JPanel panelZap = new JPanel(new GridLayout(1, 2));
 		panel.add(Box.createRigidArea(new Dimension(0,15)));

@@ -85,6 +85,7 @@ public class DBManagerTest {
 
 		DaneWypozyczenia daneWyp =w.getDaneWypozyczenia();
 		assertNotNull(daneWyp);
+	//	System.out.println(daneWyp.getFirma());
 		assertEquals(1, daneWyp.getID());
 
 		Collection a =   daneWyp.getWypozyczeniaAkcesoria();

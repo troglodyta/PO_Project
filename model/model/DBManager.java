@@ -34,13 +34,13 @@ public class DBManager {//mój komentarz
 	private SessionFactory sessionFactory;
 	private Session session;
 	public static final  DBManager INSTANCE = new DBManager();
-	
+
 	private DBManager(){
-		configuration=new Configuration();  
+		configuration=new Configuration();
 		sessionFactory=configuration.configure().buildSessionFactory();
 		session = sessionFactory.openSession();
 	}
-	
+
 	public Entity loadByID(String name, int id){
 		try {
 			session.beginTransaction();
@@ -54,25 +54,25 @@ public class DBManager {//mój komentarz
 			return null;
 		}
 	}
-	
+
 	public void saveEntity(Entity entity){
 		session.beginTransaction();
 		session.save(entity);
 		session.getTransaction().commit();
 	}
-	
+
 	public void updateEntity(Entity entity){
 		session.beginTransaction();
 		session.update(entity);
 		session.getTransaction().commit();
 	}
-	
+
 	public void deleteEntity(Entity entity){
 		session.beginTransaction();
 		session.delete(entity);
 		session.getTransaction().commit();
 	}
-	
+
 	public List queryHibernate(String hibernateSql, HashMap<String, Object> param) {
 		Query query = session.createQuery(hibernateSql);
 		if (param != null) {
@@ -83,7 +83,7 @@ public class DBManager {//mój komentarz
 		List<Object> results = query.list();
 		return results;
 	}
-	
+
 	public List<Object[]> querySQL(String sql, HashMap<String, Object> param) {
 		Query query = session.createSQLQuery(sql);
 		if (param != null) {
@@ -94,57 +94,9 @@ public class DBManager {//mój komentarz
 		List<Object[]> results = query.list();
 		return results;
 	}
-	
+
 	public void closeSession(){
 		session.close();
-	}
-	
-	
-	
-	public static void main(String[] args) {
-		//TODO dodaæ to do testów
-		Klient klient = (Klient)DBManager.INSTANCE.loadByID("Klient", 5);
-		System.out.println(klient);
-		Umowa u = (Umowa)klient.getUmowas().toArray()[0];
-		System.out.println(u);
-		Wypozyczenie w = u.getWypozyczenie();
-		System.out.println(w);
-		DaneWypozyczenia daneWyp =w.getDaneWypozyczenia();
-		System.out.println(daneWyp);
-		Collection a =   daneWyp.getWypozyczeniaAkcesoria();
-		System.out.println((WypozyczeniaAkcesoria)a.toArray()[0]);
-		Akcesoria akcesoria=((WypozyczeniaAkcesoria) a.toArray()[0]).getAkcesoria(); 
-		System.out.println(akcesoria);
-		Oddzial oddzial = akcesoria.getOddzial();
-		System.out.println(oddzial);
-		Kierownik kOddzialu = oddzial.getKierownik();
-		System.out.println(kOddzialu);
-		Szef awansujacy = kOddzialu.getAwansujacy();
-		System.out.println(awansujacy);
-		
-		Rezerwacja r = (Rezerwacja)klient.getRezerwacje().toArray()[0];
-		System.out.println(r);
-		DaneWypozyczenia daneWyp2 = r.getDaneWypozyczenia(); 
-		System.out.println(daneWyp2);
-		Oddzial zwr = daneWyp2.getOddzialZwrotu();
-		System.out.println(zwr);
-		Pojazd poj = daneWyp2.getPojazd();
-		System.out.println(poj);
-		DaneModeluPojazdu danePoj=poj.getDanePojazdu();
-		System.out.println(danePoj);
-		Polisa pol =poj.getPolisa();
-		System.out.println(pol);
-		Ubezpieczyciel ub = pol.getUbezpieczyciel();
-		System.out.println(ub);
-		HashMap<String, Object> param = new HashMap<String, Object>();
-		param.put("znizka", 0.0);
-		List l = DBManager.INSTANCE.queryHibernate("select k from Klient k where k.znizka = :znizka",param);
-		List l3 = DBManager.INSTANCE.queryHibernate("select znizka from Klient",null);
-		System.out.println(l);
-		List l2 = DBManager.INSTANCE.querySQL("select * from klienci",null); 
-		System.out.println(((Object[])l2.get(0))[0]);
-//		System.out.println(szef);
-
 	}
 
 }

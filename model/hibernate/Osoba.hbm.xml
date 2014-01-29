@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: 
+Licensee:
 License Type: Evaluation
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -18,8 +18,8 @@ License Type: Evaluation
 		<property name="dataUrodzenia" column="DataUrodzenia" type="date" not-null="true" lazy="false"/>
 		<property name="plec" column="Plec" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="numerTelefonu" column="Telefon" type="string" length="15" not-null="true" lazy="false"/>
-		
-		
+
+	
 		<joined-subclass name="entity.Pracownik" table="Pracownicy" lazy="false">
 			<key>
 				<column name="OsobyID"/>
@@ -42,7 +42,7 @@ License Type: Evaluation
 			</joined-subclass>
 		</joined-subclass>
 
-		
+
 
 		<joined-subclass name="entity.Szef" table="Szefowie" lazy="false">
 			<key>

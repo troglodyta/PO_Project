@@ -40,6 +40,7 @@ public class RezerwacjeListListener extends AbstractSingleControler implements L
 				panelSzczegoly.addEditableListener(new DaneOsoboweEditableListener(model, panelSzczegoly));
 				panelSzczegoly.setContent(wybrana);
 				panelSzczegoly.setEditable(false);
+				SessionStore.INSTANCE.store("indexRezerwacji", index);
 			}
 		}
 	}
