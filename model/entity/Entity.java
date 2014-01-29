@@ -1,7 +1,10 @@
 package entity;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 public class Entity {
@@ -14,15 +17,41 @@ public class Entity {
 		return false;
 	}
 
+	public Object getFieldValue(String name){
+		try {
+			Class c = Class.forName(this.getClass().getCanonicalName());
+			PropertyDescriptor propertyDescriptor = new PropertyDescriptor(name, this.getClass());
+			Method getter = propertyDescriptor.getReadMethod();
+			return getter.invoke(this, null);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IntrospectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	// TODO Dodac testy
 
 	// tablica params zawiera w kluczu nazwe pola klasy a jako wartosc przyjmuje
 	// wartosc, która ma
 	// zostac ustawiona dla pola
-	public void setFields(HashMap<String, Object> params) {
+	public boolean setFields(HashMap<String, Object> params) {
 		try {
 			Class c = Class.forName(this.getClass().getCanonicalName());
 			setFieldsClass(c, params);
+			return true;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,12 +64,19 @@ public class Entity {
 		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IntrospectionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	private void setFieldsClass(Class c, HashMap<String, Object> params)
 			throws IllegalArgumentException, IllegalAccessException,
-			SecurityException, InvocationTargetException {
+			SecurityException, InvocationTargetException, IntrospectionException {
 
 		if (c != null) {
 			System.out.println(c.getCanonicalName());
@@ -50,20 +86,9 @@ public class Entity {
 				if (params.containsKey(fieldName)) {
 					Object value = params.get(f.getName());
 					// pobranie gettera dla pola
-					java.lang.reflect.Method m;
-					try {
-						m = c.getMethod("set"
-								+ fieldName.substring(0, 1).toUpperCase()
-								+ fieldName.substring(1, fieldName.length()),
-								value.getClass());
-					} catch (NoSuchMethodException e) {
-						throw new IllegalArgumentException(c.getCanonicalName()
-								+ " metoda setter dla pola " + fieldName
-								+ " dla argumentu " + value.getClass()
-								+ " nie istniej");
-					}
-					// ustawienie wartoœci pola
-					m.invoke(this, value);
+					PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, this.getClass());
+					Method setter = propertyDescriptor.getWriteMethod();
+					setter.invoke(this, value);
 				}
 			}
 			Class superClass = c.getSuperclass();
@@ -78,5 +103,6 @@ public class Entity {
 		params.put("imie", "AAA");
 		a.setFields(params);
 		System.out.println(a);
+		System.out.println(a.getFieldValue("imie"));
 	}
 }
