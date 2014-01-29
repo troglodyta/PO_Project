@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 27 Sty 2014, 07:03
+-- Czas wygenerowania: 28 Sty 2014, 09:03
 -- Wersja serwera: 5.5.34
 -- Wersja PHP: 5.4.22
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresy` (
   `KodPocztowy` varchar(255) NOT NULL,
   `Miejscowosc` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
 
 --
 -- Zrzut danych tabeli `adresy`
@@ -293,6 +293,7 @@ CREATE TABLE IF NOT EXISTS `osoby` (
   `Email` varchar(255) NOT NULL,
   `DataUrodzenia` date NOT NULL,
   `Plec` varchar(255) NOT NULL,
+  `Telefon` int(15) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `FKOsoby394468` (`AdresyID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
@@ -301,14 +302,14 @@ CREATE TABLE IF NOT EXISTS `osoby` (
 -- Zrzut danych tabeli `osoby`
 --
 
-INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzenia`, `Plec`) VALUES
-(1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M'),
-(3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M'),
-(4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K'),
-(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K'),
-(6, 4, 'Wikotor', 'Janik', 'wjanik@o2.pl', '1987-12-10', 'M'),
-(8, 3, 'Oskar', 'Zwoliński', 'zwolin@wp.pl', '1980-04-22', 'M'),
-(9, 2, 'Justyna', 'Kubica', 'jKubica@gmail.com', '1978-01-11', 'K');
+INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzenia`, `Plec`, `Telefon`) VALUES
+(1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M', 698456785),
+(3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M', 786456785),
+(4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K', 657856912),
+(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K', 656245785),
+(6, 4, 'Wikotor', 'Janik', 'wjanik@o2.pl', '1987-12-10', 'M', 623457859),
+(8, 3, 'Oskar', 'Zwoliński', 'zwolin@wp.pl', '1980-04-22', 'M', 694254789),
+(9, 2, 'Justyna', 'Kubica', 'jKubica@gmail.com', '1978-01-11', 'K', 697452586);
 
 -- --------------------------------------------------------
 
@@ -479,7 +480,7 @@ CREATE TABLE IF NOT EXISTS `ubezpieczyciele` (
 --
 
 INSERT INTO `ubezpieczyciele` (`ID`, `AdresyID`, `NazwaUbezpieczyciela`, `Telefon`, `Email`) VALUES
-(1, 2, 'axa', '789456578', 'axa@gmail.com');
+(1, 2, 'AXA', '789456578', 'axa@gmail.com');
 
 -- --------------------------------------------------------
 
