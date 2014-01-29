@@ -48,6 +48,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 	private JTextField imie;
 	private JTextField nazwisko;
 	private JTextField ulica;
+	private JButton anuluj;
 	private JTextField kodPocztowy;
 	private JTextField miejscowosc;
 	private JTextField numerTelefonu;
@@ -86,6 +87,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 	public void addButtonsListener(ActionListener l){
 		powrot.addActionListener(l);
 		zapisz.addActionListener(l);
+		anuluj.addActionListener(l);
 	}
 
 	public void setContent(Rezerwacja rez){
@@ -510,7 +512,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 								checkEdytujDane = new JCheckBox("Edytuj dane");
 								panel_3.add(checkEdytujDane);
 		zapisz = new JButton("Zapisz");
-		JButton anuluj = new JButton("Anuluj");
+		anuluj = new JButton("Anuluj");
 		JPanel panelZap = new JPanel(new GridLayout(1, 2));
 		panel.add(Box.createRigidArea(new Dimension(0,15)));
 		panelZap.add(zapisz);

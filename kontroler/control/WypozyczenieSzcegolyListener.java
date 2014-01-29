@@ -59,6 +59,14 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 				DBManager.INSTANCE.updateEntity(rezerwacja);
 
 			break;
+		case "Anuluj":
+			WypozyczenieSzczegoly panel2 =(WypozyczenieSzczegoly)wypozyczenie.getWypozyczeniaPanel(1);
+			List<Rezerwacja> rezerwacje2= (List<Rezerwacja>) SessionStore.INSTANCE.load("rezerwacjeList");
+			Integer currentIndex2 = (Integer) SessionStore.INSTANCE.load("indexRezerwacji");
+			Rezerwacja rezerwacja2 = rezerwacje2.get(currentIndex2);
+			panel2.setContent(rezerwacja2);
+
+			break;
 
 		default:
 			break;
