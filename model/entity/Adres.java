@@ -39,7 +39,7 @@ public class Adres extends Entity {
 		this.miejscowosc = miejscowosc;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

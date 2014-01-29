@@ -60,7 +60,7 @@ public class Pojazd extends Entity {
 		this.polisa = polisa;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

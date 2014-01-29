@@ -35,41 +35,51 @@ import javax.swing.BoxLayout;
 import org.junit.experimental.theories.DataPoint;
 
 import java.awt.BorderLayout;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 
 
 public class WypozyczenieSzczegoly extends JPanel {
-	private JTextField txtImi;
-	private JTextField txtNazwisko;
-	private JTextField txtUlica;
-	private JTextField txtKodPocztowy;
-	private JTextField txtMiejscowo;
-	private JTextField txtNrTelefonu;
-	private JTextField txtEmail;
-	private JTextField txtNumerPrawaJazdy;
-	private JTextField txtNazwaFirmy;
-	private JTextField txtUlica_1;
-	private JTextField txtKodPocztowy_1;
-	private JTextField txtMiejscowo_1;
-	private JTextField txtNrNip;
+	private JTextField imie;
+	private JTextField nazwisko;
+	private JTextField ulica;
+	private JTextField kodPocztowy;
+	private JTextField miejscowosc;
+	private JTextField numerTelefonu;
+	private JTextField email;
+	private JTextField numerPrawaJazdy;
+	private JTextField nazwaFirmy;
+	private JTextField ulicaF;
+	private JTextField kodPocztowyF;
+	private JTextField miejscowoscF;
+	private JTextField NIP;
 	private JCheckBox checkEdytujDane;
 	private JPanel panel_1;
-	private JComboBox txtKrajWydania ;
-	private JTextPane txtUwagi;
+	private JComboBox krajWydaniaPrawaJazdy ;
+	private JTextPane uwagi;
 	private JCheckBox checkNajemFirmowy;
-	private JComboBox comboPlec;
+	private JComboBox plec;
 	private JPanel panel_3;
 	private JButton powrot;
-	private DatePanel datePanel;
+	private DatePanel dataUrodzenia;
 	private JButton zapisz;
+	private Component[] klientComponets;
+	private Component[] adresKlientComponets;
+	private Component[] rezerwacjaComponets = {uwagi};
+	private Component[] firmaComponents;
+	private Component[] adresFirmy;
 
 	/**
 	 * Create the panel.
 	 */
 	public void setCountries(String[] countries){
 		for(String name : countries){
-			txtKrajWydania.addItem(name);
+			krajWydaniaPrawaJazdy.addItem(name);
 		}
 	}
 
@@ -80,83 +90,131 @@ public class WypozyczenieSzczegoly extends JPanel {
 
 	public void setContent(Rezerwacja rez){
 		Klient klient = rez.getKlient();
-		txtImi.setText(klient.getImie());
-		Adres adres = klient.getAdres();
-		txtNazwisko.setText(klient.getNazwisko());
-		txtUlica.setText(adres.getUlica());
-		txtKodPocztowy.setText(adres.getKodPocztowy());
-		txtMiejscowo.setText(adres.getMiejscowosc());
-		txtNrTelefonu.setText(klient.getNumerTelefonu());
-		txtEmail.setText(klient.getEmail());
+		HashMap<String, Object> daneKlienta = klient.getFildsValues();
+		for(Component c: klientComponets){
+			if(c instanceof JTextField){
+				JTextField txt = (JTextField)c;
+				String value = (String) daneKlienta.get(txt.getName());
+				txt.setText(value);
+			}
+			else if(c instanceof DatePanel){
+				DatePanel datePanel = (DatePanel)c;
+				Date date = (Date) daneKlienta.get(datePanel.getName());
+				datePanel.setDate(date);
+			}
+			else if(c instanceof JComboBox){
+				JComboBox krajKombo = (JComboBox)c;
+				String value = (String) daneKlienta.get(krajKombo.getName());
+				krajKombo.setSelectedItem(value);
+			}
+		}
+		Adres adresKlienta = klient.getAdres();
+		HashMap<String, Object> daneAdresuKlienta = adresKlienta.getFildsValues();
+		for(Component c: adresKlientComponets){
+			JTextField txt = (JTextField)c;
+			String value = (String) daneAdresuKlienta.get(txt.getName());
+			txt.setText(value);
+		}
+
+
 		DaneWypozyczenia daneWypozyczanie = rez.getDaneWypozyczenia();
 		Firma firma = daneWypozyczanie.getFirma();
 		if(firma != null){
 			checkNajemFirmowy.setSelected(true);
-			txtNazwaFirmy.setText(firma.getNazwaFirmy());
+			nazwaFirmy.setText(firma.getNazwaFirmy());
 			Adres adresFirmy = firma.getAdres();
-			txtUlica_1.setText(adresFirmy.getUlica());
-			txtKodPocztowy_1.setText(adresFirmy.getKodPocztowy());
-			txtMiejscowo_1.setText(adresFirmy.getMiejscowosc());
-			txtNrNip.setText(firma.getNIP());
+			ulicaF.setText(adresFirmy.getUlica());
+			kodPocztowyF.setText(adresFirmy.getKodPocztowy());
+			miejscowoscF.setText(adresFirmy.getMiejscowosc());
+			NIP.setText(firma.getNIP());
+			System.out.println("ddd"+NIP.getName());
 		}
 		else{
 			checkNajemFirmowy.setSelected(false);
-			txtNazwaFirmy.setText("");
-			txtUlica_1.setText("");
-			txtKodPocztowy_1.setText("");
-			txtMiejscowo_1.setText("");
-			txtNrNip.setText("");
+			nazwaFirmy.setText("");
+			ulicaF.setText("");
+			kodPocztowyF.setText("");
+			miejscowoscF.setText("");
+			NIP.setText("");
 		}
 
-		txtKrajWydania.setSelectedItem(klient.getKrajWydaniaPrawaJazdy());
-		datePanel.setDate(klient.getDataUrodzenia());
-		txtNumerPrawaJazdy.setText(klient.getNumerPrawaJazdy());
-		txtUwagi.setText(rez.getUwagi());
+		uwagi.setText(rez.getUwagi());
 		int plecIndex = klient.getPlec().equals("M")? 0 : 1;
-		comboPlec.setSelectedIndex(plecIndex);
+		plec.setSelectedIndex(plecIndex);
 
 
 	}
-
-	public HashMap<String, Object> getFildsValue(){
-		HashMap<String, Object> danePol = new HashMap<String, Object>();
-		String imie = txtImi.getText();
-		String nazwisko = txtNazwisko.getText();
-		String ulica = txtUlica.getText();
-		String kodPocztowy = txtKodPocztowy.getText();
-		String miejscowosc = txtMiejscowo.getText();
-		String email = txtEmail.getText();
-		Date dataUr = datePanel.getDate();
-		String numerPrawaJazdy = txtNumerPrawaJazdy.getText();
-		String krajWydania = (String) txtKrajWydania.getSelectedItem();
-		String uwagi = txtUwagi.getText();
-
-		danePol.put("imie", imie);
-		danePol.put("nazwisko", nazwisko);
-		danePol.put("ulica", ulica);
-		danePol.put("kodPocztowy", kodPocztowy);
-		danePol.put("miejscowosc", miejscowosc);
-		danePol.put("email", email);
-		danePol.put("dataUrodzenia", dataUr);
-		danePol.put("numerPrawaJazdy", numerPrawaJazdy);
-		danePol.put("krajWydania", krajWydania);
-		danePol.put("uwagi", uwagi);
-
-		if(checkNajemFirmowy.isSelected()){
-			String nazwaFirmy = txtNazwaFirmy.getText();
-			String ulica2 = txtUlica_1.getText();
-			String kodPocztowyFirmy = txtKodPocztowy_1.getText();
-			String miejscowoscFirmy = txtMiejscowo_1.getText();
-			String NIP = txtNrNip.getText();
-
-			danePol.put("nazwaFirmy", nazwaFirmy);
-			danePol.put("ulicaFirmy", ulica2);
-			danePol.put("kodPocztowyFirmy", kodPocztowyFirmy);
-			danePol.put("miejscowoscFirmy", miejscowoscFirmy);
-			danePol.put("numerNIP", NIP);
-
+	private void fillHashMap(Component[] cmp,HashMap<String, Object> map){
+		for(Component c: cmp){
+			if(c instanceof JTextField){
+				JTextField txt = (JTextField)c;
+				map.put(txt.getName(), txt.getText());
+			}
+			else if(c instanceof JComboBox){
+				JComboBox combo = (JComboBox)c;
+				map.put(combo.getName(), combo.getSelectedItem());
+			}
+			else if(c instanceof JCheckBox){
+				JCheckBox box = (JCheckBox)c;
+				map.put(box.getName(), box.isSelected());
+			}
+			else if(c instanceof DatePanel){
+				DatePanel date = (DatePanel)c;
+				map.put(date.getName(), date.getDate());
+			}
 		}
-		return danePol;
+	}
+
+	public HashMap<String, Object>[] getFildsValue(){
+		System.out.println(miejscowoscF.getName());
+		System.out.println(ulicaF.getName());
+		HashMap<String, Object> daneKlienta = new HashMap<String, Object>();
+		HashMap<String, Object> daneFirmy = new HashMap<String, Object>();
+		fillHashMap(klientComponets, daneKlienta);
+		fillHashMap(adresKlientComponets, daneKlienta);
+		fillHashMap(firmaComponents, daneFirmy);
+		fillHashMap(adresFirmy, daneFirmy);
+//		String imie = imie.getText();
+//		String nazwisko = nazwisko.getText();
+//		String ulica = ulica.getText();
+//		String kodPocztowy = kodPocztowy.getText();
+//		String miejscowosc = miejscowosc.getText();
+//		String email = email.getText();
+//		Date dataUr = datePanel.getDate();
+//		String numerPrawaJazdy = txtNumerPrawaJazdy.getText();
+//		String krajWydania = (String) txtKrajWydania.getSelectedItem();
+//		String uwagi = txtUwagi.getText();
+		String plecStr = plec.getSelectedItem().equals("Pan")? "M":"K";
+		daneKlienta.put(plec.getName(), plecStr);
+
+//		danePol.put("imie", imie);
+//		danePol.put("nazwisko", nazwisko);
+//		danePol.put("ulica", ulica);
+//		danePol.put("kodPocztowy", kodPocztowy);
+//		danePol.put("miejscowosc", miejscowosc);
+//		danePol.put("email", email);
+//		danePol.put("dataUrodzenia", dataUr);
+//		danePol.put("numerPrawaJazdy", numerPrawaJazdy);
+//		danePol.put("krajWydania", krajWydania);
+		daneKlienta.put(uwagi.getName(), uwagi.getText());
+//
+//		if(checkNajemFirmowy.isSelected()){
+//			String nazwaFirmy = nazwaFirmy.getText();
+//			String ulica2 = ulicaF.getText();
+//			String kodPocztowyFirmy = kodPocztowyF.getText();
+//			String miejscowoscFirmy = miejscowoscF.getText();
+//			String NIP = NIP.getText();
+//
+//			danePol.put("nazwaFirmy", nazwaFirmy);
+//			danePol.put("ulicaFirmy", ulica2);
+//			danePol.put("kodPocztowyFirmy", kodPocztowyFirmy);
+//			danePol.put("miejscowoscFirmy", miejscowoscFirmy);
+//			danePol.put("numerNIP", NIP);
+//
+//		}
+		HashMap[] dane = new HashMap[]{daneKlienta, daneFirmy};
+		return dane;
+//		return danePol;
 	}
 
 	public boolean isEditable() {
@@ -189,94 +247,94 @@ public class WypozyczenieSzczegoly extends JPanel {
 		panel_1.setMaximumSize(new Dimension(100,100));
 		scrollPane.setViewportView(panel_1);
 
-		comboPlec = new JComboBox(new String[]{"Pan", "Pani"});
+		plec = new JComboBox(new String[]{"Pan", "Pani"});
 
 		JLabel lblImi = new JLabel("Imi\u0119");
 
 		JLabel lblNazwisko = new JLabel("Nazwisko");
 
-		txtImi = new JTextField();
-		txtImi.setText("Imi\u0119");
-		txtImi.setColumns(10);
+		imie = new JTextField();
+		imie.setText("Imi\u0119");
+		imie.setColumns(10);
 
-		txtNazwisko = new JTextField();
-		txtNazwisko.setText("Nazwisko");
-		txtNazwisko.setColumns(10);
+		nazwisko = new JTextField();
+		nazwisko.setText("Nazwisko");
+		nazwisko.setColumns(10);
 
 		JLabel lblUlica = new JLabel("Ulica");
 
-		txtUlica = new JTextField();
-		txtUlica.setText("Ulica");
-		txtUlica.setColumns(10);
+		ulica = new JTextField();
+		ulica.setText("Ulica");
+		ulica.setColumns(10);
 
 		JLabel lblKodPocztowy = new JLabel("Kod pocztowy");
 
-		txtKodPocztowy = new JTextField();
-		txtKodPocztowy.setText("Kod pocztowy");
-		txtKodPocztowy.setColumns(10);
+		kodPocztowy = new JTextField();
+		kodPocztowy.setText("Kod pocztowy");
+		kodPocztowy.setColumns(10);
 
-		txtMiejscowo = new JTextField();
-		txtMiejscowo.setText("Miejscowo\u015B\u0107");
-		txtMiejscowo.setColumns(10);
+		miejscowosc = new JTextField();
+		miejscowosc.setText("Miejscowo\u015B\u0107");
+		miejscowosc.setColumns(10);
 
 		JLabel lblMiejscowo = new JLabel("Miejscowo\u015B\u0107");
 
 		JLabel lblNrTelefonu = new JLabel("Nr Telefonu");
 
-		txtNrTelefonu = new JTextField();
-		txtNrTelefonu.setText("Nr Telefonu");
-		txtNrTelefonu.setColumns(10);
+		numerTelefonu = new JTextField();
+		numerTelefonu.setText("Nr Telefonu");
+		numerTelefonu.setColumns(10);
 
 		JLabel lblEmail = new JLabel("E-mail");
 
-		txtEmail = new JTextField();
-		txtEmail.setText("E-mail");
-		txtEmail.setColumns(10);
+		email = new JTextField();
+		email.setText("E-mail");
+		email.setColumns(10);
 		JLabel lblNrPrawaJazdy = new JLabel("Nr prawa jazdy");
 
-		txtNumerPrawaJazdy = new JTextField();
-		txtNumerPrawaJazdy.setColumns(10);
-		txtKrajWydania = new JComboBox();
+		numerPrawaJazdy = new JTextField();
+		numerPrawaJazdy.setColumns(10);
+		krajWydaniaPrawaJazdy = new JComboBox();
 		JLabel lblKrajWydania = new JLabel("Kraj wydania");
 
 		JLabel lblUwagi = new JLabel("Uwagi");
 
-		txtUwagi = new JTextPane();
-		txtUwagi.setText("Uwagi");
+		uwagi = new JTextPane();
+		uwagi.setText("Uwagi");
 
 		checkNajemFirmowy = new JCheckBox("Najem firmowy");
 
 		JLabel lblNazwaFirmy = new JLabel("Nazwa firmy");
 
-		txtNazwaFirmy = new JTextField();
-		txtNazwaFirmy.setText("Nazwa firmy");
-		txtNazwaFirmy.setColumns(10);
+		nazwaFirmy = new JTextField();
+		nazwaFirmy.setText("Nazwa firmy");
+		nazwaFirmy.setColumns(10);
 
 		JLabel lblUlica_1 = new JLabel("Ulica");
 
-		txtUlica_1 = new JTextField();
-		txtUlica_1.setText("Ulica");
-		txtUlica_1.setColumns(10);
+		ulicaF = new JTextField();
+		ulicaF.setText("Ulica");
+		ulicaF.setColumns(10);
 
 		JLabel lblKodPocztowy_1 = new JLabel("Kod pocztowy");
 
-		txtKodPocztowy_1 = new JTextField();
-		txtKodPocztowy_1.setText("Kod pocztowy");
-		txtKodPocztowy_1.setColumns(10);
+		kodPocztowyF = new JTextField();
+		kodPocztowyF.setText("Kod pocztowy");
+		kodPocztowyF.setColumns(10);
 
 		JLabel lblMiejscowo_1 = new JLabel("Miejscowo\u015B\u0107");
 
-		txtMiejscowo_1 = new JTextField();
-		txtMiejscowo_1.setText("Miejscowo\u015B\u0107");
-		txtMiejscowo_1.setColumns(10);
+		miejscowoscF = new JTextField();
+		miejscowoscF.setText("Miejscowo\u015B\u0107");
+		miejscowoscF.setColumns(10);
 
 		JLabel lblNrNip = new JLabel("Nr NIP");
 
-		txtNrNip = new JTextField();
-		txtNrNip.setText("Nr NIP");
-		txtNrNip.setColumns(10);
+		NIP = new JTextField();
+		NIP.setText("Nr NIP");
+		NIP.setColumns(10);
 
-		datePanel = new DatePanel("Data urodzenia");
+		dataUrodzenia = new DatePanel("Data urodzenia");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -291,46 +349,46 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
-										.addComponent(txtNrTelefonu, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+										.addComponent(email, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+										.addComponent(numerTelefonu, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
 										.addGroup(gl_panel_1.createSequentialGroup()
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblKodPocztowy)
-												.addComponent(txtKodPocztowy, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+												.addComponent(kodPocztowy, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_panel_1.createSequentialGroup()
 													.addComponent(lblMiejscowo)
 													.addPreferredGap(ComponentPlacement.RELATED, 154, Short.MAX_VALUE))
-												.addComponent(txtMiejscowo, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
+												.addComponent(miejscowosc, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)))
 										.addComponent(lblUlica)
-										.addComponent(txtUlica, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+										.addComponent(ulica, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
 										.addGroup(gl_panel_1.createSequentialGroup()
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblImi)
-												.addComponent(txtImi, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+												.addComponent(imie, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 											.addPreferredGap(ComponentPlacement.UNRELATED)
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_panel_1.createSequentialGroup()
 													.addComponent(lblNazwisko)
 													.addPreferredGap(ComponentPlacement.RELATED, 189, Short.MAX_VALUE))
-												.addComponent(txtNazwisko, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
+												.addComponent(nazwisko, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))
 										.addGroup(gl_panel_1.createSequentialGroup()
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 												.addComponent(lblNrPrawaJazdy, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
 												.addComponent(lblKrajWydania))
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-												.addComponent(txtNumerPrawaJazdy, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-												.addComponent(txtKrajWydania, 0, 245, Short.MAX_VALUE)))
-										.addComponent(datePanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+												.addComponent(numerPrawaJazdy, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+												.addComponent(krajWydaniaPrawaJazdy, 0, 245, Short.MAX_VALUE)))
+										.addComponent(dataUrodzenia, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
 									.addGap(18))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addComponent(lblNrTelefonu)
 									.addGap(287))))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(7)
-							.addComponent(comboPlec, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+							.addComponent(plec, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_1.createSequentialGroup()
@@ -338,27 +396,27 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addContainerGap(337, Short.MAX_VALUE))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtNrNip, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+								.addComponent(NIP, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
 								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(checkNajemFirmowy)
 									.addComponent(lblNazwaFirmy)
-									.addComponent(txtNazwaFirmy, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+									.addComponent(nazwaFirmy, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 									.addComponent(lblUlica_1)
-									.addComponent(txtUlica_1))
+									.addComponent(ulicaF))
 								.addGroup(gl_panel_1.createSequentialGroup()
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblKodPocztowy_1)
-										.addComponent(txtKodPocztowy_1, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+										.addComponent(kodPocztowyF, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtMiejscowo_1, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+										.addComponent(miejscowoscF, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 										.addComponent(lblMiejscowo_1))))
 							.addGap(146))))
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblUwagi)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtUwagi, GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+					.addComponent(uwagi, GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_1.setVerticalGroup(
@@ -368,7 +426,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(comboPlec, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(plec, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 								.addComponent(checkNajemFirmowy))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -377,17 +435,17 @@ public class WypozyczenieSzczegoly extends JPanel {
 						.addComponent(lblNazwisko))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtImi, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtNazwisko, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtNazwaFirmy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(imie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nazwisko, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nazwaFirmy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUlica)
 						.addComponent(lblUlica_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtUlica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtUlica_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ulica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ulicaF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblKodPocztowy)
@@ -396,31 +454,31 @@ public class WypozyczenieSzczegoly extends JPanel {
 						.addComponent(lblMiejscowo_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtKodPocztowy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtMiejscowo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtKodPocztowy_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtMiejscowo_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(kodPocztowy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(miejscowosc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(kodPocztowyF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(miejscowoscF, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNrTelefonu)
 						.addComponent(lblNrNip))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtNrTelefonu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtNrNip, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(numerTelefonu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(NIP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblEmail)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(email, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					.addComponent(dataUrodzenia, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNrPrawaJazdy)
-						.addComponent(txtNumerPrawaJazdy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(numerPrawaJazdy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtKrajWydania, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(krajWydaniaPrawaJazdy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblKrajWydania))
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_1.createSequentialGroup()
@@ -428,7 +486,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 							.addComponent(lblUwagi))
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGap(18)
-							.addComponent(txtUwagi, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(uwagi, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(78, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
@@ -467,5 +525,34 @@ public class WypozyczenieSzczegoly extends JPanel {
 		buttons.add(dalej);
 		panel.add(buttons);
 		setEditable(false);
+
+		// set component name
+		try {
+			Class c = Class.forName(this.getClass().getCanonicalName());
+			Field[] fields = c.getDeclaredFields();
+			for (Field f : fields) {
+				if( Component.class.isAssignableFrom(f.getType())){
+					Component comp =(Component) f.get(this);
+					comp.setName(f.getName());
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		miejscowoscF.setName("miejscowosc");
+		ulicaF.setName("ulica");
+		kodPocztowyF.setName("kodPocztowy");
+
+		klientComponets= new Component[]{imie, nazwisko, numerTelefonu,email,dataUrodzenia,krajWydaniaPrawaJazdy, numerPrawaJazdy};
+		adresKlientComponets = new Component[]{ulica, miejscowosc, kodPocztowy};
+		firmaComponents = new Component[]{nazwaFirmy, NIP};
+		adresFirmy = new Component[]{ulicaF, kodPocztowyF, nazwaFirmy,miejscowoscF};
 	}
 }

@@ -34,7 +34,7 @@ public class Firma extends Entity {
 		this.NIP = NIP;
 	}
 
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

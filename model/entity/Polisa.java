@@ -39,7 +39,7 @@ public class Polisa extends Entity {
 		this.ubezpieczyciel = ubezpieczyciel;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

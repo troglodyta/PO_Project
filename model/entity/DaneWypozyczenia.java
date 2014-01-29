@@ -70,7 +70,7 @@ public class DaneWypozyczenia extends Entity {
 		this.firma = firma;
 	}
 
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 

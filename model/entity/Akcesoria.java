@@ -46,7 +46,7 @@ public class Akcesoria  extends Entity {
 		this.iloscWOddziale = iloscWOddziale;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

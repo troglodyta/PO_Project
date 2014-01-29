@@ -40,7 +40,7 @@ public class Umowa extends Entity {
 		this.klient = klient;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

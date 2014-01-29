@@ -16,7 +16,9 @@ public class Entity {
 		}
 		return false;
 	}
-
+	//TODO testy metody
+	//Metoda zwraca wartosc pola klasy o podanej nazwie
+	//Je¿eli pole o podanej nazwie nie istnieje zwaca null
 	public Object getFieldValue(String name){
 		try {
 			Class c = Class.forName(this.getClass().getCanonicalName());
@@ -97,12 +99,44 @@ public class Entity {
 
 	}
 
+	public HashMap<String, Object> getFildsValues(){
+		HashMap<String , Object> values = new HashMap<String , Object>();
+		Class c;
+		try {
+			c = Class.forName(this.getClass().getCanonicalName());
+			getFildsValues(c, values);
+			return values;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	private void getFildsValues(Class c, HashMap<String, Object> values) throws ClassNotFoundException{
+
+		if(c != null){
+			Field[] fields = c.getDeclaredFields();
+			for(Field f: fields){
+				values.put(f.getName(), getFieldValue(f.getName()));
+			}
+			Class superClass = c.getSuperclass();
+			getFildsValues(superClass, values);
+		}
+
+	}
+
+
+
 	public static void main(String[] args) {
 		Klient a = new Klient();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("imie", "AAA");
 		a.setFields(params);
-		System.out.println(a);
+	
+			System.out.println(a.getFildsValues());
+		
 		System.out.println(a.getFieldValue("imie"));
 	}
 }

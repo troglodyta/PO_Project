@@ -71,7 +71,7 @@ public class DaneModeluPojazdu extends Entity {
 		this.cenaRynkowa = cenaRynkowa;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

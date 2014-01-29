@@ -55,7 +55,7 @@ public class Rezerwacja extends Entity {
 		this.daneWypozyczenia = daneWypozyczenia;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

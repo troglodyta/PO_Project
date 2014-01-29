@@ -63,8 +63,11 @@ public class DBManager {//mój komentarz
 
 	public void updateEntity(Entity entity){
 		session.beginTransaction();
+		System.out.println("sss");
 		session.update(entity);
+		System.out.println("ccc");
 		session.getTransaction().commit();
+		System.out.println("CCcc");
 	}
 
 	public void deleteEntity(Entity entity){

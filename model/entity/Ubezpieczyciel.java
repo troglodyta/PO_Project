@@ -25,7 +25,7 @@ public class Ubezpieczyciel extends Entity {
 	
 	private String email;
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	

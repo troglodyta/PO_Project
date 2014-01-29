@@ -11,16 +11,16 @@ import model.WypozyczenieModel;
 
 public class MainControler extends AbstractContoler {
 	private HashMap<String, Controler> controlers = new HashMap<String, Controler >();
-	
+
 	public MainControler() {
 		super();
 		Controler wypozyczenieC = (Controler) new WypozyczenieControler();
 		controlers.put("Wypozyczenie", wypozyczenieC);
-		
+
 		wypozyczenieC.addModel("Wypozyczenie", new WypozyczenieModel());
 		wypozyczenieC.addView("Wypozyczenie", new Wypozyczenie());
 	}
-	
+
 	@Override
 	public void act(String operation) {
 		switch (operation) {
@@ -33,9 +33,9 @@ public class MainControler extends AbstractContoler {
 			break;
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		MainControler mc= new MainControler();
 		mc.act("loadFirstFrame");
 	}
-}	
+}

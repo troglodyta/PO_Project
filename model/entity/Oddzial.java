@@ -38,7 +38,7 @@ public class Oddzial extends Entity {
 		this.kierownik = kierownik;
 	}
 	
-	private void setID(int value) {
+	public void setID(int value) {
 		this.ID = value;
 	}
 	
