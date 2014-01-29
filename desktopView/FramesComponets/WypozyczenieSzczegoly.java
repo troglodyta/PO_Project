@@ -88,9 +88,10 @@ public class WypozyczenieSzczegoly extends JPanel {
 		txtMiejscowo.setText(adres.getMiejscowosc());
 		txtNrTelefonu.setText(klient.getNumerTelefonu());
 		txtEmail.setText(klient.getEmail());
-		if(!klient.getFirmy().isEmpty()){
+		DaneWypozyczenia daneWypozyczanie = rez.getDaneWypozyczenia();
+		Firma firma = daneWypozyczanie.getFirma();
+		if(firma != null){
 			checkNajemFirmowy.setSelected(true);
-			Firma firma = (Firma) klient.getFirmy().toArray()[0];
 			txtNazwaFirmy.setText(firma.getNazwaFirmy());
 			Adres adresFirmy = firma.getAdres();
 			txtUlica_1.setText(adresFirmy.getUlica());
@@ -98,6 +99,15 @@ public class WypozyczenieSzczegoly extends JPanel {
 			txtMiejscowo_1.setText(adresFirmy.getMiejscowosc());
 			txtNrNip.setText(firma.getNIP());
 		}
+		else{
+			checkNajemFirmowy.setSelected(false);
+			txtNazwaFirmy.setText("");
+			txtUlica_1.setText("");
+			txtKodPocztowy_1.setText("");
+			txtMiejscowo_1.setText("");
+			txtNrNip.setText("");
+		}
+
 		txtKrajWydania.setSelectedItem(klient.getKrajWydaniaPrawaJazdy());
 		datePanel.setDate(klient.getDataUrodzenia());
 		txtNumerPrawaJazdy.setText(klient.getNumerPrawaJazdy());
@@ -161,7 +171,7 @@ public class WypozyczenieSzczegoly extends JPanel {
 
 	public void addEditableListener(ItemListener l){
 		checkEdytujDane.addItemListener(l);
-		
+
 	}
 
 	public WypozyczenieSzczegoly() {

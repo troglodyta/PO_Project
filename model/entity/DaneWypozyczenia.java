@@ -193,6 +193,7 @@ public class DaneWypozyczenia extends Entity {
 				+ ", oddzialZwrotu=" + oddzialZwrotu + ", pojazd=" + pojazd
 				+ ", dataGodzinaOd="
 				+ dataGodzinaOd + ", dataGodzinaDo=" + dataGodzinaDo
+				+ " Firma " + firma
 				+ ", dataWpatyZaliczki=" + dataWpatyZaliczki
 				+ ", dataWplatyKaucji=" + dataWplatyKaucji + ", platnosc="
 				+ platnosc + ", kaucja=" + kaucja + ", wplaconaZaliczka="
