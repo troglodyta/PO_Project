@@ -8,12 +8,12 @@ import entity.*;
 
 public class WypozyczenieModel implements Model {
 	private DBManager manager = DBManager.INSTANCE;
-	
+
 	public List<Rezerwacja> getWszytkieRezerwacje(){
-		String sql = "from Rezerwacja"; 
+		String sql = "from Rezerwacja";
 		return (List<Rezerwacja>)(manager.queryHibernate(sql, null));
 	}
-	
+
 	public List<Rezerwacja> getRezerwacjeByConditions(HashMap<String, Object> params){
 		StringBuffer where = new StringBuffer();
 		for(String s: params.keySet()){
@@ -30,14 +30,14 @@ public class WypozyczenieModel implements Model {
 				break;
 			}
 		}
-		
+
 		String sWhere = where.toString();
 		if(sWhere.length() > 5)
 			sWhere = sWhere.substring(0,sWhere.length()-5);
 		String hql = "select r from Rezerwacja r where "+sWhere;
 		return sWhere.length()>0? (List<Rezerwacja>)(manager.queryHibernate(hql, params)): getWszytkieRezerwacje();
 	}
-	
+
 	public String[] getWszystkieMarki(){
 		String hql = "SELECT marka FROM DaneModeluPojazdu group by marka";
 		Object[] query=  manager.queryHibernate(hql, null).toArray();
@@ -48,7 +48,7 @@ public class WypozyczenieModel implements Model {
 		}
 		return wyn;
 	}
-	
+
 	public String[] getModel(String marka){
 		String hql = "SELECT model FROM DaneModeluPojazdu WHERE marka =:marka GROUP BY model";
 		HashMap<String, Object> param = new HashMap<String, Object>();
@@ -62,16 +62,37 @@ public class WypozyczenieModel implements Model {
 		return wyn;
 	}
 	
+	public List<DaneModeluPojazdu> getDanePojazdow(){
+		String hql = "from DaneModeluPojazdu order by marka, model";
+		List<DaneModeluPojazdu> query=   manager.queryHibernate(hql, null);
+		return query;
+	}
+
+	public String[] getOddzialy(){
+		String sql = "SELECT miejscowosc FROM Adresy, Oddzialy WHERE AdresyID = Adresy.ID ORDER BY miejscowosc";
+		List<Object[]> query=  manager.querySQL(sql, null);
+		String[] wyn = new String[query.size()];
+		for (int i = 0; i < wyn.length; i++) {
+			Object q = query.get(i);
+			String s = (String) q;
+			wyn[i]=s;
+		}
+		return wyn;
+	}
+
 	public String[] allCountries(){
 		return Counties.counties;
 	}
-	
-	
-	
+
+
+
 	public static void main(String[] args) {
 		WypozyczenieModel m = new WypozyczenieModel();
 	System.out.println(m.getWszystkieMarki()[0]);
 	System.out.println(m.getModel("Ford")[0]);
-	
+	System.out.println(m.getOddzialy()[0]);
+	System.out.println(m.getDanePojazdow().toArray()[0]);
+
 	}
+
 }

@@ -22,9 +22,9 @@ public class DaneWypozyczenia extends Entity {
 
 	private entity.Pojazd pojazd;
 
-	private entity.Oddzial oddzialZwrotu;
+	private entity.Oddzial oddzialOdbioru;
 
-	private entity.Oddzial odzialZwroru;
+	private entity.Oddzial oddzialZwrotu;
 
 	private java.util.Date dataGodzinaOd;
 
@@ -56,8 +56,8 @@ public class DaneWypozyczenia extends Entity {
 		super();
 		ID = iD;
 		this.pojazd = pojazd;
-		this.oddzialZwrotu = oddzialZwrotu;
-		this.odzialZwroru = odzialZwroru;
+		this.oddzialOdbioru = oddzialZwrotu;
+		this.oddzialZwrotu = odzialZwroru;
 		this.dataGodzinaOd = dataGodzinaOd;
 		this.dataGodzinaDo = dataGodzinaDo;
 		this.dataWpatyZaliczki = dataWpatyZaliczki;
@@ -154,20 +154,20 @@ public class DaneWypozyczenia extends Entity {
 		return wplaconaKaucja;
 	}
 
-	public void setOdzialZwroru(entity.Oddzial value) {
-		this.odzialZwroru = value;
-	}
-
-	public entity.Oddzial getOdzialZwroru() {
-		return odzialZwroru;
-	}
-
 	public void setOddzialZwrotu(entity.Oddzial value) {
 		this.oddzialZwrotu = value;
 	}
 
 	public entity.Oddzial getOddzialZwrotu() {
 		return oddzialZwrotu;
+	}
+
+	public void setOddzialOdbioru(entity.Oddzial value) {
+		this.oddzialOdbioru = value;
+	}
+
+	public entity.Oddzial getOddzialOdbioru() {
+		return oddzialOdbioru;
 	}
 
 	public void setPojazd(entity.Pojazd value) {
@@ -189,8 +189,8 @@ public class DaneWypozyczenia extends Entity {
 
 	@Override
 	public String toString() {
-		return "DaneWypozyczenia [ID=" + ID + ", odzialZwroru=" + odzialZwroru
-				+ ", oddzialZwrotu=" + oddzialZwrotu + ", pojazd=" + pojazd
+		return "DaneWypozyczenia [ID=" + ID + ", odzialZwroru=" + oddzialZwrotu
+				+ ", oddzialZwrotu=" + oddzialOdbioru + ", pojazd=" + pojazd
 				+ ", dataGodzinaOd="
 				+ dataGodzinaOd + ", dataGodzinaDo=" + dataGodzinaDo
 				+ " Firma " + firma

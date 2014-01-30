@@ -111,7 +111,7 @@ public class DBManagerTest {
 
 		Szef awansujacy = kOddzialu.getAwansujacy();
 		assertNotNull(awansujacy);
-		assertEquals("89 1560 0013 2026 0001 2120 0003", awansujacy.getNumerKonta());
+		assertEquals("89156000132026000121200003", awansujacy.getNumerKonta());
 
 		Set<Rezerwacja> rezerwacje = klient.getRezerwacje();
 		condition = rezerwacje.size()>0;
@@ -177,7 +177,7 @@ public class DBManagerTest {
 		assertFalse(l1.isEmpty());
 		Object[] record = (Object[])l1.get(0);
 		String nrPraw = (String)record[0];
-		assertEquals("M0092979", nrPraw);
+		assertEquals("00177110223", nrPraw);
 		assertEquals(4, record.length);
 
 		List<Object[]> l2 = DBManager.INSTANCE.querySQL("select * from adresy where Ulica = 'Czekoladowa 48';",null);

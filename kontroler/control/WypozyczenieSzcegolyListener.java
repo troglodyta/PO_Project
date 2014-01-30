@@ -3,6 +3,8 @@ package control;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,9 +14,11 @@ import javax.swing.JOptionPane;
 import entity.*;
 import FramesComponets.Wypozyczenie;
 import FramesComponets.WypozyczenieSzczegoly;
+import FramesComponets.WypozyczenieSzczegoly2;
 import model.DBManager;
 import model.Model;
 import model.SessionStore;
+import model.WypozyczenieModel;
 
 public class WypozyczenieSzcegolyListener extends AbstractSingleControler implements ActionListener {
 
@@ -26,6 +30,7 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 		Wypozyczenie wypozyczenie = (Wypozyczenie) this.getView();
+		WypozyczenieModel model = (WypozyczenieModel) this.getModel();
 		switch (command) {
 		case "Powrót":
 				wypozyczenie.setCurrentWypozyczeniaPanel(0);
@@ -73,9 +78,15 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 			panel2.setContent(rezerwacja2);
 
 			break;
-			
+
 		case "Dalej" :
 				wypozyczenie.setCurrentWypozyczeniaPanel(2);
+				WypozyczenieSzczegoly2 panel3 =(WypozyczenieSzczegoly2)wypozyczenie.getWypozyczeniaPanel(2);
+				String[] oddzialy = model.getOddzialy();
+				List<DaneModeluPojazdu> danePojazdow = model.getDanePojazdow();
+				panel3.setOddzialyCombo(oddzialy);
+				panel3.setModelListener(new DaneModeluPojazduListener(model, panel3));
+				panel3.setComboPojazdy(danePojazdow);
 			break;
 
 		default:

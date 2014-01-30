@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: 
+Licensee:
 License Type: Evaluation
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -12,9 +12,9 @@ License Type: Evaluation
 		</id>
 		<many-to-one name="pojazd" column="PojazdyID" class="entity.Pojazd" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
-		<many-to-one name="oddzialZwrotu" column="OddzialyID2" class="entity.Oddzial" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
+		<many-to-one name="oddzialOdbioru" column="OddzialyID" class="entity.Oddzial" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
-		<many-to-one name="odzialZwroru" column="OddzialyID" class="entity.Oddzial" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
+		<many-to-one name="oddzialZwrotu" column="OddzialyID2" class="entity.Oddzial" cascade="save-update,lock" unique="true" not-null="true" lazy="no-proxy">
 		</many-to-one>
 		<many-to-one name="firma" cascade="lock" column="FirmyID" class="entity.Firma" not-null="false" lazy="no-proxy">
 		</many-to-one>
