@@ -38,12 +38,12 @@ public class CenterPanel extends JPanel{
 		for(Component c: cmp){
 			if(c instanceof JTextField){
 				JTextField txt = (JTextField)c;
-				String value = (String) map.get(txt.getName());
+				String value = map.get(txt.getName()).toString();
 				txt.setText(value);
 			}
 			else if(c instanceof JComboBox){
 				JComboBox combo = (JComboBox)c;
-				String value = (String) map.get(combo.getName());
+				String value = map.get(combo.getName()).toString();
 				combo.setSelectedItem(value);
 			}
 			else if(c instanceof JCheckBox){
@@ -55,6 +55,11 @@ public class CenterPanel extends JPanel{
 				DatePanel date = (DatePanel)c;
 				Date value = (Date) map.get(date.getName());
 				date.setDate(value);
+			}
+			else if(c instanceof JLabel){
+				JLabel label = (JLabel) c;
+				String value = map.get(label.getName()).toString();
+				label.setText(value);
 			}
 		}
 	}

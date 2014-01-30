@@ -14,7 +14,7 @@ public abstract class AbstractContoler implements Controler {
 	/**
 	 * 
 	 * @param name
-	 * @param model
+	 * @param modelPojazdy
 	 */
 	public AbstractContoler() {
 		// TODO Auto-generated constructor stub

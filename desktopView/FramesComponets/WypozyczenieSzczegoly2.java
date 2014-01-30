@@ -28,9 +28,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.BoxLayout;
 
 import entity.DaneModeluPojazdu;
+import entity.DaneWypozyczenia;
+import entity.Pojazd;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -39,6 +44,50 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 	private JComboBox oddzialOdbioru;
 	private JComboBox oddzialZwrotu;
 	private JComboBox modelPojazdu;
+	private JLabel kaucjaS;
+	private JLabel platnoscS;
+	private JButton powrot;
+	private JLabel platnosc;
+	private JLabel wplaconaZaliczka;
+	private JLabel kaucja;
+	private JLabel wplaconaKaucja;
+	private Component[] kwoty;
+	private JLabel dataWpatyZaliczki;
+	private JLabel dataWplatyKaucji;
+	private SpinnerDateModel godzinaDoModel;
+	private SpinnerDateModel godzinaOdModel;
+	private Component[] daty;
+	private DatePanel dataGodzinaOd;
+	private DatePanel dataGodzinaDo;
+
+	public void addButtonsListeners(ActionListener l){
+		powrot.addActionListener(l);
+	}
+
+	public void setConntent(DaneWypozyczenia dane){
+		HashMap<String, Object> daneWypozyczenie = dane.getFildsValues();
+		fillFilds(kwoty, daneWypozyczenie);
+		Pojazd poj = dane.getPojazd();
+		DaneModeluPojazdu danePojazdu = poj.getDanePojazdu();
+		Date dataWplZaliczki = dane.getDataWpatyZaliczki();
+		dataWpatyZaliczki.setText(dataWplZaliczki.toString());
+
+		Date dataWplKaucji = dane.getDataWplatyKaucji();
+		if(dataWplKaucji != null){
+			dataWplatyKaucji.setText(dataWplKaucji.toString());
+		}
+		else{
+			dataWplatyKaucji.setText("");
+		}
+		modelPojazdu.setSelectedItem(danePojazdu.getMarka()+" "+danePojazdu.getModel()+" "+danePojazdu.getTyp());
+		Date dataOd = dane.getDataGodzinaOd();
+		dataGodzinaOd.setDate(dataOd);
+		godzinaOdModel.setValue(dataOd);
+		Date dataDo = dane.getDataGodzinaDo();
+		dataGodzinaDo.setDate(dataDo);
+		godzinaDoModel.setValue(dataDo);
+
+	}
 
 	public void setOddzialyCombo(String[] oddzialy){
 		for (int i = 0; i<oddzialOdbioru.getItemCount(); i++) {
@@ -62,7 +111,27 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 			modelPojazdu.addItem(pojazd);
 		}
 	}
-	
+
+	public void setDanePojazduTable(DaneModeluPojazdu dane){
+		DefaultTableModel tableModel = ((DefaultTableModel) danePojazdu.getModel());
+		while(tableModel.getRowCount()>0) {
+			((DefaultTableModel) danePojazdu.getModel()).removeRow(0);
+		}
+		Object[] silnik = {"Silnik", "Poj. "+dane.getPojemnoscSilnika()+"L "+dane.getMoc()+"KM"};
+		Object[] paliwo = {"Paliwo ", dane.getRodzajPaliwa()};
+		Object[] srednieSpalanie = {"Œrednie spalanie ", dane.getSrednieSpalanie()+"/100km"};
+		Object[] wyposarzenie = {"Wyposarzenie ", dane.getWyposarzenie()};
+		Object[] liczbaDrzwi = {"Liczba drzwi ", dane.getLiczbaDrzwi()};
+		Object[] liczbaMiejsc = {"Liczba miejsc ", dane.getMiejscaSiedzace()};
+		Object[] pojemnoscBagaznika = {"Pojemnoœæ baga¿nika", dane.getPojemnoscBagaznika()};
+		Object[][] rows = {silnik, paliwo, srednieSpalanie, wyposarzenie, liczbaDrzwi, liczbaMiejsc, pojemnoscBagaznika};
+		kaucjaS.setText(dane.getKaucja()+" PLN");
+		platnoscS.setText(dane.getCenaWypozyczenia()+" PLN");
+		for (Object[] row : rows) {
+			tableModel.addRow(row);
+		}
+	}
+
 	public void setModelListener(ItemListener l){
 		modelPojazdu.addItemListener(l);
 	}
@@ -255,9 +324,9 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 
 		JLabel lblKaucja_1 = new JLabel("Kaucja:");
 
-		JLabel lblCenabrval = new JLabel("cenaBrVal");
+		platnoscS = new JLabel("cenaBrVal");
 
-		JLabel lblKaucjaval = new JLabel("kaucjaVal");
+		kaucjaS = new JLabel("kaucjaVal");
 
 		JPanel panel_7 = new JPanel();
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
@@ -279,8 +348,8 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 								.addComponent(lblKaucja_1))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblKaucjaval)
-								.addComponent(lblCenabrval, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
+								.addComponent(kaucjaS)
+								.addComponent(platnoscS, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)))
 						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
@@ -299,11 +368,11 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 					.addGap(10)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCenaBruttodoba)
-						.addComponent(lblCenabrval))
+						.addComponent(platnoscS))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblKaucja_1)
-						.addComponent(lblKaucjaval)))
+						.addComponent(kaucjaS)))
 		);
 		String[] columnNames = {"",
                 "",};
@@ -353,15 +422,15 @@ JTable table = new JTable(tableModel);
 		panel_4.setLayout(gl_panel_4);
 		panel_5.setMaximumSize(new Dimension(panel_5.getWidth()*2, panel_5.getHeight()*2));
 
-		DatePanel dataGodzinaOd = new DatePanel("Od");
+		dataGodzinaOd = new DatePanel("Od");
 
-		DatePanel dataGodzinaDo = new DatePanel("Do");
+		dataGodzinaDo = new DatePanel("Do");
 
 		JLabel lblOdGodziny = new JLabel("Od godziny:");
 
 		JLabel lblDoGodziny = new JLabel("Do godziny:");
 
-		SpinnerDateModel spinnerModel1 = new SpinnerDateModel();
+		godzinaDoModel = new SpinnerDateModel();
 
 		JLabel lblOdbir = new JLabel("Odbi\u00F3r");
 
@@ -371,13 +440,13 @@ JTable table = new JTable(tableModel);
 
 		oddzialZwrotu = new JComboBox();
 
-		SpinnerDateModel spinnerModel = new SpinnerDateModel();
-		JSpinner spinner = new JSpinner(spinnerModel);
-		JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(spinner, "HH:mm");
-	    spinner.setEditor(dateEditor);
-		JSpinner spinner_1 = new JSpinner(spinnerModel1);
-		JSpinner.DateEditor dateEditor1 = new JSpinner.DateEditor(spinner_1, "HH:mm");
-		spinner_1.setEditor(dateEditor1);
+		godzinaOdModel = new SpinnerDateModel();
+		JSpinner godzinaOd = new JSpinner(godzinaOdModel);
+		JSpinner.DateEditor de_godzinaOd = new JSpinner.DateEditor(godzinaOd, "HH:mm");
+	    godzinaOd.setEditor(de_godzinaOd);
+		JSpinner godzinaDo = new JSpinner(godzinaDoModel);
+		JSpinner.DateEditor de_godzinaDo = new JSpinner.DateEditor(godzinaDo, "HH:mm");
+		godzinaDo.setEditor(de_godzinaDo);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -389,13 +458,13 @@ JTable table = new JTable(tableModel);
 							.addGap(18)
 							.addComponent(lblOdGodziny)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(godzinaOd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_3.createSequentialGroup()
 							.addComponent(dataGodzinaDo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(lblDoGodziny, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(godzinaDo, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)))
 					.addGap(35)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblZwrot, Alignment.LEADING)
@@ -417,14 +486,14 @@ JTable table = new JTable(tableModel);
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblOdGodziny)
-								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(godzinaOd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addComponent(dataGodzinaOd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addComponent(dataGodzinaDo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblDoGodziny)
-							.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(godzinaDo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
 							.addComponent(oddzialZwrotu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblZwrot)))
@@ -445,11 +514,11 @@ JTable table = new JTable(tableModel);
 		lblKwota.setBounds(10, 54, 69, 14);
 		panel_2.add(lblKwota);
 
-		JLabel dataWpatyZaliczki = new JLabel("DataWplatyVal");
+		dataWpatyZaliczki = new JLabel("DataWplatyVal");
 		dataWpatyZaliczki.setBounds(108, 29, 98, 14);
 		panel_2.add(dataWpatyZaliczki);
 
-		JLabel platnosc = new JLabel("kwotaVal");
+		platnosc = new JLabel("kwotaVal");
 		platnosc.setBounds(108, 54, 98, 14);
 		panel_2.add(platnosc);
 
@@ -465,11 +534,11 @@ JTable table = new JTable(tableModel);
 		lblKwota_1.setBounds(321, 54, 82, 14);
 		panel_2.add(lblKwota_1);
 
-		JLabel dataWplatyKaucji = new JLabel("DataWplatyZaliczkiVal");
+		dataWplatyKaucji = new JLabel("DataWplatyZaliczkiVal");
 		dataWplatyKaucji.setBounds(413, 29, 127, 14);
 		panel_2.add(dataWplatyKaucji);
 
-		JLabel kaucja = new JLabel("kwotaZaliVal");
+		kaucja = new JLabel("kwotaZaliVal");
 		kaucja.setBounds(413, 54, 101, 14);
 		panel_2.add(kaucja);
 
@@ -477,7 +546,7 @@ JTable table = new JTable(tableModel);
 		lblWpaconaZaliczka.setBounds(10, 79, 98, 14);
 		panel_2.add(lblWpaconaZaliczka);
 
-		JLabel wplaconaZaliczka = new JLabel("kwotaVal");
+		wplaconaZaliczka = new JLabel("kwotaVal");
 		wplaconaZaliczka.setBounds(108, 79, 98, 14);
 		panel_2.add(wplaconaZaliczka);
 
@@ -485,7 +554,7 @@ JTable table = new JTable(tableModel);
 		lblWpaconaKaucja.setBounds(321, 79, 82, 14);
 		panel_2.add(lblWpaconaKaucja);
 
-		JLabel wplaconaKaucja = new JLabel("kwotaZaliVal");
+		wplaconaKaucja = new JLabel("kwotaZaliVal");
 		wplaconaKaucja.setBounds(413, 79, 101, 14);
 		panel_2.add(wplaconaKaucja);
 		panel_1.setLayout(gl_panel_1);
@@ -497,7 +566,7 @@ JTable table = new JTable(tableModel);
 
 		JCheckBox chckbxEdytujDane = new JCheckBox("Edytuj dane");
 
-		JButton btnPowrt = new JButton("Powr\u00F3t");
+		powrot = new JButton("Powr\u00F3t");
 
 		JButton btnDalej = new JButton("Dalej");
 
@@ -513,7 +582,7 @@ JTable table = new JTable(tableModel);
 						.addComponent(lblOpcje)
 						.addComponent(chckbxEdytujDane)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnPowrt)
+							.addComponent(powrot)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnDalej))
 						.addComponent(btnWpataKaucji, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
@@ -533,7 +602,7 @@ JTable table = new JTable(tableModel);
 					.addComponent(btnWpataZaliczki)
 					.addPreferredGap(ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnPowrt)
+						.addComponent(powrot)
 						.addComponent(btnDalej))
 					.addContainerGap())
 		);
@@ -541,5 +610,9 @@ JTable table = new JTable(tableModel);
 		panel_4.setMaximumSize(new Dimension(500,300));
 
 		setComponentsNames();
+
+		kwoty = new Component[]{platnosc, wplaconaZaliczka, kaucja, wplaconaKaucja};
+		daty = new Component[]{};
+
 	}
 }

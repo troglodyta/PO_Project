@@ -87,6 +87,13 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 				panel3.setOddzialyCombo(oddzialy);
 				panel3.setModelListener(new DaneModeluPojazduListener(model, panel3));
 				panel3.setComboPojazdy(danePojazdow);
+				panel3.addButtonsListeners(new Wypozyczenie3ButtonsListener(model, wypozyczenie));
+				List<Rezerwacja> rezerwacje3= (List<Rezerwacja>) SessionStore.INSTANCE.load("rezerwacjeList");
+				Integer currentIndex3 = (Integer) SessionStore.INSTANCE.load("indexRezerwacji");
+				Rezerwacja rezerwacja3 = rezerwacje3.get(currentIndex3);
+				DaneWypozyczenia dane = rezerwacja3.getDaneWypozyczenia();
+				System.out.println(dane);
+				panel3.setConntent(dane);
 			break;
 
 		default:

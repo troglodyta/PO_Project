@@ -61,11 +61,19 @@ public class WypozyczenieModel implements Model {
 		}
 		return wyn;
 	}
-	
+
 	public List<DaneModeluPojazdu> getDanePojazdow(){
 		String hql = "from DaneModeluPojazdu order by marka, model";
 		List<DaneModeluPojazdu> query=   manager.queryHibernate(hql, null);
 		return query;
+	}
+
+	public DaneModeluPojazdu getDaneModeluPojazdu(HashMap<String, Object> params){
+		String hql = "select d from DaneModeluPojazdu d where d.marka=:marka and d.model=:model and d.typ =:typ";
+		System.out.println(hql);
+		System.out.println(params);
+		List<DaneModeluPojazdu> query=   manager.queryHibernate(hql, params);
+		return query.get(0);
 	}
 
 	public String[] getOddzialy(){

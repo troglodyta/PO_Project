@@ -101,5 +101,10 @@ public class DBManager {//mój komentarz
 	public void closeSession(){
 		session.close();
 	}
+	
+	public static void main(String[] args) {
+		DaneModeluPojazdu d = (DaneModeluPojazdu) INSTANCE.loadByID("DaneModeluPojazdu", 1);
+		System.out.println(d);
+	}
 
 }

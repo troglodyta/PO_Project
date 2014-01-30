@@ -5,11 +5,11 @@ import java.awt.Component;
 import model.Model;
 
 public class AbstractSingleControler implements Controler {
-	protected Model model;
+	protected Model modelPojazdy;
 	protected Component view;
 	
 	public AbstractSingleControler(Model model, Component view){
-		this.model = model;
+		this.modelPojazdy = model;
 		this.view = view;
 	}
 	@Override
@@ -19,7 +19,7 @@ public class AbstractSingleControler implements Controler {
 
 	@Override
 	public boolean removeModel(String name) {
-		model = null;
+		modelPojazdy = null;
 		return true;
 	}
 
@@ -35,7 +35,7 @@ public class AbstractSingleControler implements Controler {
 	}
 	
 	public Model getModel(){
-		return model;
+		return modelPojazdy;
 	}
 	
 	public Component getView(){

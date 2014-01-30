@@ -21,7 +21,7 @@ License Type: Evaluation
 		<property name="dataGodzinaOd" column="DataGodzinaOd" type="timestamp" not-null="true" lazy="false"/>
 		<property name="dataGodzinaDo" column="DataGodzinaDo" type="timestamp" not-null="true" lazy="false"/>
 		<property name="dataWpatyZaliczki" column="DataWpatyZaliczki" type="date" not-null="true" lazy="false"/>
-		<property name="dataWplatyKaucji" column="DataWplatyKaucji" type="date" not-null="true" lazy="false"/>
+		<property name="dataWplatyKaucji" column="DataWplatyKaucji" type="date" not-null="false" lazy="false"/>
 		<property name="platnosc" column="Platnosc" type="double" not-null="true" lazy="false"/>
 		<property name="kaucja" column="Kaucja" type="double" not-null="true" lazy="false"/>
 		<property name="wplaconaZaliczka" column="WplaconaZaliczka" type="double" not-null="true" lazy="false"/>
