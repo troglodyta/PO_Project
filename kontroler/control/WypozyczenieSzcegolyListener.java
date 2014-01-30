@@ -73,6 +73,10 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 			panel2.setContent(rezerwacja2);
 
 			break;
+			
+		case "Dalej" :
+				wypozyczenie.setCurrentWypozyczeniaPanel(2);
+			break;
 
 		default:
 			break;

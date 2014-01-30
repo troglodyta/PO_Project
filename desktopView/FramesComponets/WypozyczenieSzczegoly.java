@@ -68,6 +68,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 	private JTextPane uwagi;
 	private JCheckBox checkNajemFirmowy;
 	private JComboBox plec;
+	private JButton dalej;
 	private JPanel panel_3;
 	private JButton powrot;
 	private DatePanel dataUrodzenia;
@@ -91,6 +92,8 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 		powrot.addActionListener(l);
 		zapisz.addActionListener(l);
 		anuluj.addActionListener(l);
+		dalej.addActionListener(l);
+
 	}
 
 	public void setContent(Rezerwacja rez){
@@ -455,7 +458,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 		panel.add(Box.createRigidArea(new Dimension(0,500)));
 		JPanel buttons = new JPanel(new GridLayout(1, 2));
 		powrot = new JButton("Powrót");
-		JButton dalej = new JButton("Dalej");
+		dalej = new JButton("Dalej");
 		buttons.add(powrot);
 		buttons.add(dalej);
 		panel.add(buttons);

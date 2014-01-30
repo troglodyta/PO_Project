@@ -1,6 +1,11 @@
 package FramesComponets;
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.GroupLayout;
@@ -13,13 +18,17 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
 
 
 public class WypozyczenieSzczegoly2 extends CenterPanel {
-	private JTable table;
+	private JTable table_1;
 	/**
 	 * Create the panel.
 	 */
@@ -54,22 +63,28 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addComponent(lblPatnoci)
-							.addContainerGap(654, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addComponent(lblModel)
-							.addContainerGap(669, Short.MAX_VALUE))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblAkcesoria)
-							.addContainerGap(651, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panel_6, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-								.addComponent(panel_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-								.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 551, Short.MAX_VALUE))
-							.addGap(146))))
+							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 716, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addComponent(lblPatnoci)
+								.addContainerGap(788, Short.MAX_VALUE))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addComponent(lblModel)
+								.addContainerGap(803, Short.MAX_VALUE))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+									.addComponent(panel_3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 561, GroupLayout.PREFERRED_SIZE)
+									.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGap(146)))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 707, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_1.createSequentialGroup()
+									.addComponent(lblAkcesoria)
+									.addPreferredGap(ComponentPlacement.RELATED, 661, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap(124, Short.MAX_VALUE))))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -83,12 +98,12 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblModel)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addComponent(lblAkcesoria)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(227, Short.MAX_VALUE))
 		);
 
 		JCheckBox chckbxNawigacjaGps = new JCheckBox("Nawigacja GPS");
@@ -199,9 +214,10 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 
 		JComboBox modelPojazduBox = new JComboBox();
 
-		table = new JTable();
+
 
 		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(Color.gray);
 
 		JLabel lblCenaBruttodoba = new JLabel("Cena brutto/doba:");
 
@@ -210,54 +226,103 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 		JLabel lblCenabrval = new JLabel("cenaBrVal");
 
 		JLabel lblKaucjaval = new JLabel("kaucjaVal");
+
+		JPanel panel_7 = new JPanel();
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(table, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panel_4.createSequentialGroup()
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
 							.addComponent(lblModelPojazdu)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(modelPojazduBox, GroupLayout.PREFERRED_SIZE, 198, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(modelPojazduBox, 0, 285, Short.MAX_VALUE))
+						.addComponent(panel_7, GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))
+					.addGap(18)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel_4.createSequentialGroup()
-							.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblKaucja_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblCenaBruttodoba, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblCenaBruttodoba, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblKaucja_1))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblKaucjaval, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblCenabrval, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))))
-					.addContainerGap())
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblKaucjaval)
+								.addComponent(lblCenabrval, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+							.addGap(60))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_4.createSequentialGroup()
-							.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCenaBruttodoba)
-								.addComponent(lblCenabrval))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblKaucja_1)
-								.addComponent(lblKaucjaval)))
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_4.createSequentialGroup()
 							.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblModelPojazdu)
 								.addComponent(modelPojazduBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(table, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))
+							.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCenaBruttodoba)
+						.addComponent(lblCenabrval))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblKaucja_1)
+						.addComponent(lblKaucjaval))
 					.addContainerGap())
 		);
+		String[] columnNames = {"",
+                "",};
+
+Object[][] data = {{"Silnik, paliwo, spalanie","Poj. 1.2L 65KM"},
+		{"Paliwo", "benzyna"},
+		{"Srednie spalanie", "6.8L/100km"},
+		{"Wyposarzenie","ABD, 4XAir bag, radio CD"},
+		{"Liczba drzwi", 5},
+		{"Liczba miejsc", 5},
+		{"Pojemnoœæ baga¿nika", "600L"}
+};
+
+DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+
+	@Override
+	public boolean isCellEditable(int row, int column) {
+		//all cells false
+		return false;
+	}
+};
+JTable table = new JTable(tableModel);
+		panel_7.setLayout(new BorderLayout(0, 0));
+		table_1 = new JTable(new DefaultTableModel(
+			new Object[][] {
+				{"Silnik, paliwo, spalanie", "Poj. 1.2L 65KM"},
+				{"Paliwo", "benzyna"},
+				{"Srednie spalanie", "6.8L/100km"},
+				{"Wyposarzenie", "ABD, 4XAir bag, radio CD"},
+				{"Liczba drzwi", new Integer(5)},
+				{"Liczba miejsc", new Integer(5)},
+				{"Pojemno\u015B\u0107 baga\u017Cnika", "600L"},
+			},
+			new String[] {
+				"", ""
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_1.setRowSelectionAllowed(false);
+		panel_7.add(table_1);
 		panel_4.setLayout(gl_panel_4);
+		panel_5.setMaximumSize(new Dimension(panel_5.getWidth()*2, panel_5.getHeight()*2));
 
 		DatePanel datePanelOd = new DatePanel("Od");
 
@@ -298,21 +363,21 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 							.addComponent(lblDoGodziny, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(spinner_1)
+						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(spinner, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(spinner_3)
+						.addComponent(spinner_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(spinner_2, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblZwrot, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblOdbir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addComponent(odbiorBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(zwrotBox, 0, 87, Short.MAX_VALUE))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addGap(123))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -331,7 +396,7 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 								.addComponent(odbiorBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
 							.addComponent(datePanelDo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(gl_panel_3.createSequentialGroup()
@@ -436,6 +501,7 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
+		panel_4.setMaximumSize(new Dimension(500,300));
 
 		setComponentsNames();
 	}

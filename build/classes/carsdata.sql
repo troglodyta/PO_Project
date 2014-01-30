@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas wygenerowania: 28 Sty 2014, 09:03
+-- Czas wygenerowania: 30 Sty 2014, 10:55
 -- Wersja serwera: 5.5.34
 -- Wersja PHP: 5.4.22
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresy` (
   `KodPocztowy` varchar(255) NOT NULL,
   `Miejscowosc` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Zrzut danych tabeli `adresy`
@@ -42,8 +42,8 @@ INSERT INTO `adresy` (`ID`, `Ulica`, `KodPocztowy`, `Miejscowosc`) VALUES
 (1, 'Słoneczna 35', '55812', 'Wrocław'),
 (2, 'Czekoladowa 48', '55986', 'Wrocław'),
 (3, 'Jesienna 32/2', '55823', 'Kraków'),
-(4, 'Wiosenna 32', '34987', 'Wrocław'),
-(5, 'Wilcza 41', '34563', 'Wrocław');
+(4, 'Wiosenna 32xx', '55084', 'Wroc?aw'),
+(5, 'Wilcza 41xxx', '34563xxx', 'Wrocławxxx');
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ INSERT INTO `danemodelipojazdow` (`ID`, `Marka`, `Model`, `Typ`, `Kategoria`, `Z
 (4, 'Kia', 'Picanto', '1.0', 'A', '', 5, 1045, 929, 1000, 62, 69, 500, 'Benzyna', 18000),
 (5, 'Renault', 'Clio', '1.2', 'B', '', 5, 1015, 900, 1200, 75, 79, 800, 'Benzyna', 41000),
 (6, 'Citroen', 'C3', '1.4', 'B', '', 5, 1400, 1105, 1400, 75, 79, 800, 'Benzyna', 58000),
-(7, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 0, 0, '', 44000),
+(7, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 80, 800, 'Olej napędowy', 44000),
 (8, 'Renault', 'Thalia', '1.2', 'B', '', 5, 1090, 910, 1200, 75, 79, 800, 'Benzyna', 44000);
 
 -- --------------------------------------------------------
@@ -119,6 +119,7 @@ CREATE TABLE IF NOT EXISTS `danewypozyczen` (
   `PojazdyID` int(11) NOT NULL,
   `OddzialyID2` int(11) NOT NULL,
   `OddzialyID` int(11) NOT NULL,
+  `FirmyID` int(11) DEFAULT NULL,
   `DataGodzinaOd` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `DataGodzinaDo` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `DataWpatyZaliczki` date NOT NULL,
@@ -137,10 +138,10 @@ CREATE TABLE IF NOT EXISTS `danewypozyczen` (
 -- Zrzut danych tabeli `danewypozyczen`
 --
 
-INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `DataGodzinaOd`, `DataGodzinaDo`, `DataWpatyZaliczki`, `DataWplatyKaucji`, `Platnosc`, `Kaucja`, `WplaconaZaliczka`, `WplaconaKaucja`) VALUES
-(1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500),
-(2, 2, 1, 1, '2014-01-25 09:00:00', '2014-01-26 12:00:00', '2014-01-18', '2014-01-22', 300, 1500, 300, 0),
-(3, 3, 1, 1, '2014-01-31 08:00:00', '2014-02-01 10:00:00', '2014-01-17', '2014-01-17', 400, 1500, 400, 0);
+INSERT INTO `danewypozyczen` (`ID`, `PojazdyID`, `OddzialyID2`, `OddzialyID`, `FirmyID`, `DataGodzinaOd`, `DataGodzinaDo`, `DataWpatyZaliczki`, `DataWplatyKaucji`, `Platnosc`, `Kaucja`, `WplaconaZaliczka`, `WplaconaKaucja`) VALUES
+(1, 1, 1, 1, 1, '2014-01-30 10:00:00', '2014-01-31 10:00:00', '2014-01-15', '2014-01-15', 300, 1500, 100, 1500),
+(2, 2, 1, 1, NULL, '2014-01-25 09:00:00', '2014-01-26 12:00:00', '2014-01-18', '2014-01-22', 300, 1500, 300, 0),
+(3, 3, 1, 1, NULL, '2014-01-31 08:00:00', '2014-02-01 10:00:00', '2014-01-17', '2014-01-17', 400, 1500, 400, 0);
 
 -- --------------------------------------------------------
 
@@ -186,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `firmy` (
 --
 
 INSERT INTO `firmy` (`ID`, `AdresyID`, `NazwaFirmy`, `NIP`) VALUES
-(1, 5, 'TransBud', '7251801126');
+(1, 5, 'TransqBudxxuuu', '7251801120');
 
 -- --------------------------------------------------------
 
@@ -231,10 +232,10 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 --
 
 INSERT INTO `klienci` (`NumerPrawaJazdy`, `KrajWydaniaPrawaJazdy`, `Znizka`, `OsobyID`) VALUES
-('M0092979', 'Polska', 0, 5),
-('AQR1235', 'Polska', 0, 6),
-('YUI2346', 'Polska', 0, 8),
-('UIY8765', 'Polska', 0, 9);
+('00177110223', 'Saint Pierre And Miquelon', 0, 5),
+('11177110223', 'Polska', 0, 6),
+('00177113453', 'Polska', 0, 8),
+('09427110223', 'Polska', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -306,7 +307,7 @@ INSERT INTO `osoby` (`ID`, `AdresyID`, `Imie`, `Nazwisko`, `Email`, `DataUrodzen
 (1, 1, 'Jan', 'Chranowski', 'jchrzanow@o2.pl', '1990-01-01', 'M', 698456785),
 (3, 1, 'Filip', 'Manoga', 'fm@gmail.com', '1950-01-10', 'M', 786456785),
 (4, 1, 'Ewelina', 'Mikołajek', 'ewlein@onet.pl', '1989-01-02', 'K', 657856912),
-(5, 4, 'Judyta', 'Kowalska', 'judytaK@o2.pl', '1975-01-08', 'K', 656245785),
+(5, 4, 'Judytaxx', 'Kowalskaxx', 'judytaK@o2.plxx', '1980-01-08', 'M', 656245782),
 (6, 4, 'Wikotor', 'Janik', 'wjanik@o2.pl', '1987-12-10', 'M', 623457859),
 (8, 3, 'Oskar', 'Zwoliński', 'zwolin@wp.pl', '1980-04-22', 'M', 694254789),
 (9, 2, 'Justyna', 'Kubica', 'jKubica@gmail.com', '1978-01-11', 'K', 697452586);
@@ -433,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `rezerwacje` (
 --
 
 INSERT INTO `rezerwacje` (`ID`, `DaneWypozyczenID`, `KlienciOsobyID`, `PracownicyOsobyID`, `DataRezerwacji`, `Uwagi`, `SposobWplatyZaliczki`, `SposobWplatyKaucji`, `CzyPotwierdzona`, `CzyAnulowana`) VALUES
-(1, 1, 5, 3, '2014-01-14', 'brak uwag', 'Przelew', 'Przelew', 0, 0),
+(1, 1, 5, 3, '2014-01-14', 'brak uwagxx', 'Przelew', 'Przelew', 0, 0),
 (2, 2, 6, NULL, '2014-01-12', NULL, 'Przelew', 'Gotówka', 0, 0),
 (3, 3, 8, 4, '2014-01-02', NULL, 'Przelew', 'Gotówka', 1, 0);
 
@@ -457,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `szefowie` (
 --
 
 INSERT INTO `szefowie` (`NumerKonta`, `Login`, `Haslo`, `OsobyID`) VALUES
-('89 1560 0013 2026 0001 2120 0003', 'szefLog', 'szefHas', 1);
+('89156000132026000121200003', 'szefLog', 'szefHas', 1);
 
 -- --------------------------------------------------------
 
