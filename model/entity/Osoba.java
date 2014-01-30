@@ -13,6 +13,8 @@
  */
 package entity;
 
+import java.util.Calendar;
+
 public abstract class Osoba extends Entity {
 
 	private int ID;
@@ -69,7 +71,10 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setImie(String value) {
-		this.imie = value;
+		if(value.matches("[A-¥ÊÓ£Œ¯Ñ]{1}[a-z¹êó³œ¿Ÿæñ]+"))
+			this.imie = value;
+		else
+			throw new IllegalArgumentException("Imiê zaczyna siê z du¿ej literu i sk³ada siê z ci¹gu znaków alfabetu");
 	}
 
 	public String getImie() {
@@ -77,7 +82,10 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setNazwisko(String value) {
-		this.nazwisko = value;
+		if(value.matches("[A-¥ÊÓ£Œ¯Ñ]{1}[a-z¹êó³œ¿Ÿæñ]+|[A-¥ÊÓ£Œ¯Ñ]{1}[a-z¹êó³œ¿Ÿæñ]+[-]{1}[A-¥ÊÓ£Œ¯Ñ]{1}[a-z¹êó³œ¿Ÿæñ]+"))
+			this.nazwisko = value;
+		else
+			throw new IllegalArgumentException("Nazwisko zaczyna siê z du¿ej literu i sk³ada siê z ci¹gu znaków alfabetu oraz myœlnika");
 	}
 
 	public String getNazwisko() {
@@ -85,7 +93,10 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setEmail(String value) {
-		this.email = value;
+		//if(value.matches("[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4}"))
+			this.email = value;
+		//else
+			//throw new IllegalArgumentException("Przyk³ad prawid³owego emaila: jan.kowalski@gmail.com");
 	}
 
 	public String getEmail() {
@@ -93,7 +104,12 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setDataUrodzenia(java.util.Date value) {
-		this.dataUrodzenia = value;
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.YEAR, -18);
+		if(value.before(c.getTime()))
+			this.dataUrodzenia = value;
+		else
+			throw new IllegalArgumentException("U¿ytkownik systemu musi byæ pe³noletni");
 	}
 
 	public java.util.Date getDataUrodzenia() {
@@ -101,7 +117,10 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setPlec(String value) {
-		this.plec = value;
+		if(value.equals("K") || value.equals("M"))
+			this.plec = value;
+		else
+			throw new IllegalArgumentException("Dopuszczalna wartoœæ K lub M");
 	}
 
 	public String getPlec() {
@@ -114,11 +133,6 @@ public abstract class Osoba extends Entity {
 
 	public entity.Adres getAdres() {
 		return adres;
-	}
-
-	public void setDataUrodzenia(String dataUrodzenia) {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
 	}
 
 	@Override

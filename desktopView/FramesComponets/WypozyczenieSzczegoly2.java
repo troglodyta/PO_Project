@@ -18,35 +18,35 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
 
-public class WypozyczenieSzczegoly2 extends JPanel {
+public class WypozyczenieSzczegoly2 extends CenterPanel {
 	private JTable table;
 	/**
 	 * Create the panel.
 	 */
 	public WypozyczenieSzczegoly2() {
 
-		
+
 		setLayout(new MigLayout("", "[605.00,grow][]", "[grow]"));
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		add(scrollPane, "cell 0 0,grow");
-		
+
 		JPanel panel_1 = new JPanel();
 		scrollPane.setViewportView(panel_1);
-		
+
 		JLabel lblPatnoci = new JLabel("P\u0142atno\u015Bci");
-		
+
 		JPanel panel_2 = new JPanel();
-		
+
 		JPanel panel_3 = new JPanel();
-		
+
 		JLabel lblModel = new JLabel("Model");
-		
+
 		JPanel panel_4 = new JPanel();
-		
+
 		JLabel lblAkcesoria = new JLabel("Akcesoria");
-		
+
 		JPanel panel_6 = new JPanel();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -90,39 +90,39 @@ public class WypozyczenieSzczegoly2 extends JPanel {
 					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		
+
 		JCheckBox chckbxNawigacjaGps = new JCheckBox("Nawigacja GPS");
-		
+
 		JLabel lblCenaAkc1 = new JLabel("AkcesoriaVal");
-		
+
 		JCheckBox chckbxOdtwarzaczDvd = new JCheckBox("Odtwarzacz DVD");
-		
+
 		JCheckBox chckbxCbRadio = new JCheckBox("CB - Radio");
-		
+
 		JCheckBox chckbxacuchy = new JCheckBox("\u0141a\u0144cuchy");
-		
+
 		JLabel lblFotelikDlaDziecka = new JLabel("Fotelik dla dziecka (1-4 lat)");
-		
+
 		JLabel lblFotelikDlaDziecka_1 = new JLabel("Fotelik dla dziecka (4-8 lat)");
-		
+
 		JComboBox fotelik1Box = new JComboBox();
-		
+
 		JComboBox fotelik2Box = new JComboBox();
-		
+
 		JLabel lblPodkadkeNaFotelik = new JLabel("Podk\u0142adke na fotel dla dziecka");
-		
+
 		JComboBox fotelik3Box = new JComboBox();
-		
+
 		JLabel lblCenaAkc2 = new JLabel("AkcesoriaVal");
-		
+
 		JLabel lblCenaAkc3 = new JLabel("AkcesoriaVal");
-		
+
 		JLabel lblCenaAkc4 = new JLabel("AkcesoriaVal");
-		
+
 		JLabel lblCenaFotel1 = new JLabel("AkcesoriaVal");
-		
+
 		JLabel lblCenaFotel2 = new JLabel("AkcesoriaVal");
-		
+
 		JLabel lblCenafotel3 = new JLabel("AkcesoriaVal");
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
@@ -194,21 +194,21 @@ public class WypozyczenieSzczegoly2 extends JPanel {
 					.addContainerGap(14, Short.MAX_VALUE))
 		);
 		panel_6.setLayout(gl_panel_6);
-		
+
 		JLabel lblModelPojazdu = new JLabel("Model Pojazdu");
-		
+
 		JComboBox modelPojazduBox = new JComboBox();
-		
+
 		table = new JTable();
-		
+
 		JPanel panel_5 = new JPanel();
-		
+
 		JLabel lblCenaBruttodoba = new JLabel("Cena brutto/doba:");
-		
+
 		JLabel lblKaucja_1 = new JLabel("Kaucja:");
-		
+
 		JLabel lblCenabrval = new JLabel("cenaBrVal");
-		
+
 		JLabel lblKaucjaval = new JLabel("kaucjaVal");
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
@@ -258,29 +258,29 @@ public class WypozyczenieSzczegoly2 extends JPanel {
 					.addContainerGap())
 		);
 		panel_4.setLayout(gl_panel_4);
-		
+
 		DatePanel datePanelOd = new DatePanel("Od");
-		
+
 		DatePanel datePanelDo = new DatePanel("Do");
-		
+
 		JLabel lblOdGodziny = new JLabel("Od godziny:");
-		
+
 		JLabel lblDoGodziny = new JLabel("Do godziny:");
-		
+
 		JSpinner spinner = new JSpinner();
-		
+
 		JSpinner spinner_1 = new JSpinner();
-		
+
 		JSpinner spinner_2 = new JSpinner();
-		
+
 		JSpinner spinner_3 = new JSpinner();
-		
+
 		JLabel lblOdbir = new JLabel("Odbi\u00F3r");
-		
+
 		JLabel lblZwrot = new JLabel("Zwrot");
-		
+
 		JComboBox odbiorBox = new JComboBox();
-		
+
 		JComboBox zwrotBox = new JComboBox();
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
@@ -346,61 +346,61 @@ public class WypozyczenieSzczegoly2 extends JPanel {
 		);
 		panel_3.setLayout(gl_panel_3);
 		panel_2.setLayout(null);
-		
+
 		JLabel lblZaliczka = new JLabel("Zaliczka");
 		lblZaliczka.setBounds(10, 11, 37, 14);
 		panel_2.add(lblZaliczka);
-		
+
 		JLabel lblDataWpaty = new JLabel("Data wp\u0142aty");
 		lblDataWpaty.setBounds(10, 29, 69, 14);
 		panel_2.add(lblDataWpaty);
-		
+
 		JLabel lblKwota = new JLabel("Kwota");
 		lblKwota.setBounds(10, 54, 69, 14);
 		panel_2.add(lblKwota);
-		
+
 		JLabel lblDatawplatyval = new JLabel("DataWplatyVal");
 		lblDatawplatyval.setBounds(108, 29, 98, 14);
 		panel_2.add(lblDatawplatyval);
-		
+
 		JLabel lblKwotaval = new JLabel("kwotaVal");
 		lblKwotaval.setBounds(108, 54, 98, 14);
 		panel_2.add(lblKwotaval);
-		
+
 		JLabel lblKaucja = new JLabel("Kaucja");
 		lblKaucja.setBounds(286, 11, 46, 14);
 		panel_2.add(lblKaucja);
-		
+
 		JLabel lblDataWpaty_1 = new JLabel("Data wp\u0142aty");
 		lblDataWpaty_1.setBounds(286, 29, 82, 14);
 		panel_2.add(lblDataWpaty_1);
-		
+
 		JLabel lblKwota_1 = new JLabel("Kwota");
 		lblKwota_1.setBounds(286, 54, 82, 14);
 		panel_2.add(lblKwota_1);
-		
+
 		JLabel lblDatawplatyzaliczkival = new JLabel("DataWplatyZaliczkiVal");
 		lblDatawplatyzaliczkival.setBounds(381, 29, 98, 14);
 		panel_2.add(lblDatawplatyzaliczkival);
-		
+
 		JLabel lblKwotazalival = new JLabel("kwotaZaliVal");
 		lblKwotazalival.setBounds(378, 54, 101, 14);
 		panel_2.add(lblKwotazalival);
 		panel_1.setLayout(gl_panel_1);
-		
+
 		JPanel panel = new JPanel();
 		add(panel, "cell 1 0,grow");
-		
+
 		JLabel lblOpcje = new JLabel("Opcje");
-		
+
 		JCheckBox chckbxEdytujDane = new JCheckBox("Edytuj dane");
-		
+
 		JButton btnPowrt = new JButton("Powr\u00F3t");
-		
+
 		JButton btnDalej = new JButton("Dalej");
-		
+
 		JButton btnWpataKaucji = new JButton("Wp\u0142ata kaucji");
-		
+
 		JButton btnWpataZaliczki = new JButton("Wp\u0142ata zaliczki");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -436,5 +436,7 @@ public class WypozyczenieSzczegoly2 extends JPanel {
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
+
+		setComponentsNames();
 	}
 }

@@ -13,6 +13,8 @@
  */
 package entity;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 public class Klient extends entity.Osoba {
@@ -43,6 +45,16 @@ public class Klient extends entity.Osoba {
 		this.firmy = firmy;
 	}
 	
+	@Override
+	public void setDataUrodzenia(Date value) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.YEAR, -21);
+		if(value.before(c.getTime()))
+			super.setDataUrodzenia(value); 
+		else
+			throw new IllegalArgumentException("Klient musi mieæ ukoñczone 21 lat");
+	}
+	
 	public void setNumerPrawaJazdy(String value) {
 		this.numerPrawaJazdy = value;
 	}
@@ -60,7 +72,10 @@ public class Klient extends entity.Osoba {
 	}
 	
 	public void setZnizka(double value) {
-		this.znizka = value;
+		if(value>=0 && value<=1)
+			this.znizka = value;
+		else 
+			throw new IllegalArgumentException("Zni¿ka to liczba z przedzia³u [0,1]"+value); 
 	}
 	
 	public double getZnizka() {
@@ -132,6 +147,12 @@ public class Klient extends entity.Osoba {
 				+ ", krajWydaniaPrawaJazdy=" + krajWydaniaPrawaJazdy
 				+ ", znizka=" + znizka + ", rezerwacje=" + rezerwacje
 			    + ", firmy=" + firmy + "]";
+	}
+	
+	public static void main(String[] args) {
+		Klient k = new Klient();
+		k.setImie("¥a¹a");
+		k.setNazwisko("Baa-Baaa");
 	}
 	
 }

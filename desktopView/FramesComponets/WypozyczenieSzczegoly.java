@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.Box;
+import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.GroupLayout;
@@ -31,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.text.MaskFormatter;
 
 import org.junit.experimental.theories.DataPoint;
 
@@ -40,11 +42,12 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 
 
-public class WypozyczenieSzczegoly extends JPanel {
+public class WypozyczenieSzczegoly extends CenterPanel {
 	private JTextField imie;
 	private JTextField nazwisko;
 	private JTextField ulica;
@@ -93,43 +96,21 @@ public class WypozyczenieSzczegoly extends JPanel {
 	public void setContent(Rezerwacja rez){
 		Klient klient = rez.getKlient();
 		HashMap<String, Object> daneKlienta = klient.getFildsValues();
-		for(Component c: klientComponets){
-			if(c instanceof JTextField){
-				JTextField txt = (JTextField)c;
-				String value = (String) daneKlienta.get(txt.getName());
-				txt.setText(value);
-			}
-			else if(c instanceof DatePanel){
-				DatePanel datePanel = (DatePanel)c;
-				Date date = (Date) daneKlienta.get(datePanel.getName());
-				datePanel.setDate(date);
-			}
-			else if(c instanceof JComboBox){
-				JComboBox krajKombo = (JComboBox)c;
-				String value = (String) daneKlienta.get(krajKombo.getName());
-				krajKombo.setSelectedItem(value);
-			}
-		}
+
+		fillFilds(klientComponets, daneKlienta);
 		Adres adresKlienta = klient.getAdres();
 		HashMap<String, Object> daneAdresuKlienta = adresKlienta.getFildsValues();
-		for(Component c: adresKlientComponets){
-			JTextField txt = (JTextField)c;
-			String value = (String) daneAdresuKlienta.get(txt.getName());
-			txt.setText(value);
-		}
 
+		fillFilds(adresKlientComponets, daneAdresuKlienta);
 
 		DaneWypozyczenia daneWypozyczanie = rez.getDaneWypozyczenia();
 		Firma firma = daneWypozyczanie.getFirma();
 		if(firma != null){
 			checkNajemFirmowy.setSelected(true);
-			nazwaFirmy.setText(firma.getNazwaFirmy());
-			Adres adresFirmy = firma.getAdres();
-			ulicaF.setText(adresFirmy.getUlica());
-			kodPocztowyF.setText(adresFirmy.getKodPocztowy());
-			miejscowoscF.setText(adresFirmy.getMiejscowosc());
-			NIP.setText(firma.getNIP());
-			System.out.println("ddd"+NIP.getName());
+			HashMap<String, Object> daneFirmy = firma.getFildsValues();
+			fillFilds(firmaComponents, daneFirmy);
+			HashMap<String, Object> daneAdresuFirmy = firma.getAdres().getFildsValues();
+			fillFilds(adresFirmy, daneAdresuFirmy);
 		}
 		else{
 			checkNajemFirmowy.setSelected(false);
@@ -143,80 +124,26 @@ public class WypozyczenieSzczegoly extends JPanel {
 		uwagi.setText(rez.getUwagi());
 		int plecIndex = klient.getPlec().equals("M")? 0 : 1;
 		plec.setSelectedIndex(plecIndex);
+	}
 
 
-	}
-	private void fillHashMap(Component[] cmp,HashMap<String, Object> map){
-		for(Component c: cmp){
-			if(c instanceof JTextField){
-				JTextField txt = (JTextField)c;
-				map.put(txt.getName(), txt.getText());
-			}
-			else if(c instanceof JComboBox){
-				JComboBox combo = (JComboBox)c;
-				map.put(combo.getName(), combo.getSelectedItem());
-			}
-			else if(c instanceof JCheckBox){
-				JCheckBox box = (JCheckBox)c;
-				map.put(box.getName(), box.isSelected());
-			}
-			else if(c instanceof DatePanel){
-				DatePanel date = (DatePanel)c;
-				map.put(date.getName(), date.getDate());
-			}
-		}
-	}
+
+
 
 	public HashMap<String, Object>[] getFildsValue(){
-		System.out.println(miejscowoscF.getName());
-		System.out.println(ulicaF.getName());
 		HashMap<String, Object> daneKlienta = new HashMap<String, Object>();
 		HashMap<String, Object> daneFirmy = new HashMap<String, Object>();
 		fillHashMap(klientComponets, daneKlienta);
 		fillHashMap(adresKlientComponets, daneKlienta);
 		fillHashMap(firmaComponents, daneFirmy);
 		fillHashMap(adresFirmy, daneFirmy);
-//		String imie = imie.getText();
-//		String nazwisko = nazwisko.getText();
-//		String ulica = ulica.getText();
-//		String kodPocztowy = kodPocztowy.getText();
-//		String miejscowosc = miejscowosc.getText();
-//		String email = email.getText();
-//		Date dataUr = datePanel.getDate();
-//		String numerPrawaJazdy = txtNumerPrawaJazdy.getText();
-//		String krajWydania = (String) txtKrajWydania.getSelectedItem();
-//		String uwagi = txtUwagi.getText();
 		String plecStr = plec.getSelectedItem().equals("Pan")? "M":"K";
-		daneKlienta.put(plec.getName(), plecStr);
 
-//		danePol.put("imie", imie);
-//		danePol.put("nazwisko", nazwisko);
-//		danePol.put("ulica", ulica);
-//		danePol.put("kodPocztowy", kodPocztowy);
-//		danePol.put("miejscowosc", miejscowosc);
-//		danePol.put("email", email);
-//		danePol.put("dataUrodzenia", dataUr);
-//		danePol.put("numerPrawaJazdy", numerPrawaJazdy);
-//		danePol.put("krajWydania", krajWydania);
+		daneKlienta.put(plec.getName(), plecStr);
 		daneKlienta.put(uwagi.getName(), uwagi.getText());
-//
-//		if(checkNajemFirmowy.isSelected()){
-//			String nazwaFirmy = nazwaFirmy.getText();
-//			String ulica2 = ulicaF.getText();
-//			String kodPocztowyFirmy = kodPocztowyF.getText();
-//			String miejscowoscFirmy = miejscowoscF.getText();
-//			String NIP = NIP.getText();
-//
-//			danePol.put("nazwaFirmy", nazwaFirmy);
-//			danePol.put("ulicaFirmy", ulica2);
-//			danePol.put("kodPocztowyFirmy", kodPocztowyFirmy);
-//			danePol.put("miejscowoscFirmy", miejscowoscFirmy);
-//			danePol.put("numerNIP", NIP);
-//
-//		}
+
 		HashMap[] dane = new HashMap[]{daneKlienta, daneFirmy};
 		return dane;
-//		return danePol;
 	}
 
 	public boolean isEditable() {
@@ -270,8 +197,14 @@ public class WypozyczenieSzczegoly extends JPanel {
 		ulica.setColumns(10);
 
 		JLabel lblKodPocztowy = new JLabel("Kod pocztowy");
-
-		kodPocztowy = new JTextField();
+		MaskFormatter mf1=null;
+		try {
+			mf1 = new MaskFormatter("##-###");
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		kodPocztowy = new JFormattedTextField(mf1);
 		kodPocztowy.setText("Kod pocztowy");
 		kodPocztowy.setColumns(10);
 
@@ -529,32 +462,16 @@ public class WypozyczenieSzczegoly extends JPanel {
 		setEditable(false);
 
 		// set component name
-		try {
-			Class c = Class.forName(this.getClass().getCanonicalName());
-			Field[] fields = c.getDeclaredFields();
-			for (Field f : fields) {
-				if( Component.class.isAssignableFrom(f.getType())){
-					Component comp =(Component) f.get(this);
-					comp.setName(f.getName());
-				}
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		setComponentsNames();
+
 		miejscowoscF.setName("miejscowosc");
 		ulicaF.setName("ulica");
 		kodPocztowyF.setName("kodPocztowy");
 
+		//pogrupowanie komponentów w tablice
 		klientComponets= new Component[]{imie, nazwisko, numerTelefonu,email,dataUrodzenia,krajWydaniaPrawaJazdy, numerPrawaJazdy};
 		adresKlientComponets = new Component[]{ulica, miejscowosc, kodPocztowy};
 		firmaComponents = new Component[]{nazwaFirmy, NIP};
-		adresFirmy = new Component[]{ulicaF, kodPocztowyF, nazwaFirmy,miejscowoscF};
+		adresFirmy = new Component[]{ulicaF, kodPocztowyF,miejscowoscF};
 	}
 }

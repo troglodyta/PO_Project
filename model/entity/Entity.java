@@ -50,10 +50,14 @@ public class Entity {
 	// wartosc, która ma
 	// zostac ustawiona dla pola
 	public boolean setFields(HashMap<String, Object> params) {
+
 		try {
+			StringBuffer exc = new StringBuffer();
 			Class c = Class.forName(this.getClass().getCanonicalName());
-			setFieldsClass(c, params);
+			setFieldsClass(c, params, exc);
 			return true;
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException(e.getMessage());
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,19 +68,15 @@ public class Entity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IntrospectionException e) {
+			throw new IllegalArgumentException(e.getTargetException().getMessage());
+		}  catch (IntrospectionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	private void setFieldsClass(Class c, HashMap<String, Object> params)
+	private void setFieldsClass(Class c, HashMap<String, Object> params, StringBuffer exception)
 			throws IllegalArgumentException, IllegalAccessException,
 			SecurityException, InvocationTargetException, IntrospectionException {
 
@@ -90,11 +90,20 @@ public class Entity {
 					// pobranie gettera dla pola
 					PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, this.getClass());
 					Method setter = propertyDescriptor.getWriteMethod();
+					try{
 					setter.invoke(this, value);
+					}catch(java.lang.reflect.InvocationTargetException e){
+						String message =e.getTargetException().getMessage();
+						exception.append(message+"\n");
+					}
 				}
 			}
 			Class superClass = c.getSuperclass();
-			setFieldsClass(superClass, params);
+			setFieldsClass(superClass, params,exception);
+		}
+		else{
+		if(exception.length() > 0)
+			throw new IllegalArgumentException(exception.toString());
 		}
 
 	}
@@ -133,10 +142,16 @@ public class Entity {
 		Klient a = new Klient();
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("imie", "AAA");
+		params.put("nazwisko", "123");
+		try{
 		a.setFields(params);
-	
+		}catch(java.lang.IllegalArgumentException e){
+			System.out.println("AAA");
+			System.out.println(e.getMessage());
+		}
+
 			System.out.println(a.getFildsValues());
-		
+
 		System.out.println(a.getFieldValue("imie"));
 	}
 }

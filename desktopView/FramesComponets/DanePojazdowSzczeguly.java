@@ -12,10 +12,13 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
 
-public class DanePojazdowSzczeguly extends JPanel 
+public class DanePojazdowSzczeguly extends CenterPanel
 {
-	private JTextField txtNumerPolisy;
-	private JTextField txtNrRejestracyjny;
+
+	//TODO zmieniæ nazwy komponentów na nazwy pól odpowiadaj¹cych klas
+
+	private JTextField numerPolisy;
+	private JTextField nrRejstracyjny;
 	private JTextField txtNrIdentyfikacyjny;
 	private JTextField txtMiejscaSiedzce;
 	private JTextField txtMasaMax;
@@ -28,13 +31,13 @@ public class DanePojazdowSzczeguly extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public DanePojazdowSzczeguly() 
+	public DanePojazdowSzczeguly()
 	{
 		setLayout(new MigLayout("", "[610.00,grow][grow]", "[25.00][437.00,grow]"));
-		
+
 		JPanel panel_2 = new JPanel();
 		add(panel_2, "cell 0 0 2 1,grow");
-		
+
 		JLabel lblDanePojazdu = new JLabel("Dane Pojazdu");
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
@@ -51,51 +54,51 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, "cell 0 1,grow");
-		
+
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		
+
 		JPanel panel_3 = new JPanel();
-		
+
 		JPanel panel_4 = new JPanel();
-		
+
 		JLabel lblNrRejestracyjny = new JLabel("Nr rejestracyjny");
-		
-		txtNrRejestracyjny = new JTextField();
-		txtNrRejestracyjny.setText("Nr rejestracyjny");
-		txtNrRejestracyjny.setColumns(10);
-		
+
+		nrRejstracyjny = new JTextField();
+		nrRejstracyjny.setText("Nr rejestracyjny");
+		nrRejstracyjny.setColumns(10);
+
 		JLabel lblMarka = new JLabel("Marka");
-		
+
 		JComboBox cboxMarka = new JComboBox();
-		
+
 		JComboBox cboxModel = new JComboBox();
-		
+
 		JLabel lblModel = new JLabel("Model");
-		
+
 		JComboBox cboxTyp = new JComboBox();
-		
+
 		JLabel lblTyp = new JLabel("Typ");
-		
+
 		JLabel lblNrIdentyfikacyjny = new JLabel("Nr identyfikacyjny");
-		
+
 		txtNrIdentyfikacyjny = new JTextField();
 		txtNrIdentyfikacyjny.setText("Nr identyfikacyjny");
 		txtNrIdentyfikacyjny.setColumns(10);
-		
+
 		JLabel lblKategoria = new JLabel("Kategoria");
-		
+
 		JComboBox cboxKategoria = new JComboBox();
-		
+
 		JLabel lblMiejscaSiedzce = new JLabel("Miejsca siedz\u0105ce");
-		
+
 		txtMiejscaSiedzce = new JTextField();
 		txtMiejscaSiedzce.setText("Miejsca siedz\u0105ce");
 		txtMiejscaSiedzce.setColumns(10);
-		
+
 		JPanel panel_5 = new JPanel();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -112,7 +115,7 @@ public class DanePojazdowSzczeguly extends JPanel
 								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 									.addComponent(txtNrIdentyfikacyjny, Alignment.LEADING)
 									.addComponent(lblNrRejestracyjny, Alignment.LEADING)
-									.addComponent(txtNrRejestracyjny, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
+									.addComponent(nrRejstracyjny, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
 								.addComponent(lblNrIdentyfikacyjny))
 							.addGap(18)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -148,7 +151,7 @@ public class DanePojazdowSzczeguly extends JPanel
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNrRejestracyjny)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtNrRejestracyjny, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(nrRejstracyjny, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblMarka)
@@ -173,39 +176,39 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addContainerGap())
 		);
-		
+
 		JLabel lblMasaCakowitaMaxdop = new JLabel("masa ca\u0142kowita max/dop");
-		
+
 		txtMasaMax = new JTextField();
 		txtMasaMax.setText("masa max");
 		txtMasaMax.setColumns(10);
-		
+
 		JLabel label = new JLabel("/");
-		
+
 		txtMasaDop = new JTextField();
 		txtMasaDop.setText("masa dop");
 		txtMasaDop.setColumns(10);
-		
+
 		JLabel lblMasaWasna = new JLabel("Masa w\u0142asna");
-		
+
 		txtMasaWasna = new JTextField();
 		txtMasaWasna.setText("masa w\u0142asna");
 		txtMasaWasna.setColumns(10);
-		
+
 		JLabel lblPojemno = new JLabel("pojemno\u015B\u0107");
-		
+
 		txtPojenmo = new JTextField();
 		txtPojenmo.setText("pojenmo\u015B\u0107");
 		txtPojenmo.setColumns(10);
-		
+
 		JLabel lblMocMax = new JLabel("moc max");
-		
+
 		txtMocMax = new JTextField();
 		txtMocMax.setText("moc max");
 		txtMocMax.setColumns(10);
-		
+
 		JLabel lblRodzajPaliwa = new JLabel("rodzaj paliwa");
-		
+
 		txtRodzajPaliwa = new JTextField();
 		txtRodzajPaliwa.setText("rodzaj paliwa");
 		txtRodzajPaliwa.setColumns(10);
@@ -266,19 +269,19 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		panel_5.setLayout(gl_panel_5);
-		
+
 		JLabel lblDataUbezpieczenia = new JLabel("Data ubezpieczenia");
-		
+
 		DatePanel datePanel = new DatePanel((String) null);
-		
+
 		JLabel lblNumerPolisy = new JLabel("Numer polisy");
-		
-		txtNumerPolisy = new JTextField();
-		txtNumerPolisy.setText("Numer polisy");
-		txtNumerPolisy.setColumns(10);
-		
+
+		numerPolisy = new JTextField();
+		numerPolisy.setText("Numer polisy");
+		numerPolisy.setColumns(10);
+
 		JLabel lblUbezpieczyciel = new JLabel("Ubezpieczyciel");
-		
+
 		JComboBox cboxUbezpieczyciel = new JComboBox();
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
@@ -289,7 +292,7 @@ public class DanePojazdowSzczeguly extends JPanel
 						.addComponent(datePanel, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
 						.addComponent(lblDataUbezpieczenia)
 						.addComponent(lblNumerPolisy)
-						.addComponent(txtNumerPolisy, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+						.addComponent(numerPolisy, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
 						.addComponent(lblUbezpieczyciel)
 						.addComponent(cboxUbezpieczyciel, 0, 241, Short.MAX_VALUE))
 					.addContainerGap())
@@ -304,7 +307,7 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNumerPolisy)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtNumerPolisy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(numerPolisy, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(lblUbezpieczyciel)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -312,17 +315,17 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addContainerGap(25, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
-		
+
 		DatePanel dateWymianaOleju = new DatePanel("");
-		
+
 		DatePanel datePrzeglad = new DatePanel("");
-		
+
 		JLabel lblWymianaOleju = new JLabel("Wymiana oleju");
-		
+
 		JLabel lblDataPrzegldu = new JLabel("Data przegl\u0105du");
-		
+
 		JLabel lblDataProdukcji = new JLabel("Data produkcji");
-		
+
 		DatePanel dateProdukcja = new DatePanel((String) null);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
@@ -357,20 +360,20 @@ public class DanePojazdowSzczeguly extends JPanel
 		);
 		panel_3.setLayout(gl_panel_3);
 		panel.setLayout(gl_panel);
-		
+
 		JPanel panel_1 = new JPanel();
 		add(panel_1, "cell 1 1,grow");
-		
+
 		JLabel lblOpcje = new JLabel("Opcje");
-		
+
 		JCheckBox chckbxModyfikujDane = new JCheckBox("Modyfikuj dane");
-		
+
 		JButton btnZapisz = new JButton("Zapisz");
-		
+
 		JButton btnAnuluj = new JButton("Anuluj");
-		
+
 		JButton btnUsu = new JButton("Usu\u0144");
-		
+
 		JButton btnPowrt = new JButton("Powr\u00F3t");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -406,6 +409,8 @@ public class DanePojazdowSzczeguly extends JPanel
 					.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
-		
+
+		setComponentsNames();
+
 	}
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import entity.*;
 import FramesComponets.Wypozyczenie;
@@ -41,6 +42,7 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 				System.out.println(fildsValues[1]);
 				rezerwacja.setUwagi((String)daneKlienta.get("uwagi"));
 
+				try{
 				Klient klient = rezerwacja.getKlient();
 				klient.setFields(daneKlienta);
 
@@ -51,12 +53,16 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 				firma.setFields(daneFirmy);
 
 				Adres adresFirmy = firma.getAdres();
-				adresFirmy.setFields(daneFirmy);
-				System.out.println(rezerwacja);
-				System.out.println(klient);
-				System.out.println(firma);
-				System.out.println(adresFirmy);
 				DBManager.INSTANCE.updateEntity(rezerwacja);
+				}
+				catch(java.lang.IllegalArgumentException exc){
+					JOptionPane.showMessageDialog(panel, exc.getMessage());
+				}
+//				adresFirmy.setFields(daneFirmy);
+//				System.out.println(rezerwacja);
+//				System.out.println(klient);
+//				System.out.println(firma);
+//				System.out.println(adresFirmy);
 
 			break;
 		case "Anuluj":
