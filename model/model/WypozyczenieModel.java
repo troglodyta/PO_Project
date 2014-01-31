@@ -1,6 +1,9 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +13,7 @@ public class WypozyczenieModel implements Model {
 	private DBManager manager = DBManager.INSTANCE;
 
 	public List<Rezerwacja> getWszytkieRezerwacje(){
-		String sql = "from Rezerwacja";
+		String sql = "select r from  Rezerwacja r where r.daneWypozyczenia.pojazd.czyWypozyczony=false";
 		return (List<Rezerwacja>)(manager.queryHibernate(sql, null));
 	}
 
@@ -34,7 +37,7 @@ public class WypozyczenieModel implements Model {
 		String sWhere = where.toString();
 		if(sWhere.length() > 5)
 			sWhere = sWhere.substring(0,sWhere.length()-5);
-		String hql = "select r from Rezerwacja r where "+sWhere;
+		String hql = "select r from Rezerwacja r where r.daneWypozyczenia.pojazd.czyWypozyczony=false and "+sWhere;
 		return sWhere.length()>0? (List<Rezerwacja>)(manager.queryHibernate(hql, params)): getWszytkieRezerwacje();
 	}
 
@@ -86,6 +89,22 @@ public class WypozyczenieModel implements Model {
 			wyn[i]=s;
 		}
 		return wyn;
+	}
+
+	public String generujUmowe(DaneWypozyczenia dane, Klient klient){
+		Pojazd p = dane.getPojazd();
+		DaneModeluPojazdu daneP = p.getDanePojazdu();
+		SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+		String s = "UMOWA\nzawarta w dniu "+f.format((new Date()))+" pomiêdzy:"
++"Firm¹ AutoTrans ,siedziba Wroc³aw, przy ul. "+dane.getOddzialOdbioru().getAdres().getUlica()+"\nlegitymuj¹cym/¹ siê numerem NIP  52 90-133 zwan¹/ym w dalszej czêœci umowy WYNAJMUJ¥CYM\n"
++"a\n"
++""+klient.getImie()+" "+klient.getNazwisko()+" , zamieszka³ym"+klient.getAdres().getMiejscowosc()+", przy ul."+klient.getAdres().getUlica()+"\nlegitymuj¹cym/¹ siê numerem prawojazdy "+klient.getNumerPrawaJazdy()+" zwan¹/ym w dalszej czêœci umowy NAJEMC¥.\n"
++"NAJEMCA zobowi¹zuje siê do zwrotu wypo¿yczonego pojazdu\n "+daneP.getMarka()+" "+daneP.getModel()+" "+daneP.getTyp()+" numer rejstacyjny: "+p.getNrRejstracyjny()
++"\ndo dnia i godziny "+f.format(dane.getDataGodzinaDo())+" oraz wp³aty p³atnoœci "+dane.getPlatnosc()
++"\nNAJEMCA jest zobowiazany do zwrotu pojazdu w nienaruszonym stanie.\n W przeciwnym razie kaucja wysokoœci "+dane.getKaucja()+" nie podlega zwrotowi."
++"\n"
++"\nPodpis pracownika                                                                                                   Podpis najemcy";
+return s;
 	}
 
 	public String[] allCountries(){

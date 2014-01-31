@@ -15,6 +15,7 @@ package entity;
 
 public class DaneModeluPojazdu extends Entity {
 
+
 	private int ID;
 
 	private String marka;
@@ -77,40 +78,6 @@ public class DaneModeluPojazdu extends Entity {
 		this.kaucja = kaucja;
 		this.rodzajPaliwa = rodzajPaliwa;
 		this.cenaRynkowa = cenaRynkowa;
-	}
-
-
-
-	public double getSrednieSpalanie() {
-		return srednieSpalanie;
-	}
-
-	public void setSrednieSpalanie(double srednieSpalanie) {
-		this.srednieSpalanie = srednieSpalanie;
-	}
-
-	public String getWyposarzenie() {
-		return wyposarzenie;
-	}
-
-	public void setWyposarzenie(String wyposarzenie) {
-		this.wyposarzenie = wyposarzenie;
-	}
-
-	public int getLiczbaDrzwi() {
-		return liczbaDrzwi;
-	}
-
-	public void setLiczbaDrzwi(int liczbaDrzwi) {
-		this.liczbaDrzwi = liczbaDrzwi;
-	}
-
-	public int getPojemnoscBagaznika() {
-		return pojemnoscBagaznika;
-	}
-
-	public void setPojemnoscBagaznika(int pojemnoscBagaznika) {
-		this.pojemnoscBagaznika = pojemnoscBagaznika;
 	}
 
 	public void setID(int value) {
@@ -237,6 +204,38 @@ public class DaneModeluPojazdu extends Entity {
 		return cenaRynkowa;
 	}
 
+	public double getSrednieSpalanie() {
+		return srednieSpalanie;
+	}
+
+	public void setSrednieSpalanie(double srednieSpalanie) {
+		this.srednieSpalanie = srednieSpalanie;
+	}
+
+	public String getWyposarzenie() {
+		return wyposarzenie;
+	}
+
+	public void setWyposarzenie(String wyposarzenie) {
+		this.wyposarzenie = wyposarzenie;
+	}
+
+	public int getLiczbaDrzwi() {
+		return liczbaDrzwi;
+	}
+
+	public void setLiczbaDrzwi(int liczbaDrzwi) {
+		this.liczbaDrzwi = liczbaDrzwi;
+	}
+
+	public int getPojemnoscBagaznika() {
+		return pojemnoscBagaznika;
+	}
+
+	public void setPojemnoscBagaznika(int pojemnoscBagaznika) {
+		this.pojemnoscBagaznika = pojemnoscBagaznika;
+	}
+
 	@Override
 	public String toString() {
 		return "DaneModeluPojazdu [ID=" + ID + ", marka=" + marka + ", model="
@@ -252,7 +251,5 @@ public class DaneModeluPojazdu extends Entity {
 				+ kaucja + ", rodzajPaliwa=" + rodzajPaliwa + ", cenaRynkowa="
 				+ cenaRynkowa + "]";
 	}
-
-
 
 }

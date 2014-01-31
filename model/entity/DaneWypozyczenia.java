@@ -98,16 +98,24 @@ public class DaneWypozyczenia extends Entity {
 		return dataGodzinaOd;
 	}
 
-	public void setDataGodzinaDo(java.util.Date value) {
+	public void setDataGodzinaDo(java.util.Date value)
+	{
+		if(value.after(dataGodzinaOd))
 		this.dataGodzinaDo = value;
+		else
+			throw new IllegalArgumentException("Data oddania musi byæ póŸniejsza od daty po¿yczenia");
 	}
 
 	public java.util.Date getDataGodzinaDo() {
 		return dataGodzinaDo;
 	}
 
-	public void setDataWpatyZaliczki(java.util.Date value) {
-		this.dataWpatyZaliczki = value;
+	public void setDataWpatyZaliczki(java.util.Date value)
+	{
+		if(value.before(dataGodzinaOd))
+			this.dataWpatyZaliczki = value;
+		else
+			throw new IllegalArgumentException("Zaliczka musi byæ wp³acona przed wypo¿yczeniem");
 	}
 
 	public java.util.Date getDataWpatyZaliczki() {
@@ -115,7 +123,10 @@ public class DaneWypozyczenia extends Entity {
 	}
 
 	public void setDataWplatyKaucji(java.util.Date value) {
-		this.dataWplatyKaucji = value;
+	//	if(dataGodzinaDo==null || value.before(dataGodzinaOd))
+			this.dataWplatyKaucji = value;
+	//	else
+		//	throw new IllegalArgumentException("Kaucja musi byæ wp³acona przed wypo¿yczeniem");
 	}
 
 	public java.util.Date getDataWplatyKaucji() {
@@ -154,20 +165,20 @@ public class DaneWypozyczenia extends Entity {
 		return wplaconaKaucja;
 	}
 
-	public void setOddzialZwrotu(entity.Oddzial value) {
-		this.oddzialZwrotu = value;
+	public entity.Oddzial getOddzialOdbioru() {
+		return oddzialOdbioru;
+	}
+
+	public void setOddzialOdbioru(entity.Oddzial oddzialOdbioru) {
+		this.oddzialOdbioru = oddzialOdbioru;
 	}
 
 	public entity.Oddzial getOddzialZwrotu() {
 		return oddzialZwrotu;
 	}
 
-	public void setOddzialOdbioru(entity.Oddzial value) {
-		this.oddzialOdbioru = value;
-	}
-
-	public entity.Oddzial getOddzialOdbioru() {
-		return oddzialOdbioru;
+	public void setOddzialZwrotu(entity.Oddzial oddzialZwrotu) {
+		this.oddzialZwrotu = oddzialZwrotu;
 	}
 
 	public void setPojazd(entity.Pojazd value) {
@@ -189,8 +200,8 @@ public class DaneWypozyczenia extends Entity {
 
 	@Override
 	public String toString() {
-		return "DaneWypozyczenia [ID=" + ID + ", odzialZwroru=" + oddzialZwrotu
-				+ ", oddzialZwrotu=" + oddzialOdbioru + ", pojazd=" + pojazd
+		return "DaneWypozyczenia [ID=" + ID + ", odzialOdbioru=" + oddzialOdbioru
+				+ ", oddzialZwrotu=" + oddzialZwrotu + ", pojazd=" + pojazd
 				+ ", dataGodzinaOd="
 				+ dataGodzinaOd + ", dataGodzinaDo=" + dataGodzinaDo
 				+ " Firma " + firma

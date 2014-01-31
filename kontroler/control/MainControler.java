@@ -3,10 +3,13 @@ package control;
 import java.awt.EventQueue;
 import java.util.HashMap;
 
+import entity.Kierownik;
 import FramesComponets.PrzegladaniePojazdow;
 import FramesComponets.Wypozyczenie;
 import FramesComponets.WypozyczenieSzczegoly;
+import model.DBManager;
 import model.RezerwacjaModel;
+import model.SessionStore;
 import model.WypozyczenieModel;
 
 public class MainControler extends AbstractContoler {
@@ -23,6 +26,9 @@ public class MainControler extends AbstractContoler {
 
 	@Override
 	public void act(String operation) {
+		//Ustawienie kierownika na sztywno
+		Kierownik k = (Kierownik) DBManager.INSTANCE.loadByID("Kierownik", 4);
+		SessionStore.INSTANCE.store("zalogowany", k);
 		switch (operation) {
 		case "loadFirstFrame":
 			Controler c =  controlers.get("Wypozyczenie");

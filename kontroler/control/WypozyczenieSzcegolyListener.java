@@ -55,13 +55,18 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 				adresKlienta.setFields(daneKlienta);
 
 				Firma firma = rezerwacja.getDaneWypozyczenia().getFirma();
+				if(firma !=null){
 				firma.setFields(daneFirmy);
 
 				Adres adresFirmy = firma.getAdres();
+				adresFirmy.setFields(daneFirmy);
+				}
 				DBManager.INSTANCE.updateEntity(rezerwacja);
 				}
 				catch(java.lang.IllegalArgumentException exc){
 					JOptionPane.showMessageDialog(panel, exc.getMessage());
+					System.out.println("AAA");
+					break;
 				}
 //				adresFirmy.setFields(daneFirmy);
 //				System.out.println(rezerwacja);
@@ -82,18 +87,21 @@ public class WypozyczenieSzcegolyListener extends AbstractSingleControler implem
 		case "Dalej" :
 				wypozyczenie.setCurrentWypozyczeniaPanel(2);
 				WypozyczenieSzczegoly2 panel3 =(WypozyczenieSzczegoly2)wypozyczenie.getWypozyczeniaPanel(2);
+				List<Rezerwacja> rezerwacje3= (List<Rezerwacja>) SessionStore.INSTANCE.load("rezerwacjeList");
+				Integer currentIndex3 = (Integer) SessionStore.INSTANCE.load("indexRezerwacji");
+				Rezerwacja rezerwacja3 = rezerwacje3.get(currentIndex3);
+				DaneWypozyczenia dane = rezerwacja3.getDaneWypozyczenia();
+
+
 				String[] oddzialy = model.getOddzialy();
 				List<DaneModeluPojazdu> danePojazdow = model.getDanePojazdow();
 				panel3.setOddzialyCombo(oddzialy);
 				panel3.setModelListener(new DaneModeluPojazduListener(model, panel3));
 				panel3.setComboPojazdy(danePojazdow);
 				panel3.addButtonsListeners(new Wypozyczenie3ButtonsListener(model, wypozyczenie));
-				List<Rezerwacja> rezerwacje3= (List<Rezerwacja>) SessionStore.INSTANCE.load("rezerwacjeList");
-				Integer currentIndex3 = (Integer) SessionStore.INSTANCE.load("indexRezerwacji");
-				Rezerwacja rezerwacja3 = rezerwacje3.get(currentIndex3);
-				DaneWypozyczenia dane = rezerwacja3.getDaneWypozyczenia();
 				System.out.println(dane);
 				panel3.setConntent(dane);
+
 			break;
 
 		default:

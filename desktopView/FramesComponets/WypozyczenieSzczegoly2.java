@@ -27,13 +27,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.BoxLayout;
 
+import entity.Akcesoria;
 import entity.DaneModeluPojazdu;
 import entity.DaneWypozyczenia;
 import entity.Pojazd;
+import entity.WypozyczeniaAkcesoria;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -59,9 +62,19 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 	private Component[] daty;
 	private DatePanel dataGodzinaOd;
 	private DatePanel dataGodzinaDo;
+	private JCheckBox nawigacjaGPS;
+	private JCheckBox odtwarzaczDVD;
+	private JCheckBox CBRadio;
+	private JCheckBox lancuchy;
+	private JComboBox fotelik1;
+	private JComboBox fotelik2;
+	private JComboBox podkladka;
+	private JButton dalej;
 
 	public void addButtonsListeners(ActionListener l){
 		powrot.addActionListener(l);
+		dalej.addActionListener(l);
+		
 	}
 
 	public void setConntent(DaneWypozyczenia dane){
@@ -86,6 +99,32 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 		Date dataDo = dane.getDataGodzinaDo();
 		dataGodzinaDo.setDate(dataDo);
 		godzinaDoModel.setValue(dataDo);
+
+		String miejsceOdbioru = dane.getOddzialOdbioru().getAdres().getMiejscowosc();
+		oddzialOdbioru.setSelectedItem(miejsceOdbioru);
+
+		String miejsceZwrotu = dane.getOddzialZwrotu().getAdres().getMiejscowosc();
+		oddzialZwrotu.setSelectedItem(miejsceZwrotu);
+
+		Collection<WypozyczeniaAkcesoria> wyp_ak =dane.getWypozyczeniaAkcesoria();
+		for(WypozyczeniaAkcesoria akc :wyp_ak){
+			Akcesoria akcesorium = akc.getAkcesoria();
+			String nazwa = akcesorium.getNazwaAkcesorium();
+			System.out.println(nazwa);
+			nawigacjaGPS.setSelected(nazwa.equals("Nawigacja GPS"));
+			odtwarzaczDVD.setSelected(nazwa.equals("Odtwarzacz DVD"));
+			CBRadio.setSelected(nazwa.equals("CB-Radio"));
+			lancuchy.setSelected(nazwa.equals("£añcuchy"));
+			if(nazwa.equals("Fotelik samochodowy(1-4 lat)")){
+				fotelik1.setSelectedItem(akc.getIlosc());
+			}
+			else if(nazwa.equals("Fotelik samochodowy(4-8 lat)")){
+				fotelik2.setSelectedItem(akc.getIlosc());
+			}
+			else if(nazwa.equals("Podk³adka na fotel dla dziecka")){
+				podkladka.setSelectedItem(akc.getIlosc());
+			}
+		}
 
 	}
 
@@ -131,6 +170,7 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 			tableModel.addRow(row);
 		}
 	}
+	
 
 	public void setModelListener(ItemListener l){
 		modelPojazdu.addItemListener(l);
@@ -200,39 +240,52 @@ public class WypozyczenieSzczegoly2 extends CenterPanel {
 					.addContainerGap(250, Short.MAX_VALUE))
 		);
 
-		JCheckBox nawigacjaGPS = new JCheckBox("Nawigacja GPS");
+		nawigacjaGPS = new JCheckBox("Nawigacja GPS");
 
-		JLabel lblCenaAkc1 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaAkc1 = new JLabel("50 PLN/doba");
 
-		JCheckBox odtwarzaczDVD = new JCheckBox("Odtwarzacz DVD");
+		odtwarzaczDVD = new JCheckBox("Odtwarzacz DVD");
 
-		JCheckBox CBRadio = new JCheckBox("CB - Radio");
+		CBRadio = new JCheckBox("CB - Radio");
 
-		JCheckBox lancuchy = new JCheckBox("\u0141a\u0144cuchy");
+		lancuchy = new JCheckBox("\u0141a\u0144cuchy");
 
 		JLabel lblFotelikDlaDziecka = new JLabel("Fotelik dla dziecka (1-4 lat)");
 
 		JLabel lblFotelikDlaDziecka_1 = new JLabel("Fotelik dla dziecka (4-8 lat)");
 
-		JComboBox fotelik1 = new JComboBox();
+		fotelik1 = new JComboBox();
+		fotelik1.addItem("");
+		fotelik1.addItem(1);
+		fotelik1.addItem(2);
+		fotelik1.addItem(3);
 
-		JComboBox fotelik2 = new JComboBox();
+
+		fotelik2 = new JComboBox();
+		fotelik2.addItem("");
+		fotelik2.addItem(1);
+		fotelik2.addItem(2);
+		fotelik2.addItem(3);
 
 		JLabel lblPodkadkeNaFotelik = new JLabel("Podk\u0142adke na fotel dla dziecka");
 
-		JComboBox podkladka = new JComboBox();
+		podkladka = new JComboBox();
+		podkladka.addItem("");
+		podkladka.addItem(1);
+		podkladka.addItem(2);
+		podkladka.addItem(3);
 
-		JLabel lblCenaAkc2 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaAkc2 = new JLabel("80 PLN/doba");
 
-		JLabel lblCenaAkc3 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaAkc3 = new JLabel("60 PLN/doba");
 
-		JLabel lblCenaAkc4 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaAkc4 = new JLabel("30 PLN/doba");
 
-		JLabel lblCenaFotel1 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaFotel1 = new JLabel("50 PLN/doba");
 
-		JLabel lblCenaFotel2 = new JLabel("AkcesoriaVal");
+		JLabel lblCenaFotel2 = new JLabel("50 PLN/doba");
 
-		JLabel lblCenafotel3 = new JLabel("AkcesoriaVal");
+		JLabel lblCenafotel3 = new JLabel("30 PLN/doba");
 		GroupLayout gl_panel_6 = new GroupLayout(panel_6);
 		gl_panel_6.setHorizontalGroup(
 			gl_panel_6.createParallelGroup(Alignment.LEADING)
@@ -568,7 +621,7 @@ JTable table = new JTable(tableModel);
 
 		powrot = new JButton("Powr\u00F3t");
 
-		JButton btnDalej = new JButton("Dalej");
+		dalej = new JButton("Dalej");
 
 		JButton btnWpataKaucji = new JButton("Wp\u0142ata kaucji");
 
@@ -584,7 +637,7 @@ JTable table = new JTable(tableModel);
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(powrot)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnDalej))
+							.addComponent(dalej))
 						.addComponent(btnWpataKaucji, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
 						.addComponent(btnWpataZaliczki, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap(22, Short.MAX_VALUE))
@@ -603,7 +656,7 @@ JTable table = new JTable(tableModel);
 					.addPreferredGap(ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(powrot)
-						.addComponent(btnDalej))
+						.addComponent(dalej))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);

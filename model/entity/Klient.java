@@ -56,7 +56,10 @@ public class Klient extends entity.Osoba {
 	}
 	
 	public void setNumerPrawaJazdy(String value) {
+		if(value.matches("[0-9]{11}"))
 		this.numerPrawaJazdy = value;
+		else
+			throw new IllegalArgumentException("Nieprawid≥owy numer prawa jazdy");
 	}
 	
 	public String getNumerPrawaJazdy() {
@@ -64,7 +67,10 @@ public class Klient extends entity.Osoba {
 	}
 	
 	public void setKrajWydaniaPrawaJazdy(String value) {
-		this.krajWydaniaPrawaJazdy = value;
+		if(value.matches("[A-• ”£åØè—]{1}\\D+"))
+			this.krajWydaniaPrawaJazdy = value;
+		else 
+			throw new IllegalArgumentException("Nazwa paÒstwa musi zaczynaÊ siÍ wielkπ literπ");
 	}
 	
 	public String getKrajWydaniaPrawaJazdy() {

@@ -52,7 +52,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 	private JTextField nazwisko;
 	private JTextField ulica;
 	private JButton anuluj;
-	private JTextField kodPocztowy;
+	private JFormattedTextField kodPocztowy;
 	private JTextField miejscowosc;
 	private JTextField numerTelefonu;
 	private JTextField email;
@@ -134,6 +134,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 
 
 	public HashMap<String, Object>[] getFildsValue(){
+		System.out.println(kodPocztowy.getValue());
 		HashMap<String, Object> daneKlienta = new HashMap<String, Object>();
 		HashMap<String, Object> daneFirmy = new HashMap<String, Object>();
 		fillHashMap(klientComponets, daneKlienta);
@@ -203,6 +204,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 		MaskFormatter mf1=null;
 		try {
 			mf1 = new MaskFormatter("##-###");
+			mf1.setAllowsInvalid(false);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -470,7 +472,7 @@ public class WypozyczenieSzczegoly extends CenterPanel {
 		miejscowoscF.setName("miejscowosc");
 		ulicaF.setName("ulica");
 		kodPocztowyF.setName("kodPocztowy");
-
+		
 		//pogrupowanie komponentów w tablice
 		klientComponets= new Component[]{imie, nazwisko, numerTelefonu,email,dataUrodzenia,krajWydaniaPrawaJazdy, numerPrawaJazdy};
 		adresKlientComponets = new Component[]{ulica, miejscowosc, kodPocztowy};

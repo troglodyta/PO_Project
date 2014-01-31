@@ -73,7 +73,10 @@ public class Pojazd extends Entity {
 	}
 	
 	public void setNrRejstracyjny(String value) {
+		if(value.matches("[A-Z]{3}[0-9A-Z]{4}"))
 		this.nrRejstracyjny = value;
+		else 
+			throw new IllegalArgumentException("Niew³aœciwy format tablicy rejestracyjnej. Przyk³ad ERA75TM");
 	}
 	
 	public String getNrRejstracyjny() {

@@ -42,11 +42,14 @@ import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import entity.DaneModeluPojazdu;
+import entity.Kierownik;
 import entity.Klient;
+import entity.Osoba;
 import entity.Pojazd;
 import entity.Rezerwacja;
 
 import javax.swing.BoxLayout;
+
 import java.awt.FlowLayout;
 
 
@@ -58,142 +61,29 @@ public class Wypozyczenie extends JFrame {
 	private JTabbedPane karty;
 	private ArrayList<JPanel> wypozyczeniePalels = new ArrayList<JPanel>();
 	private JPanel currentWypozyczeniaPanel;
+	private JLabel osoba;
+	private Wypozyczenie1Panel wypozyczeniePanel;
 
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Wypozyczenie frame = new Wypozyczenie();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public void setZalogowany(Kierownik k){
+		osoba.setText(k.getImie()+" "+k.getNazwisko());
+	}
 
-//	public JButton getPrzyciskSzukaj() {
-//		return przyciskSzukaj;
-//	}
-//
-//	public JRadioButton getRadioWszystkie() {
-//		return radioWszystkie;
-//	}
-//
-//	public JRadioButton getRadioPotwierdzone() {
-//		return radioPotwierdzone;
-//	}
-//
-//	public JRadioButton getRadioNiepotwierdzone() {
-//		return radioNiepotwierdzone;
-//	}
-//
-//	public JComboBox getComboModel() {
-//		return comboModel;
-//	}
-//
-//	public JComboBox getComboMarka() {
-//		return comboMarka;
-//	}
-//
-//	public JTextField getTextNrRezerwacji() {
-//		return textNrRezerwacji;
-//	}
-//
-//
-//
-//	public JDateChooser getDataOd() {
-//		return dataOd;
-//	}
-//
-//
-//
-//	public JDateChooser getDataDo() {
-//		return dataDo;
-//	}
-//
-//
-//
-//	public JCheckBox getCheckDataUtworzenia() {
-//		return checkDataUtworzenia;
-//	}
-//
-//
-//
-//	public void setTextNrRezerwacji(JTextField textNrRezerwacji) {
-//		this.textNrRezerwacji = textNrRezerwacji;
-//	}
-//
-//
-//
-//	public JTextField getTextImie() {
-//		return textImie;
-//	}
-//
-//
-//
-//	public void setTextImie(JTextField textImie) {
-//		this.textImie = textImie;
-//	}
-//
-//
-//
-//	public JTextField getTextNazwisko() {
-//		return textNazwisko;
-//	}
-//
-//
-//
-//	public void setTextNazwisko(JTextField textNazwisko) {
-//		this.textNazwisko = textNazwisko;
-//	}
-//
-//
-//
-//	public JTextField getTxtNrRejestracyjny() {
-//		return txtNrRejestracyjny;
-//	}
-//
-//
-//
-//	public void setTxtNrRejestracyjny(JTextField txtNrRejestracyjny) {
-//		this.txtNrRejestracyjny = txtNrRejestracyjny;
-//	}
-//
-//
-//
-//	public JTable getRezerwacjeTable() {
-//		return rezerwacjeTable;
-//	}
-//
-//
-//
-//	public void setRezerwacjeTable(List<Rezerwacja> rezerwacje) {
-//		DefaultTableModel tableModel = ((DefaultTableModel) rezerwacjeTable.getModel());
-//		while(tableModel.getRowCount()>0) {
-//			((DefaultTableModel) rezerwacjeTable.getModel()).removeRow(0);
-//		}
-//
-//		for (Rezerwacja r : rezerwacje) {
-//			Klient k = r.getKlient();
-//			Pojazd p = r.getDaneWypozyczenia().getPojazd();
-//			DaneModeluPojazdu daneP = p.getDanePojazdu();
-//			String status = r.getCzyPotwierdzona() ? "Potwiedzona"
-//					: "Nie potwierdzona";
-//			Object[] row = new Object[] {
-//					r.getID(),
-//					k.getImie(),
-//					k.getNazwisko(),
-//					daneP.getMarka() + " " + daneP.getModel() + " "
-//					+ daneP.getTyp(),
-//					r.getDataRezerwacji().toString(), status };
-//			tableModel.addRow(row);
-//		}
-//
-//	}
+	public void reload(List<Rezerwacja> list){
+		JPanel szczegulyWypozyczenia1 = new WypozyczenieSzczegoly();
+		JPanel szczegulyWypozyczenia2 = new WypozyczenieSzczegoly2();
+		JPanel szczegulyWypozyczenia3 = new WypozyczenieSzczegoly3();
+	//	Wypozyczenie1Panel wypozyczeniePanel = new Wypozyczenie1Panel();
+		wypozyczeniePalels.clear();
+		wypozyczeniePalels.add(wypozyczeniePanel);
+		wypozyczeniePalels.add(szczegulyWypozyczenia1);
+		wypozyczeniePalels.add(szczegulyWypozyczenia2);
+		wypozyczeniePalels.add(szczegulyWypozyczenia3);
+		wypozyczeniePanel.setRezerwacjeTable(list);
+		setCurrentWypozyczeniaPanel(0);
+	}
 
 	public void setCurrentWypozyczeniaPanel(int index){
 		//currentWypozyczeniaPanel = wypozyczeniePalels.get(index);
@@ -236,13 +126,17 @@ public class Wypozyczenie extends JFrame {
 		JButton btnWyloguj = new JButton("Wyloguj");
 
 		JLabel lblZalogowanyJako = new JLabel("Zalogowany jako: ");
+
+		osoba = new JLabel("New label");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(509, Short.MAX_VALUE)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap(596, Short.MAX_VALUE)
 					.addComponent(lblZalogowanyJako)
-					.addGap(92)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(osoba)
+					.addGap(40)
 					.addComponent(btnWyloguj)
 					.addContainerGap())
 		);
@@ -251,8 +145,9 @@ public class Wypozyczenie extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnWyloguj)
-						.addComponent(lblZalogowanyJako))
-					.addContainerGap(16, Short.MAX_VALUE))
+						.addComponent(lblZalogowanyJako)
+						.addComponent(osoba))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		//panel.setLayout(new MigLayout("", "[]", "[]"));
@@ -433,19 +328,21 @@ public class Wypozyczenie extends JFrame {
 		panel_2.setLayout(gl_panel_2);
 		JPanel szczegulyWypozyczenia1 = new WypozyczenieSzczegoly();
 		JPanel szczegulyWypozyczenia2 = new WypozyczenieSzczegoly2();
+		JPanel szczegulyWypozyczenia3 = new WypozyczenieSzczegoly3();
 		currentWypozyczeniaPanel = new JPanel();
 		currentWypozyczeniaPanel.setLayout(new BorderLayout(0, 0));
-		JPanel wypozyczeniePanel = new Wypozyczenie1Panel();
-		FlowLayout flowLayout = (FlowLayout) wypozyczeniePanel.getLayout();
-		flowLayout.setAlignment(FlowLayout.LEFT);
+		wypozyczeniePanel = new Wypozyczenie1Panel();
+//		FlowLayout flowLayout = (FlowLayout) wypozyczeniePanel.getLayout();
+//		flowLayout.setAlignment(FlowLayout.LEFT);
 		currentWypozyczeniaPanel.add(wypozyczeniePanel);
 		wypozyczeniePalels.add(wypozyczeniePanel);
 		wypozyczeniePalels.add(szczegulyWypozyczenia1);
 		wypozyczeniePalels.add(szczegulyWypozyczenia2);
-		
+		wypozyczeniePalels.add(szczegulyWypozyczenia3);
+
 		karty.addTab("Wypo¿yczenia", null, currentWypozyczeniaPanel, null);
 
-			
+
 		String[] names = new String[]{"Nr rezerwacji", "Imiê", "Nazwisko", "Pojazd", "Data utworzenia", "Status"};
 		Object[][] v = new Object[][]{{1,"Jan","Kowalski","Skoda Fabia 1.2", "19-11-2013","Nie potwierdzona"}};
 

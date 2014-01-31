@@ -36,6 +36,7 @@ public abstract class Osoba extends Entity {
 	public Osoba() {
 	}
 
+
 	public Osoba(int iD, Adres adres, String imie, String nazwisko,
 			String email, java.util.Date dataUrodzenia, String plec, String numerTelefonu) {
 		super();
@@ -66,8 +67,12 @@ public abstract class Osoba extends Entity {
 		return numerTelefonu;
 	}
 
-	public void setNumerTelefonu(String numerTelefonu) {
+	public void setNumerTelefonu(String numerTelefonu)
+	{
+		if(numerTelefonu.matches("[0-9]+"))
 		this.numerTelefonu = numerTelefonu;
+		else
+			throw new IllegalArgumentException("W numerze telefonu musz¹ byæ cyfry");
 	}
 
 	public void setImie(String value) {
@@ -93,10 +98,10 @@ public abstract class Osoba extends Entity {
 	}
 
 	public void setEmail(String value) {
-		//if(value.matches("[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4}"))
+		if(value.matches("[a-zA-Z0-9_.]+@[a-zA-Z0-9_.]+[.][a-z]{2,4}"))
 			this.email = value;
-		//else
-			//throw new IllegalArgumentException("Przyk³ad prawid³owego emaila: jan.kowalski@gmail.com");
+		else
+			throw new IllegalArgumentException("Przyk³ad prawid³owego emaila: jan.kowalski@gmail.com");
 	}
 
 	public String getEmail() {

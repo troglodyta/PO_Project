@@ -12,6 +12,7 @@ public class WypozyczenieControler extends AbstractContoler {
 		case "loadFirstFrame":
 			Wypozyczenie wyp = (Wypozyczenie) views.get("Wypozyczenie");
 			Model m = models.get("Wypozyczenie");
+			
 			Wypozyczenie1Panel firstPanel = (Wypozyczenie1Panel) wyp.getWypozyczeniaPanel(0);
 			
 			firstPanel.getRezerwacjeTable().getSelectionModel().addListSelectionListener(new RezerwacjeListListener(m, wyp));
